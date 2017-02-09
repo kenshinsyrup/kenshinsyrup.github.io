@@ -1,1 +1,51 @@
-<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="http://localhost:4000/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.4.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-02-09T17:35:32-05:00</updated><id>http://localhost:4000//</id><title type="html">Kenshin</title><author><name>Kenshin</name></author></feed>
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="http://localhost:4000/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.4.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-02-09T18:38:59-05:00</updated><id>http://localhost:4000//</id><title type="html">Kenshin</title><author><name>Kenshin</name></author><entry><title type="html">Hello World!</title><link href="http://localhost:4000/other/2017/02/09/Hello-World/" rel="alternate" type="text/html" title="Hello World!" /><published>2017-02-09T00:00:00-05:00</published><updated>2017-02-09T00:00:00-05:00</updated><id>http://localhost:4000/other/2017/02/09/Hello-World</id><content type="html" xml:base="http://localhost:4000/other/2017/02/09/Hello-World/">&lt;h2 id=&quot;博客页面搭建完毕&quot;&gt;博客页面搭建完毕&lt;/h2&gt;
+
+&lt;p&gt;最近&lt;del&gt;又&lt;/del&gt;比较浮躁，刚好发现自己去年测试Jekyll时候搭建的Github个人页面不怎么好看，于是想重新弄一个，以后也算有个地方写东西&lt;/p&gt;
+
+&lt;p&gt;期间&lt;del&gt;又&lt;/del&gt;踩到了坑，这里随便记录下&lt;/p&gt;
+
+&lt;p&gt;使用Jekyll搭建Github个人页面的帖子满世界都是，肯定不用我重复了，毕竟我也是菜&lt;/p&gt;
+
+&lt;p&gt;OK，直接说遇到的问题&lt;/p&gt;
+
+&lt;h3 id=&quot;could-not-locate-gemfile-or-bundle-directory&quot;&gt;Could not locate Gemfile or .bundle/ directory&lt;/h3&gt;
+
+&lt;p&gt;这个问题的来历比较神奇&lt;/p&gt;
+
+&lt;p&gt;首先，我前端内容并不是特别熟悉，所以博客模版也是直接从&lt;a href=&quot;http://jekyllthemes.org/&quot;&gt;Jekyll Themes&lt;/a&gt;找的，这里我使用的是&lt;a href=&quot;http://jekyllthemes.org/themes/codinfox-lanyon/&quot;&gt;Codinfox Lanyon
+&lt;/a&gt;模版，其源码仓库地址是&lt;a href=&quot;https://github.com/codinfox/codinfox-lanyon&quot;&gt;这里&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;由于种种原因，我没有直接fork上面的仓库，而是donwload之后自行修改成自己喜欢的样子，改完之后push到了我自己的Github&lt;a href=&quot;https://github.com/kenshinsyrup/kenshinsyrup.github.io&quot;&gt;仓库&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;但是，转折来了，在我把模版改成喜欢对样子，本地试图查看效果时，&lt;code class=&quot;highlighter-rouge&quot;&gt;bundle exec jekyll serve&lt;/code&gt;命令提示错误&lt;code class=&quot;highlighter-rouge&quot;&gt;Could not locate Gemfile or .bundle/ directory&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Google了半天，遇到了很多同样有该错误的人，但各种解决方案都不适合我这里的情况。最后终于发现，原因是模版代码里没有&lt;code class=&quot;highlighter-rouge&quot;&gt;Gemfile&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;Gemfile.lock&lt;/code&gt;两个文件ORZ&lt;/p&gt;
+
+&lt;p&gt;解决办法就是自行创建这两个文件，当然最简单的就是让Jekyll给我创建了，执行&lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll new myblog&lt;/code&gt;，创建一个全新的博客，然后在&lt;code class=&quot;highlighter-rouge&quot;&gt;myblog&lt;/code&gt;里面把&lt;code class=&quot;highlighter-rouge&quot;&gt;Gemfile&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;Gemfile.lock&lt;/code&gt;文件拷贝到模版根目录，done&lt;/p&gt;
+
+&lt;p&gt;那么，就祝所有人新年大吉&lt;del&gt;吧&lt;/del&gt;!&lt;/p&gt;</content><author><name>Kenshin</name></author><category term="Other" /><summary type="html">博客页面搭建完毕
+
+最近又比较浮躁，刚好发现自己去年测试Jekyll时候搭建的Github个人页面不怎么好看，于是想重新弄一个，以后也算有个地方写东西
+
+期间又踩到了坑，这里随便记录下
+
+使用Jekyll搭建Github个人页面的帖子满世界都是，肯定不用我重复了，毕竟我也是菜
+
+OK，直接说遇到的问题
+
+Could not locate Gemfile or .bundle/ directory
+
+这个问题的来历比较神奇
+
+首先，我前端内容并不是特别熟悉，所以博客模版也是直接从Jekyll Themes找的，这里我使用的是Codinfox Lanyon
+模版，其源码仓库地址是这里
+
+由于种种原因，我没有直接fork上面的仓库，而是donwload之后自行修改成自己喜欢的样子，改完之后push到了我自己的Github仓库
+
+但是，转折来了，在我把模版改成喜欢对样子，本地试图查看效果时，bundle exec jekyll serve命令提示错误Could not locate Gemfile or .bundle/ directory
+
+Google了半天，遇到了很多同样有该错误的人，但各种解决方案都不适合我这里的情况。最后终于发现，原因是模版代码里没有Gemfile和Gemfile.lock两个文件ORZ
+
+解决办法就是自行创建这两个文件，当然最简单的就是让Jekyll给我创建了，执行jekyll new myblog，创建一个全新的博客，然后在myblog里面把Gemfile和Gemfile.lock文件拷贝到模版根目录，done
+
+那么，就祝所有人新年大吉吧!</summary></entry></feed>
