@@ -2,7 +2,7 @@
 layout: post #post
 title: 使用Chrome+Postman进行接口调试 #post title
 categories: 工具 #post category, seperated by spcace
-tags: Postman #post tag, seperated by spcace
+tags: Postman Chrome #post tag, seperated by spcace
 ---
 
 时隔多年，又重新看了一遍闪灵
@@ -13,14 +13,15 @@ tags: Postman #post tag, seperated by spcace
 
 在此，记录下调试过程
 
-> ## 工具
+## 工具
+
 嗯，这节是废话
 
 Chrome: 这个星球最好的浏览器我们都需要有一个
 
 Postman: 这个有[Chrome插件版](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop?hl=zh-CN)和[App版](https://www.getpostman.com/products)，我是使用了后者
 
-> ## 使用方法
+## 使用方法
 
 ### Postman介绍
 
