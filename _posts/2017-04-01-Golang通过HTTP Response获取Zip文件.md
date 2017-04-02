@@ -83,7 +83,7 @@ func getZip(w io.Writer) error {
 
 ### 创建zip.Writer
 
-``zip.NewWriter(w)``
+``zipW := zip.NewWriter(w)``
 
 该方法创建一个``zip.Writer``，用于向zip文件中写入内容，即打包的文件
 
@@ -91,7 +91,7 @@ func getZip(w io.Writer) error {
 
 返回值为一个``zip.Writer``，最后的zip内容都会写入这个``zip.Writer``，而最终当然是写入了参数的``io.Writer``中，也就是我们的``http.ResponseWriter``中
 
-***记得``derfer``关闭``zip.Writer``***
+***记得``defer zipW.Close()``关闭``zip.Writer``***
 
 ### 向zip.Writer中写入文件
 
