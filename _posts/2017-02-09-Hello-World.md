@@ -1,8 +1,8 @@
 ---
 layout: post #post
 title: Hello World! #post title
-categories: Other #post category, seperated by spcace
-tags: Other #post tag, seperated by spcace
+categories: Other #post category, seperated by space
+tags: Other #post tag, seperated by space
 ---
 
 ## 博客页面搭建完毕

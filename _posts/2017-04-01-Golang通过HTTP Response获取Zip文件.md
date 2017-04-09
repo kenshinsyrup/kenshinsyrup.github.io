@@ -1,8 +1,8 @@
 ---
 layout: post #post
 title: Golang通过HTTP Response获取Zip文件 #post title
-categories: Program #post category, seperated by spcace
-tags: Golang #post tag, seperated by spcace
+categories: Program #post category, seperated by space
+tags: Golang #post tag, seperated by space
 ---
 
 本来计划至少一周总结一次学到的东西，不过好像没有实现啊😅

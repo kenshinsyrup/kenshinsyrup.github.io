@@ -1,8 +1,8 @@
 ---
 layout: post #post
 title: 使用Chrome+Postman进行接口调试 #post title
-categories: 工具 #post category, seperated by spcace
-tags: Postman Chrome #post tag, seperated by spcace
+categories: 工具 #post category, seperated by space
+tags: Postman Chrome #post tag, seperated by space
 ---
 
 时隔多年，又重新看了一遍闪灵
