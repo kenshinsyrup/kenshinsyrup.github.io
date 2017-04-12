@@ -4,8 +4,9 @@ title: Golang比较两个slice是否相等 #post title
 categories: Program #post category, seperated by space
 tags: Golang #post tag, seperated by space
 ---
+Compare two string slices in GoLang
 
-开发中经常会遇到需要比较两个slice包含的元素是否相同的情况，一般来说有两个思路：
+开发中经常会遇到需要比较两个slice包含的元素是否完全相等的情况，一般来说有两个思路：
 
 - ``reflect``比较的方法
 - 循环遍历比较的方法
@@ -36,8 +37,8 @@ func StringSliceEqual(a, b []string) bool {
         return false
     }
 
-    for i := range a {
-        if a[i] != b[i] {
+    for i, v := range a {
+        if v != b[i] {
             return false
         }
     }
@@ -58,13 +59,13 @@ if (a == nil) != (b == nil) {
 
 这段代码是必须的，虽然如果没有这段代码，在大多数情况下，上面的函数可以正常工作，但是增加这段代码的作用是与``reflect.DeepEqual``的结果保持一致：``[]int{} != []int(nil)``
 
-## benchmark测试效率
+## Benchmark测试效率
 
 我们都知道Golang中reflect效率很低，所以虽然循环遍历的方法看起来很啰嗦，但是如果真的效率比reflect方法高很多，就只能忍痛放弃reflect了
 
-使用benchmark来简单的测试下二者的效率
+使用Benchmark来简单的测试下二者的效率
 
-benchmark StringSliceEqual
+Benchmark StringSliceEqual
 
 ```
 func BenchmarkEqual(b *testing.B) {
@@ -77,7 +78,7 @@ func BenchmarkEqual(b *testing.B) {
 }
 ```
 
-benchmark StringSliceReflectEqual
+Benchmark StringSliceReflectEqual
 
 ```
 func BenchmarkDeepEqual(b *testing.B) {
@@ -94,7 +95,7 @@ func BenchmarkDeepEqual(b *testing.B) {
 
 在测试文件所在目录执行``go test -bench=.``命令
 
-![benchmark对比测试结果](http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-11-post01/benchmark_zpscf8uwozk.png)
+![Benchmark对比测试结果](http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-11-post01/benchmark_zpscf8uwozk.png)
 
 在我的电脑，使用循环遍历的方式，3.43纳秒完成一次比较；使用reflect的方式，208纳米完成一次操作，效率对比十分明显
 
@@ -124,9 +125,9 @@ func StringSliceEqualBCE(a, b []string) bool {
 
 ```
 
-上述代码通过``b = b[:len(a)]``处的bounds check能够明确保证``v != b[i]``中的``b[i]``不会出现越界错误
+上述代码通过``b = b[:len(a)]``处的bounds check能够明确保证``v != b[i]``中的``b[i]``不会出现越界错误，从而避免了``b[i]``中的越界检查从而提高效率
 
-类似的，完成benchmark函数
+类似的，完成Benchmark函数
 
 ```
 func BenchmarkEqualBCE(b *testing.B) {
@@ -141,9 +142,11 @@ func BenchmarkEqualBCE(b *testing.B) {
 
 在测试文件所在目录执行``go test -bench=.``命令
 
-![benchmark对比测试结果](http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-11-post01/benchmark1_zpseuvqxkor.png)
+![Benchmark对比测试结果](http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-11-post01/benchmark1_zpseuvqxkor.png)
 
-看起来提升并不明显啊 （╯‵□′）╯︵┴─┴ 
+看起来提升并不明显啊，而且在运行多次Benchmard测试的过程中还出现过``BenchmarkEqualBCE``效率低于``BenchmarkEqual``的情况（╯‵□′）╯︵┴─┴ 
+
+*可能是我对BCE的理解姿势有问题亦或是Golang BCE自身的问题，总之这个如果我有了更深入的理解会再次更新*
 
 但是随着Golang的优化，应该会越来越明显吧  ┬─┬ ノ( ' - 'ノ)
 
