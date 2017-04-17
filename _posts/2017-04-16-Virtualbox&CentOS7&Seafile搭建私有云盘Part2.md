@@ -2,18 +2,16 @@
 layout: post #post
 title: VirtualBox & CentOS7 & SSH & Seafile & ngrok 搭建私有云盘Part2 #post title
 categories: Project #post category, seperated by space
-tags: VirtualBox CentOS7 SSH Seafile  ngrok #post tag, seperated by space
+tags: VirtualBox CentOS7 SSH Seafile ngrok #post tag, seperated by space
 ---
 
-### 在服务器安装Seafile
+## 在服务器安装Seafile
 
 [Seafile](https://www.seafile.com/en/home/)官网介绍自己为一个企业级的，高可靠，高性能的文件同步和共享平台。实际上类似的平台有很多，比如还有广为人知的[ownCloud](https://owncloud.org/)等
 
 - 服务器端下载Seafile
 
-在Seafile的官网是只有网页下载按钮没有适合无GUI服务器操作系统的下载方式的，但是我们能够从官网获知Seafile的最新版本，然后在[Bintray](https://bintray.com/)网站下载
-
-当前Linux Server端最新版本
+在Seafile的官网是只有网页下载按钮没有适合无GUI服务器操作系统的下载方式的，但是我们能够从官网获知Seafile的最新版本，然后在[Bintray](https://bintray.com/)网站下载当前Linux Server端最新版本的Seafile压缩包
 
 ![当前Linux Server端最新版本](http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2021_zps7cza6mnb.png)
 
@@ -21,15 +19,15 @@ tags: VirtualBox CentOS7 SSH Seafile  ngrok #post tag, seperated by space
 
 ![安装wget](http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2022-1_zpsalctobxm.png)
 
-之后，即可以使用``wget``的方式下载指定版本的Seafile，版本号在官网查询替换即可
+之后，即可以使用``wget``的方式下载指定版本的Seafile文件压缩包，版本号在官网查询替换即可
 
 ![下载Seafile](http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2022_zpsx3v8d923.png)
 
-### 配置Seafile
+## 配置Seafile
 
-本节的配置Seafile的内容，是达拉然巨坑，我是根据官方文档中[Deploying Seafile with MySQL](https://manual.seafile.com/deploy/using_mysql.html)一节来做的，遇到的问题会在下面详述
+本节的配置Seafile的内容，是达拉然巨坑，我是根据官方文档中[Deploying Seafile with MySQL](https://manual.seafile.com/deploy/using_mysql.html)一节来做的，遇到了不少问题问题，边做边说
 
-**按照文档要求**，解压文件，建立文件夹
+- **按照文档要求**，解压文件，建立文件夹
 
 ![解压文件建立文件夹](http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2023_zps9bbxcriw.png)
 
@@ -41,11 +39,11 @@ tags: VirtualBox CentOS7 SSH Seafile  ngrok #post tag, seperated by space
 
 ![tree查看目录结构](http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2025_zpsixdyidra.png)
 
-**按照官方文档要求**，安装依赖
+- **按照官方文档要求**，安装Seafile服务的依赖
 
 ![安装依赖](http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2026_zpsnpzwnsfb.png)
 
-**安装官方文档要求**，运行``setup-seafile-mysql.sh``脚本
+- **安装官方文档要求**，运行``setup-seafile-mysql.sh``脚本
 
 ![运行setup-seafile-mysql.sh脚本](http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2027_zpsn45ldjoy.png)
 
@@ -53,7 +51,7 @@ tags: VirtualBox CentOS7 SSH Seafile  ngrok #post tag, seperated by space
 
 ![安装缺少的setuptools模块](http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2028_zps1hy5begc.png)
 
-**按照官方文档要求**，再次运行``setup-seafile-mysql.sh``脚本
+- **按照官方文档要求**，再次运行``setup-seafile-mysql.sh``脚本
 
 ![再次运行``setup-seafile-mysql.sh``脚本](http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2029_zpsm9rjsikl.png)
 
@@ -61,22 +59,23 @@ tags: VirtualBox CentOS7 SSH Seafile  ngrok #post tag, seperated by space
 
 但是
 
-在运行到mysql相关的登入内容时，出现了错误
+在运行到mysql相关的登入步骤时，出现了错误
 
 ![mysql登入错误](http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2030_zpsg4sugtkh.png)
 
 这个坑花了很多时间，Google出来的答案也是五花八门，最后的解决方式是使用[MariaDB](https://mariadb.org/)来完成数据库的创建
 
-关于MariaDB和MySQL的关系太复杂这里不说了先
+关于MariaDB和MySQL的关系，感兴趣可以看[wiki](https://en.wikipedia.org/wiki/MariaDB)
 
 - 终止脚本，安装并启动MariaDB
 
 ``ctrl + C``终止脚本，使用命令``sudo yum install mariadb mariadb-server``安装MariaDB及其服务
 
-![安装MariaDB]http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2031_zpsnsswzcdu.png()
+![安装MariaDB](http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2031_zpsnsswzcdu.png)
 
 启动MariaDB服务``sudo systemctl start mariadb.service``
-并设置开机自启动``sudo systemctl enable mariadb.service``
+
+设置开机自启动``sudo systemctl enable mariadb.service``
 
 ![启动并设置自启动](http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2032_zps3lvn9s7m.png)
 
@@ -86,13 +85,17 @@ tags: VirtualBox CentOS7 SSH Seafile  ngrok #post tag, seperated by space
 
 至此，数据库的问题解决了，可以再次执行``setup-seafile-mysql.sh``脚本，顺利完成
 
-- 启动Seafile服务
+## 启动Seafile服务
 
-**按照官方文档**，运行``seafile.sh``脚本及``seahub.sh``脚本，启动seafile及seahub服务，过程中需要设置邮箱密码等账户信息，关于seafile和seahub，可以理解为：seafile是文件服务的后台，seahub是服务的前端，在服务器端8000端口可以访问seahub页面，从而查看到文件信息
+- **按照官方文档**，运行``seafile.sh``脚本及``seahub.sh``脚本
+
+启动seafile及seahub服务，过程中需要设置邮箱密码等账户信息，关于seafile和seahub，可以理解为：seafile是文件服务的后台，seahub是服务的前端，在服务器端8000端口可以访问seahub页面，从而查看到文件信息
 
 ![启动seafile及seahub服务](http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2036_zpsyfr06vec.png)
 
-最后，我们需要从外部访问到seafile和seahub服务，因此我们需要为seafile和seahub的端口设置防火墙为public
+- 设置防火墙
+
+我们需要从外部访问到seafile和seahub服务，因此我们需要为seafile和seahub的端口设置防火墙为public
 
 ![设置防火墙](http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2037_zpsylqwwgip.png)
 
@@ -116,13 +119,15 @@ Bingo!!!
 
 但是，既然我们在VirtualBox里面做的，那么就把这个项目做到底，让她能够被公网访问
 
-- 从公网访问VirtualBox内的虚拟机服务器上的私有云盘
+## 从公网访问VirtualBox内的虚拟机服务器上的私有云盘
 
 这里我们需要利用一个神器[ngrok](https://ngrok.com/)，这里我要实现的只是将私有云盘能够从公网访问，爽一把，所以只需要使用最基础的ngrok的端口映射功能就好了，这个神器还是第一次开发微信公众号后台的时候认识的
 
 ngrok的使用很简单，下载，运行，运行方式如下，如果提示``ngrok``命令为发现，那么将ngrok移入Mac的bin目录或者制作软链接到bin目录就好
 
-使用``ngrok http 9988``将``9988``端口映射到随机公网地址(想不随机要花钱，暂时穷)
+运行ngrok映射本地端口到公网 ``ngrok http 9988``
+
+将``9988``端口映射到**随机**公网地址(想不随机要花钱，暂时穷-_-$)
 
 ![ngrok映射端口到公网](http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2040_zps46maujd7.png)
 
@@ -132,10 +137,21 @@ ngrok的使用很简单，下载，运行，运行方式如下，如果提示``n
 
 ![公网访问VirtualBox私有云](http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2041_zps80uubho8.jpeg)
 
+## 问题总结
 
+- NAT, Host-only, Bridged Adapter的区别
 
+强烈推荐看一下VirtualBox官网的[Virtual networking](https://www.virtualbox.org/manual/ch06.html)一章
 
+- SSH相关
 
+关于SSH，所有需要了解到东西都能在[这里](https://www.ssh.com/)找到答案
+
+- Seafile的更进一步配置，高级用法
+
+推荐根据[官方文档](https://www.gitbook.com/book/seafile/seafile-server-manual/details)来研究，虽然官方文档有些地方写的不是特别清楚，但是也没有别的更好的途径，踩坑之后可以再Google之
+
+最后，鉴于各种免费网盘的限容、审查、不定时炸弹般下架等种种不方便，在找到合适的服务器后搭建成功自己的私有云盘，结合Seafile的各种高级特性，易用性、安全性等方面带来的收益，应该是很值得花时间研究下的～
 
 
 
