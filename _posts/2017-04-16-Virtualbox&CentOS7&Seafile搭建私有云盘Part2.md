@@ -5,6 +5,8 @@ categories: Project #post category, seperated by space
 tags: VirtualBox CentOS7 SSH Seafile ngrok #post tag, seperated by space
 ---
 
+Build your own private cloud disk using VirtualBox & CentOS7 & SSH & Seafile & ngrok Part2
+
 ## 在服务器安装Seafile
 
 [Seafile](https://www.seafile.com/en/home/)官网介绍自己为一个企业级的，高可靠，高性能的文件同步和共享平台。实际上类似的平台有很多，比如还有广为人知的[ownCloud](https://owncloud.org/)等

@@ -5,7 +5,7 @@ categories: Project #post category, seperated by space
 tags: VirtualBox CentOS7 SSH Seafile ngrok #post tag, seperated by space
 ---
 
-Build your own private cloud disk using VirtualBox & CentOS7 & SSH & Seafile & ngrok
+Build your own private cloud disk using VirtualBox & CentOS7 & SSH & Seafile & ngrok Part1
 
 这个是个人的一篇经验总结，或者说花样踩坑集锦
 
@@ -16,8 +16,6 @@ Build your own private cloud disk using VirtualBox & CentOS7 & SSH & Seafile & n
 [VirtualBox](https://www.virtualbox.org/wiki/VirtualBox)是一款Mac上很好用的虚拟机软件，之所以选择VirtualBox而不是其他的虚拟机软件，是因为我司项目开发就用的VirtualBox，所以我最初做这个项目的目的之一就是用来练手加强对VirtualBox的理解的
 
 [CentOS7](https://www.centos.org/)是RedHat之下的一款社区版Linux，目前最高级版本为7， 可以在[这里](https://www.centos.org/download/)下载。在下载页面会看到有``DVD ISO``，``Everything ISO``，``Minimal ISO``三个选项，一般来说，如果需要GUI页面，选择``DVD ISO``，如果只需要最小安装尤其是作为服务器操作系统时，选择``Minimal ISO``，而``Everything ISO``对一般用户来说很少选择，其包含了以上两种ISO文件所有的内容，并额外包括开发CentOS功能所需要的内容
-
-*注意，选择minimal也可以通过配置完成各种Linux下的操作，所以我个人觉得对于开发人员来说还是应该在Linux上面尽量多的使用CLI*
 
 下面开始比较通用的在VirtualBox中安装虚拟机的步骤，这个步骤理论上是适合于创建任何系统虚拟机的，毕竟只是打造一台"裸机"
 
