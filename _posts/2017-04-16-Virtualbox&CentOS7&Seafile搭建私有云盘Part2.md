@@ -13,7 +13,7 @@ Build your own private cloud disk using VirtualBox & CentOS7 & SSH & Seafile & n
 
 - 服务器端下载Seafile
 
-在Seafile的官网是只有网页下载按钮没有适合无GUI服务器操作系统的下载方式的，但是我们能够从官网获知Seafile的最新版本，然后在[Bintray](https://bintray.com/)网站下载当前Linux Server端最新版本的Seafile压缩包
+在Seafile的官网找到合适的服务器端下载按钮，右键查看链接，之后用wget就可以获取
 
 ![当前Linux Server端最新版本](http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2021_zps7cza6mnb.png)
 
@@ -21,9 +21,11 @@ Build your own private cloud disk using VirtualBox & CentOS7 & SSH & Seafile & n
 
 ![安装wget](http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2022-1_zpsalctobxm.png)
 
-之后，即可以使用``wget``的方式下载指定版本的Seafile文件压缩包，版本号在官网查询替换即可
+之后，即可以使用``wget``的方式下载指定版本的Seafile文件压缩包
 
-![下载Seafile](http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2022_zpsx3v8d923.png)
+```
+wget http://seafile-downloads.oss-cn-shanghai.aliyuncs.com/seafile-server_6.0.9_x86-64.tar.gz
+```
 
 ## 配置Seafile
 
