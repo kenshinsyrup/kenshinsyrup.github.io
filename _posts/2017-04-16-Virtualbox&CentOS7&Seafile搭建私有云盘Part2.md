@@ -13,7 +13,7 @@ Build your own private cloud disk using VirtualBox & CentOS7 & SSH & Seafile & n
 
 - 服务器端下载Seafile
 
-在Seafile的官网找到合适的服务器端下载按钮，右键查看链接，之后用wget就可以获取
+在Seafile的官网找到合适的服务器端下载按钮，右键拷贝链接，之后用wget就可以获取
 
 ![当前Linux Server端最新版本](http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2021_zps7cza6mnb.png)
 
