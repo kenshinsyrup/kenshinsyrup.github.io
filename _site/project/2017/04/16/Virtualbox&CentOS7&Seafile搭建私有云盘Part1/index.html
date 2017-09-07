@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      VirtualBox & CentOS7 & SSH & Seafile & ngrok 搭建私有云盘Part1 &middot; Kenshin
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/main.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+  
+  <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_SVG"> </script>
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], processEscapes: true } });
+  </script>
+  
+</head>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <div class="sidebar-personal-info">
+      <div class="sidebar-personal-info-section">
+        <a href="http://gravatar.com/7f9673f1bc034bad53a37df330910b58">
+          <img src="http://www.gravatar.com/avatar/7f9673f1bc034bad53a37df330910b58?s=350" title="View on Gravatar" alt="View on Gravatar" />
+        </a>
+      </div>
+      <div class="sidebar-personal-info-section">
+        <p>Kenshin's blog</p>
+      </div>
+      
+      
+      
+      <div class="sidebar-personal-info-section">
+        <p> Follow me: 
+        
+        
+        
+        <a href="https://www.linkedin.com/in/zhao-wang-683b52127/">
+          <i class="fa fa-linkedin" aria-hidden="true"></i>
+        </a>
+        
+        |
+        
+        
+        
+        <a href="https://github.com/kenshinsyrup">
+          <i class="fa fa-github" aria-hidden="true"></i>
+        </a>
+        
+        
+        
+        </p>
+      </div>
+      
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+    
+      
+      
+      
+
+      
+
+      <span class="">
+        <a class="sidebar-nav-item " href="/">
+          Home
+        </a>
+
+        
+      </span>
+
+    
+      
+      
+      
+
+      
+
+      <span class="foldable">
+        <a class="sidebar-nav-item " href="/blog/">
+          Blog
+        </a>
+
+        
+          
+            
+            
+            
+              <a class="sidebar-nav-item sidebar-nav-item-sub " href="/blog/categories/">
+                Categories
+              </a>
+          
+        
+          
+            
+            
+            
+              <a class="sidebar-nav-item sidebar-nav-item-sub " href="/blog/tags/">
+                Tags
+              </a>
+          
+        
+      </span>
+
+    
+      
+      
+      
+
+      
+
+      <span class="">
+        <a class="sidebar-nav-item " href="/about/">
+          About
+        </a>
+
+        
+      </span>
+
+    
+      
+      
+      
+
+      
+
+      <span class="">
+        <a class="sidebar-nav-item " href="https://github.com/kenshinsyrup">
+          Github Project
+        </a>
+
+        
+      </span>
+
+    
+    
+  </nav>
+
+  <!--<div class="sidebar-item">
+    <p>
+    &copy; 2017 Kenshin. This work is liscensed under <a href="http://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a>.
+    </p>
+  </div>-->
+
+  <div class="sidebar-item">
+    <p>
+    Powered by <a href="http://jekyllrb.com">Jekyll</a> and you can find soure code <a href="https://github.com/kenshinsyrup/kenshinsyrup.github.io">here</a>
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <small>吞风吻雨葬落日未曾彷徨 欺山赶海践雪径也未绝望</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">VirtualBox & CentOS7 & SSH & Seafile & ngrok 搭建私有云盘Part1</h1>
+  <span class="post-date">16 Apr 2017</span>
+   | 
+  
+    <a href="/blog/tags/#virtualbox" class="post-tag">VirtualBox</a>
+  
+    <a href="/blog/tags/#centos7" class="post-tag">CentOS7</a>
+  
+    <a href="/blog/tags/#ssh" class="post-tag">SSH</a>
+  
+    <a href="/blog/tags/#seafile" class="post-tag">Seafile</a>
+  
+    <a href="/blog/tags/#ngrok" class="post-tag">ngrok</a>
+  
+  
+  <article>
+    <p>Build your own private cloud disk using VirtualBox &amp; CentOS7 &amp; SSH &amp; Seafile &amp; ngrok Part1</p>
+
+<p>这个是个人的一篇经验总结，或者说花样踩坑集锦</p>
+
+<p>先说下最终完成的效果：宿主机为Mac，在VirtualBox中安装CentOS7 minimal做为服务器，通过SSH由宿主机连接到CentOS7并在其中构建Seafile服务，通过外网或内网访问Seafile服务以完成同步或共享文件的功能，达到拥有私有云盘的目的</p>
+
+<h2 id="在virtualbox中配置用于安装centos7的虚拟机">在VirtualBox中配置用于安装CentOS7的虚拟机</h2>
+
+<p><a href="https://www.virtualbox.org/wiki/VirtualBox">VirtualBox</a>是一款Mac上很好用的虚拟机软件，之所以选择VirtualBox而不是其他的虚拟机软件，是因为我司项目开发就用的VirtualBox，所以我最初做这个项目的目的之一就是用来练手加强对VirtualBox的理解的</p>
+
+<p><a href="https://www.centos.org/">CentOS7</a>是RedHat之下的一款社区版Linux，目前最高级版本为7， 可以在<a href="https://www.centos.org/download/">这里</a>下载。在下载页面会看到有<code class="highlighter-rouge">DVD ISO</code>，<code class="highlighter-rouge">Everything ISO</code>，<code class="highlighter-rouge">Minimal ISO</code>三个选项，一般来说，如果需要GUI页面，选择<code class="highlighter-rouge">DVD ISO</code>，如果只需要最小安装尤其是作为服务器操作系统时，选择<code class="highlighter-rouge">Minimal ISO</code>，而<code class="highlighter-rouge">Everything ISO</code>对一般用户来说很少选择，其包含了以上两种ISO文件所有的内容，并额外包括开发CentOS功能所需要的内容</p>
+
+<p>下面开始比较通用的在VirtualBox中安装虚拟机的步骤，这个步骤理论上是适合于创建任何系统虚拟机的，毕竟只是打造一台”裸机”</p>
+
+<ul>
+  <li>命名虚拟机及指定操作系统，命名随意，Type选Linux，Version选Red Hat</li>
+</ul>
+
+<p><img src="http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot_zpsecmyufzi.png" alt="命名虚拟机及指定操作系统" /></p>
+
+<ul>
+  <li>指定虚拟机内存空间，随意更改，我采用了默认设置</li>
+</ul>
+
+<p><img src="http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot_zpsecmyufzi.png" alt="指定虚拟机内存空间" /></p>
+
+<ul>
+  <li>虚拟硬盘文件格式，随意更改，我采用了默认设置</li>
+</ul>
+
+<p><img src="http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%203_zpsx5c10u1t.png" alt="硬盘文件格式" /></p>
+
+<ul>
+  <li>虚拟硬盘文件存储位置及大小，随意更改，我采用了默认设置</li>
+</ul>
+
+<p><img src="http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%204_zps5jzzeqdi.png" alt="虚拟硬盘文件存储位置及大小" /></p>
+
+<ul>
+  <li>虚拟硬盘文件是否可动态增长，随意更改，我采用了默认设置</li>
+</ul>
+
+<p><img src="http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%205_zpskvyylbnt.png" alt="虚拟硬盘文件是否可动态增长" /></p>
+
+<ul>
+  <li>裸机搞定</li>
+</ul>
+
+<p><img src="http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%206_zps0arqwzpz.png" alt="裸机搞定" /></p>
+
+<h2 id="在虚拟机中安装centos7操作系统">在虚拟机中安装CentOS7操作系统</h2>
+
+<ul>
+  <li>载入操作系统镜像 CentOS7 Minimal ISO</li>
+</ul>
+
+<p>启动刚刚设置成功的裸机，会要求安装系统，在系统文件加载的地方指定到之前下载的CentOS7 Minimal ISO后点击start即可</p>
+
+<p><img src="http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%207_zps06iiysmz.png" alt="安装系统" /></p>
+
+<p>进入CentOS系统安装页面后，鼠标被VirtualBox的虚拟机窗口捕获后会提示是否允许捕获，当然选是，然后虚拟机中按<code class="highlighter-rouge">cmd + 鼠标左键</code>的方式可以退出捕获，让鼠标回归宿主机</p>
+
+<ul>
+  <li>安装CentOS7</li>
+</ul>
+
+<p>进入安装选择界面，键盘方向键上下调节选项，<code class="highlighter-rouge">Enter</code>键选中选项，这里选择最简单的安装方式即可，即执行<code class="highlighter-rouge">Install CentOS Linux 7</code>选项</p>
+
+<p><img src="http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%208_zps4gpb02kt.png" alt="Install CentOS Linux 7" /></p>
+
+<p><strong>安装时需要注意，不要随便调节窗口大小，一般VirtualBox会自动缩放窗口以让用户能最明显和方便的点击各个按钮，如果你像我一样手贱的缩放了窗口，那么记得上下左右滚动窗口以找到各种下一步的按钮，不要像我一样轻易以为VirtualBox傻缺</strong></p>
+
+<p>选择系统语言，推荐英语，没啥可说的</p>
+
+<p><img src="http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%209_zpsgihrcns6.png" alt="选择语言" /></p>
+
+<p>系统安装设定，这个我们不需用在CentOS安装时设定，因为我们之前在裸机设置时已经搞定了，这里点开这个设定窗口后直接左上角<code class="highlighter-rouge">done</code>即可</p>
+
+<p><img src="http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2010_zpsd2omagbz.png" alt="系统安装设定-1" /></p>
+
+<p><img src="http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2011_zps6ixumbux.png" alt="系统安装设定-2" /></p>
+
+<p>点击<code class="highlighter-rouge">Begin Installation</code>即可，喝水</p>
+
+<p><img src="http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2012_zps5xlief58.png" alt="开始安装" /></p>
+
+<p>开始安装后，在读条的过程中，会发现有两个设定需要完成，这里不用着急，着急也没用，进度图跑完前没法点击这两个按钮，安心喝水</p>
+
+<p><img src="http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2013_zps37bj6soz.png" alt="读条" /></p>
+
+<p>读条结束后，开始设置两个黄色感叹号内容</p>
+
+<p>root用户的密码设定，很重要，不用我多说</p>
+
+<p><img src="http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2014_zpsol2pfvvh.png" alt="root密码" /></p>
+
+<p>注意看图，知识点又来了，设置的root密码强度差不说，还居然包含了root用户名，被系统吐槽，而且这样的密码需要点两次左上角的<code class="highlighter-rouge">Done</code>才能设置成功</p>
+
+<p>这里主要是在本地虚拟环境，不想设置太复杂的密码，会忘 -_-#</p>
+
+<p>接下来设置一个登陆用户，在你设置完root密码后，这个设定已经变成可选了，但是还是推荐在这里设置好</p>
+
+<p><img src="http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2015_zpsq4rt97rc.png" alt="设置登录用户" /></p>
+
+<p>我这里直接给自己的登陆用户作为管理员了，以后的操作都会使用该用户<strike>为了加深印象我又把密码设置的很差劲让系统提醒一次 [doge] </strike></p>
+
+<p>OK，这里设置完毕后，左上角<code class="highlighter-rouge">Done</code>*2，系统就开始启动了，在VirtualBox中安装CentOS7的操作就完成了</p>
+
+<h2 id="通过ssh由mac宿主机访问centos7虚拟机">通过SSH由Mac宿主机访问CentOS7虚拟机</h2>
+
+<ul>
+  <li>登陆虚拟机，查看网络配置</li>
+</ul>
+
+<p>在CentOS7启动后，会停留在<code class="highlighter-rouge">localhost login:</code>处等待，这里使用管理员<code class="highlighter-rouge">kenshin</code>的账密登入</p>
+
+<p><img src="http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2015-1_zpsfhfnflbj.png" alt="登入系统" /></p>
+
+<p>图中重点，<code class="highlighter-rouge">ip addr</code>查看CentOS7的网络配置，注意<code class="highlighter-rouge">2: enp0s3:</code>，这里指示的是虚拟机的internet连接，能够发现，没有ip地址</p>
+
+<p>这是因为CentOS7的网络服务并不是默认开机启动的，需要手动配置</p>
+
+<p>首先进入到CentOS7的网络配置文件所在目录</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>cd /etc/sysconfig/network-scripts/
+</code></pre>
+</div>
+
+<p><img src="http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2016-1_zpsqves4lcb.png" alt="配置网络-1" /></p>
+
+<p>然后打开<code class="highlighter-rouge">ifcfg-enp0s3</code>文件，这里需要<code class="highlighter-rouge">sudo</code>权限来编辑该文件</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sudo vi ifcfg-enp0s3
+</code></pre>
+</div>
+
+<p><img src="http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2016-2_zpsidzamajs.png" alt="打开ifcfg-enp0s3" /></p>
+
+<p>将<code class="highlighter-rouge">ONBOOT</code>设置为<code class="highlighter-rouge">yes</code>后<code class="highlighter-rouge">wq</code>保存并退出</p>
+
+<p><img src="http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2016-3_zps9tnq5rud.png" alt="ONBOOT" /></p>
+
+<ul>
+  <li>关闭虚拟机，配置网卡</li>
+</ul>
+
+<p>经过上面的操作，理论上是只需要重启网络服务就可以了，但是我们需要退出来为虚拟机额外添加网卡，所以索性先关机</p>
+
+<p>而更实际上，我们在创建裸机的时候就可以添加好这个额外的网卡的，但是我忘了</p>
+
+<p>其实真实情况是，这里我浪费了很多时间来处理网卡的事情，最初我并没有想到VirtualBox默认的NAT网卡不能完成我后面需要的SSH连接的功能，后来还搞了一阵Bridged Adapter的作用，所以这里是已经折腾了很多东西之后才发现的事情，但是既然是记录步骤，就不说那些错误和解决错误的详情了，最后再统一总结下就好了</p>
+
+<p>另外，关于NAT，Host-only，Bridged的Adapter的区别，后面会提到</p>
+
+<p>总之，现在把虚拟机关机，回到VirtualBox界面后，为虚拟机添加一个Host-only Adapter</p>
+
+<p><img src="http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2017_zpszf0m00r6.png" alt="添加Host-only Adapter" /></p>
+
+<ul>
+  <li>启动虚拟机，再次查看网络信息</li>
+</ul>
+
+<p>网卡添加完毕后，启动虚拟机，登入管理员账户，执行<code class="highlighter-rouge">ip addr</code>命令查看网络信息</p>
+
+<p><img src="http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2018_zpsmk3dmykk.png" alt="新的网络信息" /></p>
+
+<p>重点来了，图上我们有了两个internet的ip地址</p>
+
+<p>图中<code class="highlighter-rouge">2: enp0s3 .... inet 10.0.2.15</code>是由NAT Adapter提供的，其可以ping通外界网络，也就是外界网络对其来说可见，但是外界不能ping通<code class="highlighter-rouge">10.0.2.15</code>，也就是其对外界网络来说不可见，<strong>包括宿主机也不能ping通 10.0.2.15</strong></p>
+
+<p>图中<code class="highlighter-rouge">3: enp0s8 ... inet 192.168.99.101</code>是由Host-onlyAdapter提供的，其可以ping通外界网络，也就是外界网络对其来说可见，但是外界不能直接ping通<code class="highlighter-rouge">192.168.99.101</code>，也就是其对外界网络来说不可见，<strong>但是宿主机可以ping通 192.168.99.101</strong></p>
+
+<p>这就是为什么需要额外添加一张Host-onlyAdapter的原因，如果宿主机都不能ping通虚拟机，那么SSH毛毛啊</p>
+
+<ul>
+  <li>宿主机SSH连接虚拟机</li>
+</ul>
+
+<p>在虚拟机中执行<code class="highlighter-rouge">service sshd start</code>命令来开启SSH服务，默认会运行在22端口</p>
+
+<p>在虚拟机中执行<code class="highlighter-rouge">systemctl status sshd</code>命令来查看SSH服务状态</p>
+
+<p><img src="http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2018-1_zpscik19mco.png" alt="SSH服务状态" /></p>
+
+<p><code class="highlighter-rouge">Loaded: ...enabled...</code>表示SSH服务开启了开机自启动，这正是我们需要的</p>
+
+<p><code class="highlighter-rouge">Active: active(running)...</code>表示SSH服务当前正在运行</p>
+
+<p>现在，想建立SSH连接就只剩下最后一步，设置端口</p>
+
+<p>在NAT Adatper中配置端口转发信息，为什么不在Host-only Adapter中配置呢，因为不能</p>
+
+<p><strong>Tips, 配置端口转发不需要重启虚拟机的</strong></p>
+
+<p>打开虚拟机的网络配置界面，在NAT Adapter中选择<code class="highlighter-rouge">Port Forwarding</code></p>
+
+<p><img src="http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2019-0_zpspwegr3jn.png" alt="打开NAT Adapter" /></p>
+
+<p><code class="highlighter-rouge">Port Forwarding</code>配置端口转发信息</p>
+
+<p><img src="http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2019_zpskq2kaya7.png" alt="端口转发" /></p>
+
+<p>这里做了两个端口转发</p>
+
+<p><code class="highlighter-rouge">Guest Port 22</code>是用来做SSH连接的，默认情况下，服务器22端口用于SSH，<code class="highlighter-rouge">Guest IP</code>和<code class="highlighter-rouge">Host IP</code>都正常设置，<code class="highlighter-rouge">Host Port</code>随意，不要冲突了就好</p>
+
+<p><code class="highlighter-rouge">Guest Port 8000</code>是用来做服务转发的，后面会用到，我会把虚拟机8000端口的服务转发到宿主机，然后宿主机可以用来搞点事情，这里<code class="highlighter-rouge">Guest IP</code>和<code class="highlighter-rouge">Host IP</code>也是正常设置，<code class="highlighter-rouge">Host Port</code>同样随意，不冲突就行</p>
+
+<p>保存信息之后，在CentOS7中使用<code class="highlighter-rouge">sudo systemctl restart network</code>命令重启下网络服务或者直接<code class="highlighter-rouge">reboot</code>命令重启机器</p>
+
+<p>在宿主机SSH连接虚拟机，<code class="highlighter-rouge">-p</code>指定端口，后面再跟要登入的用户及服务器地址，我们已经做了端口和地址转发，因此这里的命令如下</p>
+
+<p><img src="http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2020_zpsqgtymite.png" alt="SSH连接" /></p>
+
+<p>Bingo!!!</p>
+
+<p>搞定，我们现在可以在Mac宿主机终端经由SSH操作CentOS7虚拟机了，也就是我们的服务器（下面我也会除非万不得已，不然均称呼我们的CentOS7君为服务器），接下来我们就开始在服务器配置Seafile，不过现在内容太多了，尤其是很多图片，所以写在第二部分</p>
+
+
+  </article>
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/project/2017/04/16/Virtualbox&CentOS7&Seafile%E6%90%AD%E5%BB%BA%E7%A7%81%E6%9C%89%E4%BA%91%E7%9B%98Part2/">
+            VirtualBox & CentOS7 & SSH & Seafile & ngrok 搭建私有云盘Part2
+            <small>16 Apr 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/program/2017/04/11/Golang%E6%AF%94%E8%BE%83%E4%B8%A4%E4%B8%AAslice%E6%98%AF%E5%90%A6%E7%9B%B8%E7%AD%89/">
+            Golang比较两个slice是否相等
+            <small>11 Apr 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/program/2017/04/01/Golang%E9%80%9A%E8%BF%87HTTP-Response%E8%8E%B7%E5%8F%96Zip%E6%96%87%E4%BB%B6/">
+            Golang通过HTTP Response获取Zip文件
+            <small>01 Apr 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+
+<div class="comments">
+  <h2>Comments</h2>
+  <div id="disqus_thread"></div>
+  <script>
+var disqus_config = function () {
+  this.page.url = 'http://localhost:4000/project/2017/04/16/Virtualbox&CentOS7&Seafile%E6%90%AD%E5%BB%BA%E7%A7%81%E6%9C%89%E4%BA%91%E7%9B%98Part1/'; // Replace PAGE_URL with your page's canonical URL variable
+  this.page.identifier = '/project/2017/04/16/Virtualbox&CentOS7&Seafile搭建私有云盘Part1'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+(function() {
+  var d = document, s = d.createElement('script');
+  s.src = '//kenshin.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+})();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</div>
+
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if (target === toggle) {
+            checkbox.checked = !checkbox.checked;
+            e.preventDefault();
+          } else if (checkbox.checked && !sidebar.contains(target)) {
+            /* click outside the sidebar when sidebar is open */
+            checkbox.checked = false;
+          }
+        }, false);
+      })(document);
+    </script>
+    
+    <script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m) })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-91673465-1', 'auto');
+ga('send', 'pageview');
+    </script>
+    
+  </body>
+  
+  <script id="dsq-count-scr" src="//kenshin.disqus.com/count.js" async></script>
+  
+</html>

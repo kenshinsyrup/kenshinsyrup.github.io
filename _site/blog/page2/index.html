@@ -11,7 +11,7 @@
 
   <title>
     
-      Categories &middot; Kenshin
+      Blog &middot; Kenshin
     
   </title>
 
@@ -115,7 +115,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
             
             
             
-              <a class="sidebar-nav-item sidebar-nav-item-sub active" href="/blog/categories/">
+              <a class="sidebar-nav-item sidebar-nav-item-sub " href="/blog/categories/">
                 Categories
               </a>
           
@@ -191,89 +191,83 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
       </div>
 
       <div class="container content">
-        <div class="page">
-  <h1 class="page-title">Categories</h1>
-  <div class="tags-expo">
-  <div class="tags-expo-list">
-    
-    <a href="#other" class="post-tag">Other</a>
-    
-    <a href="#工具" class="post-tag">工具</a>
-    
-    <a href="#program" class="post-tag">Program</a>
-    
-    <a href="#project" class="post-tag">Project</a>
-    
-  </div>
-  <hr/>
-  <div class="tags-expo-section">
-    
-    <h2 id="other">Other</h2>
-    <ul class="tags-expo-posts">
-      
-        <a class="post-title" href="/other/2017/02/09/Hello-World/">
-      <li>
+        <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/other/2017/02/09/Hello-World/">
         Hello World!
-      <small class="post-date">09 Feb 2017</small>
-      </li>
       </a>
-      
-    </ul>
+    </h1>
+
+    <span class="post-date">09 Feb 2017</span>
+     | 
     
-    <h2 id="工具">工具</h2>
-    <ul class="tags-expo-posts">
-      
-        <a class="post-title" href="/%E5%B7%A5%E5%85%B7/2017/03/01/%E4%BD%BF%E7%94%A8Chrome+Postman%E8%BF%9B%E8%A1%8C%E6%8E%A5%E5%8F%A3%E8%B0%83%E8%AF%95/">
-      <li>
-        使用Chrome+Postman进行接口调试
-      <small class="post-date">01 Mar 2017</small>
-      </li>
-      </a>
-      
-    </ul>
+    <a href="/blog/tags/#other" class="post-tag">Other</a>
     
-    <h2 id="program">Program</h2>
-    <ul class="tags-expo-posts">
-      
-        <a class="post-title" href="/program/2017/04/11/Golang%E6%AF%94%E8%BE%83%E4%B8%A4%E4%B8%AAslice%E6%98%AF%E5%90%A6%E7%9B%B8%E7%AD%89/">
-      <li>
-        Golang比较两个slice是否相等
-      <small class="post-date">11 Apr 2017</small>
-      </li>
-      </a>
-      
-        <a class="post-title" href="/program/2017/04/01/Golang%E9%80%9A%E8%BF%87HTTP-Response%E8%8E%B7%E5%8F%96Zip%E6%96%87%E4%BB%B6/">
-      <li>
-        Golang通过HTTP Response获取Zip文件
-      <small class="post-date">01 Apr 2017</small>
-      </li>
-      </a>
-      
-    </ul>
     
-    <h2 id="project">Project</h2>
-    <ul class="tags-expo-posts">
-      
-        <a class="post-title" href="/project/2017/04/16/Virtualbox&CentOS7&Seafile%E6%90%AD%E5%BB%BA%E7%A7%81%E6%9C%89%E4%BA%91%E7%9B%98Part2/">
-      <li>
-        VirtualBox & CentOS7 & SSH & Seafile & ngrok 搭建私有云盘Part2
-      <small class="post-date">16 Apr 2017</small>
-      </li>
-      </a>
-      
-        <a class="post-title" href="/project/2017/04/16/Virtualbox&CentOS7&Seafile%E6%90%AD%E5%BB%BA%E7%A7%81%E6%9C%89%E4%BA%91%E7%9B%98Part1/">
-      <li>
-        VirtualBox & CentOS7 & SSH & Seafile & ngrok 搭建私有云盘Part1
-      <small class="post-date">16 Apr 2017</small>
-      </li>
-      </a>
-      
-    </ul>
-    
-  </div>
+
+    <article>
+      <h2 id="博客页面搭建完毕">博客页面搭建完毕</h2>
+
+<p>最近<del>又</del>比较浮躁，刚好发现自己去年测试Jekyll时候搭建的Github个人页面不怎么好看，于是想重新弄一个，以后也算有个地方写东西</p>
+
+<p>期间<del>又</del>踩到了坑，这里随便记录下</p>
+
+<p>使用Jekyll搭建Github个人页面的帖子满世界都是，肯定不用我重复了，毕竟我也是菜</p>
+
+<p>OK，直接说遇到的问题</p>
+
+<h3 id="could-not-locate-gemfile-or-bundle-directory">Could not locate Gemfile or .bundle/ directory</h3>
+
+<p>这个问题的来历比较神奇</p>
+
+<p>首先，我前端内容并不是特别熟悉，所以博客模版也是直接从<a href="http://jekyllthemes.org/">Jekyll Themes</a>找的，这里我使用的是<a href="http://jekyllthemes.org/themes/codinfox-lanyon/">Codinfox Lanyon
+</a>模版，其源码仓库地址是<a href="https://github.com/codinfox/codinfox-lanyon">这里</a></p>
+
+<p>由于种种原因，我没有直接fork上面的仓库，而是donwload之后自行修改成自己喜欢的样子，改完之后push到了我自己的Github<a href="https://github.com/kenshinsyrup/kenshinsyrup.github.io">仓库</a></p>
+
+<p>但是，转折来了，在我把模版改成喜欢的样子之后，本地试图查看效果时，<code class="highlighter-rouge">bundle exec jekyll serve</code>命令提示错误<code class="highlighter-rouge">Could not locate Gemfile or .bundle/ directory</code></p>
+
+<p>Google了半天，遇到了很多同样有该错误的人，但各种解决方案都不适合我这里的情况。最后终于发现，原因是模版代码里没有<code class="highlighter-rouge">Gemfile</code>和<code class="highlighter-rouge">Gemfile.lock</code>两个文件ORZ</p>
+
+<p>解决办法就是自行创建这两个文件，当然最简单的就是让Jekyll给我创建了，执行<code class="highlighter-rouge">jekyll new myblog</code>，创建一个全新的博客，然后在<code class="highlighter-rouge">myblog</code>里面把<code class="highlighter-rouge">Gemfile</code>和<code class="highlighter-rouge">Gemfile.lock</code>文件拷贝到我自己的模版根目录</p>
+
+<p>博客模版使用到了<code class="highlighter-rouge">jekyll-paginate</code>插件，因此手动修改默认的<code class="highlighter-rouge">Gemfile</code>文件plugins相关内容，增加一行<code class="highlighter-rouge">gem "jekyll-paginate"</code>，如下:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code># If you have any plugins, put them here!
+group :jekyll_plugins do
+   gem "jekyll-feed", "~&gt; 0.6"
+   gem "jekyll-paginate"
+end
+</code></pre>
 </div>
 
+<p>那么，就祝所有人新年大吉<del>吧</del>!</p>
+
+<p><img src="/public/img/kenshinsyrup.jpg" alt="test static files" /></p>
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/other/2017/02/09/Hello-World/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/other/2017/02/09/Hello-World/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
+  
 </div>
+
+<div class="pagination">
+  
+    <span class="pagination-item older">Older</span>
+  
+  
+    
+      <a class="pagination-item newer" href="/blog/">Newer</a>
+    
+  
+</div>
+
 
       </div>
     </div>

@@ -55,3 +55,10 @@ hero:
 mathjax: true # whether support mathjax
 google_analytics_token: 'UA-91673465-1' # leave blank if you don't want google analytics
 disqus_short_name: 'kenshin' # leave blank if you don't want disqus
+
+# Static files
+defaults:
+  - scope:
+      path: "public/img"
+    values:
+      image: true

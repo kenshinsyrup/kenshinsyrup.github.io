@@ -11,7 +11,7 @@
 
   <title>
     
-      Hello World! &middot; Kenshin
+      使用Chrome+Postman进行接口调试 &middot; Kenshin
     
   </title>
 
@@ -192,51 +192,76 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
       <div class="container content">
         <div class="post">
-  <h1 class="post-title">Hello World!</h1>
-  <span class="post-date">09 Feb 2017</span>
+  <h1 class="post-title">使用Chrome+Postman进行接口调试</h1>
+  <span class="post-date">01 Mar 2017</span>
    | 
   
-    <a href="/blog/tags/#other" class="post-tag">Other</a>
+    <a href="/blog/tags/#postman" class="post-tag">Postman</a>
+  
+    <a href="/blog/tags/#chrome" class="post-tag">Chrome</a>
   
   
   <article>
-    <h2 id="博客页面搭建完毕">博客页面搭建完毕</h2>
+    <p>时隔多年，又重新看了一遍闪灵</p>
 
-<p>最近<del>又</del>比较浮躁，刚好发现自己去年测试Jekyll时候搭建的Github个人页面不怎么好看，于是想重新弄一个，以后也算有个地方写东西</p>
+<p>失眠中 -_-#</p>
 
-<p>期间<del>又</del>踩到了坑，这里随便记录下</p>
+<p>开发过程中经常需要进行接口调试，测试完毕才能交接前端使用，调试过程中，发现了<a href="https://www.getpostman.com/">Postman</a>这个神器，在配合Chrome控制台的情况下，能完美应付大部分情况下的调试工作</p>
 
-<p>使用Jekyll搭建Github个人页面的帖子满世界都是，肯定不用我重复了，毕竟我也是菜</p>
+<p>在此，记录下调试过程</p>
 
-<p>OK，直接说遇到的问题</p>
+<h2 id="工具">工具</h2>
 
-<h3 id="could-not-locate-gemfile-or-bundle-directory">Could not locate Gemfile or .bundle/ directory</h3>
+<p>嗯，这节是废话</p>
 
-<p>这个问题的来历比较神奇</p>
+<p>Chrome: 这个星球最好的浏览器我们都需要有一个</p>
 
-<p>首先，我前端内容并不是特别熟悉，所以博客模版也是直接从<a href="http://jekyllthemes.org/">Jekyll Themes</a>找的，这里我使用的是<a href="http://jekyllthemes.org/themes/codinfox-lanyon/">Codinfox Lanyon
-</a>模版，其源码仓库地址是<a href="https://github.com/codinfox/codinfox-lanyon">这里</a></p>
+<p>Postman: 这个有<a href="https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop?hl=zh-CN">Chrome插件版</a>和<a href="https://www.getpostman.com/products">App版</a>，我是使用了后者</p>
 
-<p>由于种种原因，我没有直接fork上面的仓库，而是donwload之后自行修改成自己喜欢的样子，改完之后push到了我自己的Github<a href="https://github.com/kenshinsyrup/kenshinsyrup.github.io">仓库</a></p>
+<h2 id="使用方法">使用方法</h2>
 
-<p>但是，转折来了，在我把模版改成喜欢的样子之后，本地试图查看效果时，<code class="highlighter-rouge">bundle exec jekyll serve</code>命令提示错误<code class="highlighter-rouge">Could not locate Gemfile or .bundle/ directory</code></p>
+<h3 id="postman介绍">Postman介绍</h3>
 
-<p>Google了半天，遇到了很多同样有该错误的人，但各种解决方案都不适合我这里的情况。最后终于发现，原因是模版代码里没有<code class="highlighter-rouge">Gemfile</code>和<code class="highlighter-rouge">Gemfile.lock</code>两个文件ORZ</p>
+<p>简单的介绍一下Postman</p>
 
-<p>解决办法就是自行创建这两个文件，当然最简单的就是让Jekyll给我创建了，执行<code class="highlighter-rouge">jekyll new myblog</code>，创建一个全新的博客，然后在<code class="highlighter-rouge">myblog</code>里面把<code class="highlighter-rouge">Gemfile</code>和<code class="highlighter-rouge">Gemfile.lock</code>文件拷贝到我自己的模版根目录</p>
+<p>个人觉得，Postman是一个特别特别好的产品:</p>
+<ul>
+  <li>能模拟常用的HTTP请求，包括GET，POST等等，用于调试现在流行的RESTful接口相当方便</li>
+  <li>支持多种授权认证方式</li>
+  <li>支持历史记录，收藏，分享等功能</li>
+</ul>
 
-<p>博客模版使用到了<code class="highlighter-rouge">jekyll-paginate</code>插件，因此手动修改默认的<code class="highlighter-rouge">Gemfile</code>文件plugins相关内容，增加一行<code class="highlighter-rouge">gem "jekyll-paginate"</code>，如下:</p>
-<div class="highlighter-rouge"><pre class="highlight"><code># If you have any plugins, put them here!
-group :jekyll_plugins do
-   gem "jekyll-feed", "~&gt; 0.6"
-   gem "jekyll-paginate"
-end
-</code></pre>
-</div>
+<p>（软广在博客内容前部添加，括号里内容记得删掉）</p>
 
-<p>那么，就祝所有人新年大吉<del>吧</del>!</p>
+<p><img src="http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-03-01-post01/screenshot_zpsf58vh6me.png" alt="Postman界面" /></p>
 
-<p><img src="/public/img/kenshinsyrup.jpg" alt="test static files" /></p>
+<p>界面很简洁，常用的功能已经标注，这就是平时最多使用的功能了</p>
+
+<h3 id="使用postman调试get接口">使用Postman调试GET接口</h3>
+
+<p><img src="http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-03-01-post01/screenshot%203_zpsewvhje6o.png" alt="使用GET请求获取Applysquare网站主页" /></p>
+
+<p>GET请求很简单，就不说了</p>
+
+<h3 id="使用postman调试post接口">使用Postman调试POST接口</h3>
+
+<p>这里主要是POST过程中会遇到CSRF问题，解决方法就是获取到合法的CSRF Token，然后添加到POST请求的Header中</p>
+
+<p><em>这个部分是因网站而异的，很多网站都很难在不熟悉的情况下完成POST请求，不过我们又不是黑客，只是想安心调试下自己的接口而已，那么下面提到的所有信息理论上我们都能拿到的</em></p>
+
+<p>我自己遇到的情况是这样：</p>
+
+<p>1、我需要向<code class="highlighter-rouge">localhost:8000/ajax/g</code>地址POST一段JSON数据，但是会遇到<code class="highlighter-rouge">403 Forbidden, CSRF 验证失败</code></p>
+
+<p>2、首先使用合法账户登录到<code class="highlighter-rouge">localhost:8000</code>，这里有一点需要注意，一般脑子正常的网站，都是在login之后直接跳转到网站首页的，所以，在Chrome控制台中，将<code class="highlighter-rouge">Preserve log</code>选项打勾，这样在登录后直接跳转到首页的过程中，不会丢失POST请求的日志，否则只会看到最后一个请求也就是一个GET主页的请求的日志
+<img src="http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-03-01-post01/screenshot%205_zpsgbmetpbn.png" alt="Chrome控制台" /></p>
+
+<p>3、在控制台中找到<code class="highlighter-rouge">login/</code>，将其中<code class="highlighter-rouge">Request Headers</code>的<code class="highlighter-rouge">Cookie</code>及<code class="highlighter-rouge">CSRF</code>等内容添加到Postman的请求头中</p>
+
+<p>4、在Postman中Authorization中选择合适的Auth type，输入对应的合法用户信息</p>
+
+<p>5、再次执行步骤1，理论上能完成POST过程</p>
+
 
   </article>
 </div>
@@ -281,8 +306,8 @@ end
   <div id="disqus_thread"></div>
   <script>
 var disqus_config = function () {
-  this.page.url = 'http://localhost:4000/other/2017/02/09/Hello-World/'; // Replace PAGE_URL with your page's canonical URL variable
-  this.page.identifier = '/other/2017/02/09/Hello-World'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+  this.page.url = 'http://localhost:4000/%E5%B7%A5%E5%85%B7/2017/03/01/%E4%BD%BF%E7%94%A8Chrome+Postman%E8%BF%9B%E8%A1%8C%E6%8E%A5%E5%8F%A3%E8%B0%83%E8%AF%95/'; // Replace PAGE_URL with your page's canonical URL variable
+  this.page.identifier = '/%E5%B7%A5%E5%85%B7/2017/03/01/使用Chrome+Postman进行接口调试'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 (function() {
   var d = document, s = d.createElement('script');

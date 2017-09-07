@@ -11,7 +11,7 @@
 
   <title>
     
-      Hello World! &middot; Kenshin
+      Golang通过HTTP Response获取Zip文件 &middot; Kenshin
     
   </title>
 
@@ -192,51 +192,120 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
       <div class="container content">
         <div class="post">
-  <h1 class="post-title">Hello World!</h1>
-  <span class="post-date">09 Feb 2017</span>
+  <h1 class="post-title">Golang通过HTTP Response获取Zip文件</h1>
+  <span class="post-date">01 Apr 2017</span>
    | 
   
-    <a href="/blog/tags/#other" class="post-tag">Other</a>
+    <a href="/blog/tags/#golang" class="post-tag">Golang</a>
   
   
   <article>
-    <h2 id="博客页面搭建完毕">博客页面搭建完毕</h2>
+    <p>本来计划至少一周总结一次学到的东西，不过好像没有实现啊😅</p>
 
-<p>最近<del>又</del>比较浮躁，刚好发现自己去年测试Jekyll时候搭建的Github个人页面不怎么好看，于是想重新弄一个，以后也算有个地方写东西</p>
+<p>一看时间都4月1号了，一个月了，总该写点啥</p>
 
-<p>期间<del>又</del>踩到了坑，这里随便记录下</p>
+<p>最近运气不好，出了很多事情，虽然都是不足为外人道的东西，但确实影响心情，希望大家每天都能开开心心的</p>
 
-<p>使用Jekyll搭建Github个人页面的帖子满世界都是，肯定不用我重复了，毕竟我也是菜</p>
+<p>今天写一下前几天遇到的一个需求：通过一个URL获取用户信息的zip文件</p>
 
-<p>OK，直接说遇到的问题</p>
+<p>不涉及过多业务内容的话，就是要写一个小Demo，通过一个给定URL，获取一个zip文件</p>
 
-<h3 id="could-not-locate-gemfile-or-bundle-directory">Could not locate Gemfile or .bundle/ directory</h3>
+<h2 id="实现一个极简单的url处理路由">实现一个极简单的URL处理路由</h2>
 
-<p>这个问题的来历比较神奇</p>
+<p>既然是写Demo，那么肯定路由就Golang最简单的ListenAndServe就好了</p>
 
-<p>首先，我前端内容并不是特别熟悉，所以博客模版也是直接从<a href="http://jekyllthemes.org/">Jekyll Themes</a>找的，这里我使用的是<a href="http://jekyllthemes.org/themes/codinfox-lanyon/">Codinfox Lanyon
-</a>模版，其源码仓库地址是<a href="https://github.com/codinfox/codinfox-lanyon">这里</a></p>
-
-<p>由于种种原因，我没有直接fork上面的仓库，而是donwload之后自行修改成自己喜欢的样子，改完之后push到了我自己的Github<a href="https://github.com/kenshinsyrup/kenshinsyrup.github.io">仓库</a></p>
-
-<p>但是，转折来了，在我把模版改成喜欢的样子之后，本地试图查看效果时，<code class="highlighter-rouge">bundle exec jekyll serve</code>命令提示错误<code class="highlighter-rouge">Could not locate Gemfile or .bundle/ directory</code></p>
-
-<p>Google了半天，遇到了很多同样有该错误的人，但各种解决方案都不适合我这里的情况。最后终于发现，原因是模版代码里没有<code class="highlighter-rouge">Gemfile</code>和<code class="highlighter-rouge">Gemfile.lock</code>两个文件ORZ</p>
-
-<p>解决办法就是自行创建这两个文件，当然最简单的就是让Jekyll给我创建了，执行<code class="highlighter-rouge">jekyll new myblog</code>，创建一个全新的博客，然后在<code class="highlighter-rouge">myblog</code>里面把<code class="highlighter-rouge">Gemfile</code>和<code class="highlighter-rouge">Gemfile.lock</code>文件拷贝到我自己的模版根目录</p>
-
-<p>博客模版使用到了<code class="highlighter-rouge">jekyll-paginate</code>插件，因此手动修改默认的<code class="highlighter-rouge">Gemfile</code>文件plugins相关内容，增加一行<code class="highlighter-rouge">gem "jekyll-paginate"</code>，如下:</p>
-<div class="highlighter-rouge"><pre class="highlight"><code># If you have any plugins, put them here!
-group :jekyll_plugins do
-   gem "jekyll-feed", "~&gt; 0.6"
-   gem "jekyll-paginate"
-end
+<div class="highlighter-rouge"><pre class="highlight"><code>func main() {
+	http.HandleFunc("/zipdownload", zipHandler)
+	log.Println("Listening...")
+	http.ListenAndServe(":9999", nil)
+}
 </code></pre>
 </div>
 
-<p>那么，就祝所有人新年大吉<del>吧</del>!</p>
+<h2 id="完成ziphandler函数">完成zipHandler函数</h2>
 
-<p><img src="/public/img/kenshinsyrup.jpg" alt="test static files" /></p>
+<p>按照Golang的Handler函数签名邀请，完成zipHandler函数</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>func zipHandler(rw http.ResponseWriter, r *http.Request) {
+	zipName := "ZipTest.zip"
+	rw.Header().Set("Content-Type", "application/zip")
+	rw.Header().Set("Content-Disposition", fmt.Sprintf("attachment; filename=\"%s\"", zipName))
+	err := getZip(rw)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+</code></pre>
+</div>
+
+<h3 id="设置响应头信息">设置响应头信息</h3>
+
+<p><code class="highlighter-rouge">rw.Header().Set("Content-Type", "application/zip")</code></p>
+
+<p>设置response的头信息中的文件类型，对于zip文件，一般可以设置为<code class="highlighter-rouge">application/zip</code>或<code class="highlighter-rouge">application/octet-stream</code>
+更具体的说明，可以在<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Complete_list_of_MIME_types">Complete list of MIME types</a>获得，我是选择了<code class="highlighter-rouge">application/zip</code>来告诉服务器精确的文件类型</p>
+
+<p><code class="highlighter-rouge">rw.Header().Set("Content-Disposition", fmt.Sprintf("attachment; filename=\"%s\"", zipName))</code></p>
+
+<p>设置<code class="highlighter-rouge">Content-Disposition</code>为<code class="highlighter-rouge">attachment</code>即附件类型，同时设置附件文件名为我们给定的<code class="highlighter-rouge">zipName</code></p>
+
+<p>响应头信息中的<code class="highlighter-rouge">Content-Disposition</code>用于告知浏览器其获取到的文件是需要展示与页面内还是需要作为附件保存到用户本地，如果需要展示在页面内，设置为<code class="highlighter-rouge">inline</code>，否则设置为<code class="highlighter-rouge">attachemnt</code>，在设置为<code class="highlighter-rouge">attachment</code>时还可以额外规定该附件的文件名，更具体的说明，可以在<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition">Content-Disposition</a>获得</p>
+
+<p>完成这两句代码后，功能其实已经完成了一大半了，最初我就是被这个地方卡住了，在获得需求时思想泡里充满了<code class="highlighter-rouge">怎么样才能让HTTP响应得到一个zip文件并且让浏览器将这个文件下载下来而不是试图展示出来</code>的问题</p>
+
+<h2 id="完成getzip函数">完成getZip函数</h2>
+
+<p>这里我们只需要完成一个比较基础的zip流程就好，就像我上面说的，这个需求，最难的其实是上面对HTTP Response中Header信息的了解</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>func getZip(w io.Writer) error {
+	zipW := zip.NewWriter(w)
+	defer zipW.Close()
+
+	for i := 0; i &lt; 5; i++ {
+		f, err := zipW.Create(strconv.Itoa(i) + ".txt")
+		if err != nil {
+			return err
+		}
+		_, err = f.Write([]byte(fmt.Sprintf("Hello file %d", i)))
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+</code></pre>
+</div>
+
+<h3 id="创建zipwriter">创建zip.Writer</h3>
+
+<p><code class="highlighter-rouge">zipW := zip.NewWriter(w)</code></p>
+
+<p>该方法创建一个<code class="highlighter-rouge">zip.Writer</code>，用于向zip文件中写入内容，即打包的文件</p>
+
+<p>参数为<code class="highlighter-rouge">io.Writer</code>，那么我们这里当然就是使用<code class="highlighter-rouge">http.ResponseWriter</code></p>
+
+<p>返回值为一个<code class="highlighter-rouge">zip.Writer</code>，最后的zip内容都会写入这个<code class="highlighter-rouge">zip.Writer</code>，而最终当然是写入了参数的<code class="highlighter-rouge">io.Writer</code>中，也就是我们的<code class="highlighter-rouge">http.ResponseWriter</code>中</p>
+
+<p><strong><em>记得<code class="highlighter-rouge">defer zipW.Close()</code>关闭<code class="highlighter-rouge">zip.Writer</code></em></strong></p>
+
+<h3 id="向zipwriter中写入文件">向zip.Writer中写入文件</h3>
+
+<p><code class="highlighter-rouge">f, err := zipW.Create(strconv.Itoa(i) + ".txt")</code></p>
+
+<p>该方法向<code class="highlighter-rouge">zip.Writer</code>中添加一个文件，也就是说向zip文件中添加一个文件</p>
+
+<p>参数字为字符串，会作为写入zip中的文件的文件名</p>
+
+<p>第一个返回值为一个<code class="highlighter-rouge">io.Writer</code>，用于向其中，也就是向我们添加到zip的文件中，写入文件内容，即如<code class="highlighter-rouge">_, err = f.Write([]byte(fmt.Sprintf("Hello file %d", i)))</code>代码所示，我们向文件中写入了简单的字符串</p>
+
+<h2 id="运行程序">运行程序</h2>
+
+<p>接下来，只需要在程序<code class="highlighter-rouge">main.go</code>所在目录运行<code class="highlighter-rouge">go run main.go</code>就可以在你的浏览器访问<code class="highlighter-rouge">localhost:9999/zipdownload</code>了，浏览器会下载一个zip文件</p>
+
+<p><img src="http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-01-post01/ZipTest_zps5m0dywev.png" alt="下载的ZipTest及解压后的内容" /></p>
+
+<p>最后，代码已经上传到了我的<a href="https://github.com/kenshinsyrup/AllGolangDemo/blob/master/GetZipFromHTTP/main.go">Github仓库</a>可以直接下载测试</p>
+
 
   </article>
 </div>
@@ -281,8 +350,8 @@ end
   <div id="disqus_thread"></div>
   <script>
 var disqus_config = function () {
-  this.page.url = 'http://localhost:4000/other/2017/02/09/Hello-World/'; // Replace PAGE_URL with your page's canonical URL variable
-  this.page.identifier = '/other/2017/02/09/Hello-World'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+  this.page.url = 'http://localhost:4000/program/2017/04/01/Golang%E9%80%9A%E8%BF%87HTTP-Response%E8%8E%B7%E5%8F%96Zip%E6%96%87%E4%BB%B6/'; // Replace PAGE_URL with your page's canonical URL variable
+  this.page.identifier = '/program/2017/04/01/Golang通过HTTP Response获取Zip文件'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 (function() {
   var d = document, s = d.createElement('script');

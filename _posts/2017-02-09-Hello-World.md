@@ -40,3 +40,5 @@ end
 ```
 
 那么，就祝所有人新年大吉<del>吧</del>!
+
+![test static files](/public/img/kenshinsyrup.jpg)

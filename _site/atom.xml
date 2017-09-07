@@ -4,13 +4,765 @@
  <title>Kenshin</title>
  <link href="http://localhost:4000/atom.xml" rel="self"/>
  <link href="http://localhost:4000/"/>
- <updated>2017-02-09T18:38:59-05:00</updated>
+ <updated>2017-09-06T21:12:05-04:00</updated>
  <id>http://localhost:4000</id>
  <author>
    <name>Kenshin</name>
    <email></email>
  </author>
 
+ 
+ <entry>
+   <title>VirtualBox & CentOS7 & SSH & Seafile & ngrok 搭建私有云盘Part2</title>
+   <link href="http://localhost:4000/project/2017/04/16/Virtualbox&CentOS7&Seafile%E6%90%AD%E5%BB%BA%E7%A7%81%E6%9C%89%E4%BA%91%E7%9B%98Part2/"/>
+   <updated>2017-04-16T00:00:00-04:00</updated>
+   <id>http://localhost:4000/project/2017/04/16/Virtualbox&CentOS7&Seafile搭建私有云盘Part2</id>
+   <content type="html">&lt;p&gt;Build your own private cloud disk using VirtualBox &amp;amp; CentOS7 &amp;amp; SSH &amp;amp; Seafile &amp;amp; ngrok Part2&lt;/p&gt;
+
+&lt;h2 id=&quot;在服务器安装seafile&quot;&gt;在服务器安装Seafile&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.seafile.com/en/home/&quot;&gt;Seafile&lt;/a&gt;官网介绍自己为一个企业级的，高可靠，高性能的文件同步和共享平台。实际上类似的平台有很多，比如还有广为人知的&lt;a href=&quot;https://owncloud.org/&quot;&gt;ownCloud&lt;/a&gt;等&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;服务器端下载Seafile&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;在Seafile的官网找到合适的服务器端下载按钮，右键拷贝链接，之后用wget就可以获取&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2021_zps7cza6mnb.png&quot; alt=&quot;当前Linux Server端最新版本&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;首先，在宿主机SSH连接到服务器后，使用命令&lt;code class=&quot;highlighter-rouge&quot;&gt;sudo yum install wget&lt;/code&gt;为服务器安装&lt;code class=&quot;highlighter-rouge&quot;&gt;wget&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2022-1_zpsalctobxm.png&quot; alt=&quot;安装wget&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;之后，即可以使用&lt;code class=&quot;highlighter-rouge&quot;&gt;wget&lt;/code&gt;的方式下载指定版本的Seafile文件压缩包&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;wget http://seafile-downloads.oss-cn-shanghai.aliyuncs.com/seafile-server_6.0.9_x86-64.tar.gz
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;配置seafile&quot;&gt;配置Seafile&lt;/h2&gt;
+
+&lt;p&gt;本节的配置Seafile的内容，是达拉然巨坑，我是根据官方文档中&lt;a href=&quot;https://manual.seafile.com/deploy/using_mysql.html&quot;&gt;Deploying Seafile with MySQL&lt;/a&gt;一节来做的，遇到了不少问题问题，边做边说&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;按照文档要求&lt;/strong&gt;，解压文件，建立文件夹&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2023_zps9bbxcriw.png&quot; alt=&quot;解压文件建立文件夹&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;这里有个小工具&lt;code class=&quot;highlighter-rouge&quot;&gt;tree&lt;/code&gt;很有用，我们安装一下，命令为&lt;code class=&quot;highlighter-rouge&quot;&gt;sudo yum install tree -y&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2024_zpszjtuq1iu.png&quot; alt=&quot;安装tree&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;作用看下图就知道了&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2025_zpsixdyidra.png&quot; alt=&quot;tree查看目录结构&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;按照官方文档要求&lt;/strong&gt;，安装Seafile服务的依赖&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2026_zpsnpzwnsfb.png&quot; alt=&quot;安装依赖&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;安装官方文档要求&lt;/strong&gt;，运行&lt;code class=&quot;highlighter-rouge&quot;&gt;setup-seafile-mysql.sh&lt;/code&gt;脚本&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2027_zpsn45ldjoy.png&quot; alt=&quot;运行setup-seafile-mysql.sh脚本&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;这里提示了缺少python的&lt;code class=&quot;highlighter-rouge&quot;&gt;setuptools&lt;/code&gt;模块，&lt;strong&gt;注意&lt;/strong&gt;，这里虽然高亮提醒的是缺少&lt;code class=&quot;highlighter-rouge&quot;&gt;setuptools&lt;/code&gt;，但是需要安装的东西在其下面的非高亮log部分，在CentOS中，执行&lt;code class=&quot;highlighter-rouge&quot;&gt;yum install python-distribute&lt;/code&gt;进行安装&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2028_zps1hy5begc.png&quot; alt=&quot;安装缺少的setuptools模块&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;按照官方文档要求&lt;/strong&gt;，再次运行&lt;code class=&quot;highlighter-rouge&quot;&gt;setup-seafile-mysql.sh&lt;/code&gt;脚本&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2029_zpsm9rjsikl.png&quot; alt=&quot;再次运行``setup-seafile-mysql.sh``脚本&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;这里成功的开始运行脚本，需要点击&lt;code class=&quot;highlighter-rouge&quot;&gt;ENTER&lt;/code&gt;按键开始，开始之后的内容会要求设置一系列的相关内容，具体的内容表达的信息基本可以猜到，猜不到的也罗列的很清楚在&lt;a href=&quot;https://manual.seafile.com/deploy/using_mysql.html&quot;&gt;Deploying Seafile with MySQL&lt;/a&gt;文档中&lt;/p&gt;
+
+&lt;p&gt;但是&lt;/p&gt;
+
+&lt;p&gt;在运行到mysql相关的登入步骤时，出现了错误&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2030_zpsg4sugtkh.png&quot; alt=&quot;mysql登入错误&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;这个坑花了很多时间，Google出来的答案也是五花八门，最后的解决方式是使用&lt;a href=&quot;https://mariadb.org/&quot;&gt;MariaDB&lt;/a&gt;来完成数据库的创建&lt;/p&gt;
+
+&lt;p&gt;关于MariaDB和MySQL的关系，感兴趣可以看&lt;a href=&quot;https://en.wikipedia.org/wiki/MariaDB&quot;&gt;wiki&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;终止脚本，安装并启动MariaDB&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ctrl + C&lt;/code&gt;终止脚本，使用命令&lt;code class=&quot;highlighter-rouge&quot;&gt;sudo yum install mariadb mariadb-server&lt;/code&gt;安装MariaDB及其服务&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2031_zpsnsswzcdu.png&quot; alt=&quot;安装MariaDB&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;启动MariaDB服务&lt;code class=&quot;highlighter-rouge&quot;&gt;sudo systemctl start mariadb.service&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;设置开机自启动&lt;code class=&quot;highlighter-rouge&quot;&gt;sudo systemctl enable mariadb.service&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2032_zps3lvn9s7m.png&quot; alt=&quot;启动并设置自启动&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;数据库安全性设置，推荐全部选择&lt;code class=&quot;highlighter-rouge&quot;&gt;Y&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2033_zpsxaka2v9w.png&quot; alt=&quot;secure installation&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;至此，数据库的问题解决了，可以再次执行&lt;code class=&quot;highlighter-rouge&quot;&gt;setup-seafile-mysql.sh&lt;/code&gt;脚本，顺利完成&lt;/p&gt;
+
+&lt;h2 id=&quot;启动seafile服务&quot;&gt;启动Seafile服务&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;按照官方文档&lt;/strong&gt;，运行&lt;code class=&quot;highlighter-rouge&quot;&gt;seafile.sh&lt;/code&gt;脚本及&lt;code class=&quot;highlighter-rouge&quot;&gt;seahub.sh&lt;/code&gt;脚本&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;启动seafile及seahub服务，过程中需要设置邮箱密码等账户信息，关于seafile和seahub，可以理解为：seafile是文件服务的后台，seahub是服务的前端，在服务器端8000端口可以访问seahub页面，从而查看到文件信息&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2036_zpsyfr06vec.png&quot; alt=&quot;启动seafile及seahub服务&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;设置防火墙&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;我们需要从外部访问到seafile和seahub服务，因此我们需要为seafile和seahub的端口设置防火墙为public&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2037_zpsylqwwgip.png&quot; alt=&quot;设置防火墙&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;至此，服务器Seafile服务配置启动完毕，我们拥有了自己的私有云盘&lt;/p&gt;
+
+&lt;h2 id=&quot;从局域网内访问私有云盘&quot;&gt;从局域网内访问私有云盘&lt;/h2&gt;
+
+&lt;p&gt;还记得我们之前已经将服务器的&lt;code class=&quot;highlighter-rouge&quot;&gt;192.168.99.101:8000&lt;/code&gt;转发到了宿主机的&lt;code class=&quot;highlighter-rouge&quot;&gt;localhost:9988&lt;/code&gt;，那么我们现在直接访问&lt;code class=&quot;highlighter-rouge&quot;&gt;localhost:9988&lt;/code&gt;就可以登录到seahub网页，邮箱密码就是前面设置的那个&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2038_zpsfhzkax10.png&quot; alt=&quot;登陆seahub&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;登陆后，我们上传一张图片作为实验，成功&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2039_zpsnos7qcxr.png&quot; alt=&quot;成功上传图片&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Bingo!!!&lt;/p&gt;
+
+&lt;p&gt;现在只要在我们局域网内的任何人只要用这个账密登入，就可以同步和共享文件了&lt;/p&gt;
+
+&lt;p&gt;理论上，如果我们不是在VirtualBox里面，而是在真实的线上的一台服务器上面做我们上面这些操作，现在已经可以通过服务器的IP地址来完成从互联网到私有云盘的访问了，我们的私有云盘项目就搞定了&lt;/p&gt;
+
+&lt;p&gt;但是，既然我们在VirtualBox里面做的，那么就把这个项目做到底，让她能够被公网访问&lt;/p&gt;
+
+&lt;h2 id=&quot;从公网访问virtualbox内的虚拟机服务器上的私有云盘&quot;&gt;从公网访问VirtualBox内的虚拟机服务器上的私有云盘&lt;/h2&gt;
+
+&lt;p&gt;这里我们需要利用一个神器&lt;a href=&quot;https://ngrok.com/&quot;&gt;ngrok&lt;/a&gt;，这里我要实现的只是将私有云盘能够从公网访问，爽一把，所以只需要使用最基础的ngrok的端口映射功能就好了，这个神器还是第一次开发微信公众号后台的时候认识的&lt;/p&gt;
+
+&lt;p&gt;ngrok的使用很简单，下载，运行，运行方式如下，如果提示&lt;code class=&quot;highlighter-rouge&quot;&gt;ngrok&lt;/code&gt;命令为发现，那么将ngrok移入Mac的bin目录或者制作软链接到bin目录就好&lt;/p&gt;
+
+&lt;p&gt;运行ngrok映射本地端口到公网 &lt;code class=&quot;highlighter-rouge&quot;&gt;ngrok http 9988&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;将&lt;code class=&quot;highlighter-rouge&quot;&gt;9988&lt;/code&gt;端口映射到&lt;strong&gt;随机&lt;/strong&gt;公网地址(想不随机要花钱，暂时穷-_-$)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2040_zps46maujd7.png&quot; alt=&quot;ngrok映射端口到公网&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;图上&lt;code class=&quot;highlighter-rouge&quot;&gt;http://....ngrok.io&lt;/code&gt;就是现在&lt;code class=&quot;highlighter-rouge&quot;&gt;9988&lt;/code&gt;端口映射到公网后的地址，也就是说，从这个在公网可以访问的地址，访问时，会访问到宿主机的&lt;code class=&quot;highlighter-rouge&quot;&gt;localhost:9988&lt;/code&gt;，而记得我们之前已经将&lt;code class=&quot;highlighter-rouge&quot;&gt;localhost:9988&lt;/code&gt;与虚拟机服务器的&lt;code class=&quot;highlighter-rouge&quot;&gt;192.168.99.101:8000&lt;/code&gt;绑定，那么就达到了从公网直接穿透过来访问我们的VirtubalBox上面服务的目的&lt;/p&gt;
+
+&lt;p&gt;最后一张图，使用手机访问ngrok提供的地址，成功访问到了自己在VirtualBox上的私有云服务，注意图片左上角，使用的是手机网络而非宿主机Mac所连接的WiFi，同时地址栏也能看到访问的地址是ngrok给映射的地址&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2041_zps80uubho8.jpeg&quot; alt=&quot;公网访问VirtualBox私有云&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;问题总结&quot;&gt;问题总结&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;NAT, Host-only, Bridged Adapter的区别&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;强烈推荐看一下VirtualBox官网的&lt;a href=&quot;https://www.virtualbox.org/manual/ch06.html&quot;&gt;Virtual networking&lt;/a&gt;一章&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;SSH相关&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;关于SSH，所有需要了解到东西都能在&lt;a href=&quot;https://www.ssh.com/&quot;&gt;这里&lt;/a&gt;找到答案&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Seafile的更进一步配置，高级用法&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;推荐根据&lt;a href=&quot;https://www.gitbook.com/book/seafile/seafile-server-manual/details&quot;&gt;官方文档&lt;/a&gt;来研究，虽然官方文档有些地方写的不是特别清楚，但是也没有别的更好的途径，踩坑之后可以再Google之&lt;/p&gt;
+
+&lt;p&gt;最后，鉴于各种免费网盘的限容、审查、不定时炸弹般下架等种种不方便，在找到合适的服务器后搭建成功自己的私有云盘，结合Seafile的各种高级特性，易用性、安全性等方面带来的收益，应该是很值得花时间研究下的～&lt;/p&gt;
+
+</content>
+ </entry>
+ 
+ <entry>
+   <title>VirtualBox & CentOS7 & SSH & Seafile & ngrok 搭建私有云盘Part1</title>
+   <link href="http://localhost:4000/project/2017/04/16/Virtualbox&CentOS7&Seafile%E6%90%AD%E5%BB%BA%E7%A7%81%E6%9C%89%E4%BA%91%E7%9B%98Part1/"/>
+   <updated>2017-04-16T00:00:00-04:00</updated>
+   <id>http://localhost:4000/project/2017/04/16/Virtualbox&CentOS7&Seafile搭建私有云盘Part1</id>
+   <content type="html">&lt;p&gt;Build your own private cloud disk using VirtualBox &amp;amp; CentOS7 &amp;amp; SSH &amp;amp; Seafile &amp;amp; ngrok Part1&lt;/p&gt;
+
+&lt;p&gt;这个是个人的一篇经验总结，或者说花样踩坑集锦&lt;/p&gt;
+
+&lt;p&gt;先说下最终完成的效果：宿主机为Mac，在VirtualBox中安装CentOS7 minimal做为服务器，通过SSH由宿主机连接到CentOS7并在其中构建Seafile服务，通过外网或内网访问Seafile服务以完成同步或共享文件的功能，达到拥有私有云盘的目的&lt;/p&gt;
+
+&lt;h2 id=&quot;在virtualbox中配置用于安装centos7的虚拟机&quot;&gt;在VirtualBox中配置用于安装CentOS7的虚拟机&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.virtualbox.org/wiki/VirtualBox&quot;&gt;VirtualBox&lt;/a&gt;是一款Mac上很好用的虚拟机软件，之所以选择VirtualBox而不是其他的虚拟机软件，是因为我司项目开发就用的VirtualBox，所以我最初做这个项目的目的之一就是用来练手加强对VirtualBox的理解的&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.centos.org/&quot;&gt;CentOS7&lt;/a&gt;是RedHat之下的一款社区版Linux，目前最高级版本为7， 可以在&lt;a href=&quot;https://www.centos.org/download/&quot;&gt;这里&lt;/a&gt;下载。在下载页面会看到有&lt;code class=&quot;highlighter-rouge&quot;&gt;DVD ISO&lt;/code&gt;，&lt;code class=&quot;highlighter-rouge&quot;&gt;Everything ISO&lt;/code&gt;，&lt;code class=&quot;highlighter-rouge&quot;&gt;Minimal ISO&lt;/code&gt;三个选项，一般来说，如果需要GUI页面，选择&lt;code class=&quot;highlighter-rouge&quot;&gt;DVD ISO&lt;/code&gt;，如果只需要最小安装尤其是作为服务器操作系统时，选择&lt;code class=&quot;highlighter-rouge&quot;&gt;Minimal ISO&lt;/code&gt;，而&lt;code class=&quot;highlighter-rouge&quot;&gt;Everything ISO&lt;/code&gt;对一般用户来说很少选择，其包含了以上两种ISO文件所有的内容，并额外包括开发CentOS功能所需要的内容&lt;/p&gt;
+
+&lt;p&gt;下面开始比较通用的在VirtualBox中安装虚拟机的步骤，这个步骤理论上是适合于创建任何系统虚拟机的，毕竟只是打造一台”裸机”&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;命名虚拟机及指定操作系统，命名随意，Type选Linux，Version选Red Hat&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot_zpsecmyufzi.png&quot; alt=&quot;命名虚拟机及指定操作系统&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;指定虚拟机内存空间，随意更改，我采用了默认设置&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot_zpsecmyufzi.png&quot; alt=&quot;指定虚拟机内存空间&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;虚拟硬盘文件格式，随意更改，我采用了默认设置&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%203_zpsx5c10u1t.png&quot; alt=&quot;硬盘文件格式&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;虚拟硬盘文件存储位置及大小，随意更改，我采用了默认设置&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%204_zps5jzzeqdi.png&quot; alt=&quot;虚拟硬盘文件存储位置及大小&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;虚拟硬盘文件是否可动态增长，随意更改，我采用了默认设置&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%205_zpskvyylbnt.png&quot; alt=&quot;虚拟硬盘文件是否可动态增长&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;裸机搞定&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%206_zps0arqwzpz.png&quot; alt=&quot;裸机搞定&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;在虚拟机中安装centos7操作系统&quot;&gt;在虚拟机中安装CentOS7操作系统&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;载入操作系统镜像 CentOS7 Minimal ISO&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;启动刚刚设置成功的裸机，会要求安装系统，在系统文件加载的地方指定到之前下载的CentOS7 Minimal ISO后点击start即可&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%207_zps06iiysmz.png&quot; alt=&quot;安装系统&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;进入CentOS系统安装页面后，鼠标被VirtualBox的虚拟机窗口捕获后会提示是否允许捕获，当然选是，然后虚拟机中按&lt;code class=&quot;highlighter-rouge&quot;&gt;cmd + 鼠标左键&lt;/code&gt;的方式可以退出捕获，让鼠标回归宿主机&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;安装CentOS7&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;进入安装选择界面，键盘方向键上下调节选项，&lt;code class=&quot;highlighter-rouge&quot;&gt;Enter&lt;/code&gt;键选中选项，这里选择最简单的安装方式即可，即执行&lt;code class=&quot;highlighter-rouge&quot;&gt;Install CentOS Linux 7&lt;/code&gt;选项&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%208_zps4gpb02kt.png&quot; alt=&quot;Install CentOS Linux 7&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;安装时需要注意，不要随便调节窗口大小，一般VirtualBox会自动缩放窗口以让用户能最明显和方便的点击各个按钮，如果你像我一样手贱的缩放了窗口，那么记得上下左右滚动窗口以找到各种下一步的按钮，不要像我一样轻易以为VirtualBox傻缺&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;选择系统语言，推荐英语，没啥可说的&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%209_zpsgihrcns6.png&quot; alt=&quot;选择语言&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;系统安装设定，这个我们不需用在CentOS安装时设定，因为我们之前在裸机设置时已经搞定了，这里点开这个设定窗口后直接左上角&lt;code class=&quot;highlighter-rouge&quot;&gt;done&lt;/code&gt;即可&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2010_zpsd2omagbz.png&quot; alt=&quot;系统安装设定-1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2011_zps6ixumbux.png&quot; alt=&quot;系统安装设定-2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;点击&lt;code class=&quot;highlighter-rouge&quot;&gt;Begin Installation&lt;/code&gt;即可，喝水&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2012_zps5xlief58.png&quot; alt=&quot;开始安装&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;开始安装后，在读条的过程中，会发现有两个设定需要完成，这里不用着急，着急也没用，进度图跑完前没法点击这两个按钮，安心喝水&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2013_zps37bj6soz.png&quot; alt=&quot;读条&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;读条结束后，开始设置两个黄色感叹号内容&lt;/p&gt;
+
+&lt;p&gt;root用户的密码设定，很重要，不用我多说&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2014_zpsol2pfvvh.png&quot; alt=&quot;root密码&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;注意看图，知识点又来了，设置的root密码强度差不说，还居然包含了root用户名，被系统吐槽，而且这样的密码需要点两次左上角的&lt;code class=&quot;highlighter-rouge&quot;&gt;Done&lt;/code&gt;才能设置成功&lt;/p&gt;
+
+&lt;p&gt;这里主要是在本地虚拟环境，不想设置太复杂的密码，会忘 -_-#&lt;/p&gt;
+
+&lt;p&gt;接下来设置一个登陆用户，在你设置完root密码后，这个设定已经变成可选了，但是还是推荐在这里设置好&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2015_zpsq4rt97rc.png&quot; alt=&quot;设置登录用户&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;我这里直接给自己的登陆用户作为管理员了，以后的操作都会使用该用户&lt;strike&gt;为了加深印象我又把密码设置的很差劲让系统提醒一次 [doge] &lt;/strike&gt;&lt;/p&gt;
+
+&lt;p&gt;OK，这里设置完毕后，左上角&lt;code class=&quot;highlighter-rouge&quot;&gt;Done&lt;/code&gt;*2，系统就开始启动了，在VirtualBox中安装CentOS7的操作就完成了&lt;/p&gt;
+
+&lt;h2 id=&quot;通过ssh由mac宿主机访问centos7虚拟机&quot;&gt;通过SSH由Mac宿主机访问CentOS7虚拟机&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;登陆虚拟机，查看网络配置&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;在CentOS7启动后，会停留在&lt;code class=&quot;highlighter-rouge&quot;&gt;localhost login:&lt;/code&gt;处等待，这里使用管理员&lt;code class=&quot;highlighter-rouge&quot;&gt;kenshin&lt;/code&gt;的账密登入&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2015-1_zpsfhfnflbj.png&quot; alt=&quot;登入系统&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;图中重点，&lt;code class=&quot;highlighter-rouge&quot;&gt;ip addr&lt;/code&gt;查看CentOS7的网络配置，注意&lt;code class=&quot;highlighter-rouge&quot;&gt;2: enp0s3:&lt;/code&gt;，这里指示的是虚拟机的internet连接，能够发现，没有ip地址&lt;/p&gt;
+
+&lt;p&gt;这是因为CentOS7的网络服务并不是默认开机启动的，需要手动配置&lt;/p&gt;
+
+&lt;p&gt;首先进入到CentOS7的网络配置文件所在目录&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cd /etc/sysconfig/network-scripts/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2016-1_zpsqves4lcb.png&quot; alt=&quot;配置网络-1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;然后打开&lt;code class=&quot;highlighter-rouge&quot;&gt;ifcfg-enp0s3&lt;/code&gt;文件，这里需要&lt;code class=&quot;highlighter-rouge&quot;&gt;sudo&lt;/code&gt;权限来编辑该文件&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo vi ifcfg-enp0s3
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2016-2_zpsidzamajs.png&quot; alt=&quot;打开ifcfg-enp0s3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;将&lt;code class=&quot;highlighter-rouge&quot;&gt;ONBOOT&lt;/code&gt;设置为&lt;code class=&quot;highlighter-rouge&quot;&gt;yes&lt;/code&gt;后&lt;code class=&quot;highlighter-rouge&quot;&gt;wq&lt;/code&gt;保存并退出&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2016-3_zps9tnq5rud.png&quot; alt=&quot;ONBOOT&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;关闭虚拟机，配置网卡&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;经过上面的操作，理论上是只需要重启网络服务就可以了，但是我们需要退出来为虚拟机额外添加网卡，所以索性先关机&lt;/p&gt;
+
+&lt;p&gt;而更实际上，我们在创建裸机的时候就可以添加好这个额外的网卡的，但是我忘了&lt;/p&gt;
+
+&lt;p&gt;其实真实情况是，这里我浪费了很多时间来处理网卡的事情，最初我并没有想到VirtualBox默认的NAT网卡不能完成我后面需要的SSH连接的功能，后来还搞了一阵Bridged Adapter的作用，所以这里是已经折腾了很多东西之后才发现的事情，但是既然是记录步骤，就不说那些错误和解决错误的详情了，最后再统一总结下就好了&lt;/p&gt;
+
+&lt;p&gt;另外，关于NAT，Host-only，Bridged的Adapter的区别，后面会提到&lt;/p&gt;
+
+&lt;p&gt;总之，现在把虚拟机关机，回到VirtualBox界面后，为虚拟机添加一个Host-only Adapter&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2017_zpszf0m00r6.png&quot; alt=&quot;添加Host-only Adapter&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;启动虚拟机，再次查看网络信息&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;网卡添加完毕后，启动虚拟机，登入管理员账户，执行&lt;code class=&quot;highlighter-rouge&quot;&gt;ip addr&lt;/code&gt;命令查看网络信息&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2018_zpsmk3dmykk.png&quot; alt=&quot;新的网络信息&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;重点来了，图上我们有了两个internet的ip地址&lt;/p&gt;
+
+&lt;p&gt;图中&lt;code class=&quot;highlighter-rouge&quot;&gt;2: enp0s3 .... inet 10.0.2.15&lt;/code&gt;是由NAT Adapter提供的，其可以ping通外界网络，也就是外界网络对其来说可见，但是外界不能ping通&lt;code class=&quot;highlighter-rouge&quot;&gt;10.0.2.15&lt;/code&gt;，也就是其对外界网络来说不可见，&lt;strong&gt;包括宿主机也不能ping通 10.0.2.15&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;图中&lt;code class=&quot;highlighter-rouge&quot;&gt;3: enp0s8 ... inet 192.168.99.101&lt;/code&gt;是由Host-onlyAdapter提供的，其可以ping通外界网络，也就是外界网络对其来说可见，但是外界不能直接ping通&lt;code class=&quot;highlighter-rouge&quot;&gt;192.168.99.101&lt;/code&gt;，也就是其对外界网络来说不可见，&lt;strong&gt;但是宿主机可以ping通 192.168.99.101&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;这就是为什么需要额外添加一张Host-onlyAdapter的原因，如果宿主机都不能ping通虚拟机，那么SSH毛毛啊&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;宿主机SSH连接虚拟机&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;在虚拟机中执行&lt;code class=&quot;highlighter-rouge&quot;&gt;service sshd start&lt;/code&gt;命令来开启SSH服务，默认会运行在22端口&lt;/p&gt;
+
+&lt;p&gt;在虚拟机中执行&lt;code class=&quot;highlighter-rouge&quot;&gt;systemctl status sshd&lt;/code&gt;命令来查看SSH服务状态&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2018-1_zpscik19mco.png&quot; alt=&quot;SSH服务状态&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Loaded: ...enabled...&lt;/code&gt;表示SSH服务开启了开机自启动，这正是我们需要的&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Active: active(running)...&lt;/code&gt;表示SSH服务当前正在运行&lt;/p&gt;
+
+&lt;p&gt;现在，想建立SSH连接就只剩下最后一步，设置端口&lt;/p&gt;
+
+&lt;p&gt;在NAT Adatper中配置端口转发信息，为什么不在Host-only Adapter中配置呢，因为不能&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Tips, 配置端口转发不需要重启虚拟机的&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;打开虚拟机的网络配置界面，在NAT Adapter中选择&lt;code class=&quot;highlighter-rouge&quot;&gt;Port Forwarding&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2019-0_zpspwegr3jn.png&quot; alt=&quot;打开NAT Adapter&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Port Forwarding&lt;/code&gt;配置端口转发信息&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2019_zpskq2kaya7.png&quot; alt=&quot;端口转发&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;这里做了两个端口转发&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Guest Port 22&lt;/code&gt;是用来做SSH连接的，默认情况下，服务器22端口用于SSH，&lt;code class=&quot;highlighter-rouge&quot;&gt;Guest IP&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;Host IP&lt;/code&gt;都正常设置，&lt;code class=&quot;highlighter-rouge&quot;&gt;Host Port&lt;/code&gt;随意，不要冲突了就好&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Guest Port 8000&lt;/code&gt;是用来做服务转发的，后面会用到，我会把虚拟机8000端口的服务转发到宿主机，然后宿主机可以用来搞点事情，这里&lt;code class=&quot;highlighter-rouge&quot;&gt;Guest IP&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;Host IP&lt;/code&gt;也是正常设置，&lt;code class=&quot;highlighter-rouge&quot;&gt;Host Port&lt;/code&gt;同样随意，不冲突就行&lt;/p&gt;
+
+&lt;p&gt;保存信息之后，在CentOS7中使用&lt;code class=&quot;highlighter-rouge&quot;&gt;sudo systemctl restart network&lt;/code&gt;命令重启下网络服务或者直接&lt;code class=&quot;highlighter-rouge&quot;&gt;reboot&lt;/code&gt;命令重启机器&lt;/p&gt;
+
+&lt;p&gt;在宿主机SSH连接虚拟机，&lt;code class=&quot;highlighter-rouge&quot;&gt;-p&lt;/code&gt;指定端口，后面再跟要登入的用户及服务器地址，我们已经做了端口和地址转发，因此这里的命令如下&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-16-post01/screenshot%2020_zpsqgtymite.png&quot; alt=&quot;SSH连接&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Bingo!!!&lt;/p&gt;
+
+&lt;p&gt;搞定，我们现在可以在Mac宿主机终端经由SSH操作CentOS7虚拟机了，也就是我们的服务器（下面我也会除非万不得已，不然均称呼我们的CentOS7君为服务器），接下来我们就开始在服务器配置Seafile，不过现在内容太多了，尤其是很多图片，所以写在第二部分&lt;/p&gt;
+
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Golang比较两个slice是否相等</title>
+   <link href="http://localhost:4000/program/2017/04/11/Golang%E6%AF%94%E8%BE%83%E4%B8%A4%E4%B8%AAslice%E6%98%AF%E5%90%A6%E7%9B%B8%E7%AD%89/"/>
+   <updated>2017-04-11T00:00:00-04:00</updated>
+   <id>http://localhost:4000/program/2017/04/11/Golang比较两个slice是否相等</id>
+   <content type="html">&lt;p&gt;Compare two string slices in GoLang&lt;/p&gt;
+
+&lt;p&gt;开发中经常会遇到需要比较两个slice包含的元素是否完全相等的情况，一般来说有两个思路：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;reflect&lt;/code&gt;比较的方法&lt;/li&gt;
+  &lt;li&gt;循环遍历比较的方法&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;这里用检查两个字符串slice是否相等的例子来测试一下这两种思路的效率&lt;strike&gt;我当然知道你知道reflect方法效率更差啦&lt;/strike&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;reflect比较的方法&quot;&gt;reflect比较的方法&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func StringSliceReflectEqual(a, b []string) bool {
+    return reflect.DeepEqual(a, b)
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;这个写法很简单，就是直接使用&lt;code class=&quot;highlighter-rouge&quot;&gt;reflect&lt;/code&gt;包的&lt;code class=&quot;highlighter-rouge&quot;&gt;reflect.DeepEqual&lt;/code&gt;方法来比较&lt;code class=&quot;highlighter-rouge&quot;&gt;a&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;b&lt;/code&gt;是否相等&lt;/p&gt;
+
+&lt;p&gt;这是我最初完成这个需求的方式，年轻嘛，比较天真，觉得&lt;code class=&quot;highlighter-rouge&quot;&gt;reflect&lt;/code&gt;啊，高端大气，而且一行代码搞定，简洁有力，给自己默默的点个赞&lt;/p&gt;
+
+&lt;h2 id=&quot;循环遍历比较的方法&quot;&gt;循环遍历比较的方法&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func StringSliceEqual(a, b []string) bool {
+    if len(a) != len(b) {
+        return false
+    }
+
+    if (a == nil) != (b == nil) {
+        return false
+    }
+
+    for i, v := range a {
+        if v != b[i] {
+            return false
+        }
+    }
+
+    return true
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;以上是我们项目中的使用的用来比较字符串slice是否相等的一个函数，代码逻辑很简单；先比较长度是否相等，&lt;code class=&quot;highlighter-rouge&quot;&gt;否&lt;/code&gt;则&lt;code class=&quot;highlighter-rouge&quot;&gt;false&lt;/code&gt;；再比较两个slice是否都为nil或都不为nil，&lt;code class=&quot;highlighter-rouge&quot;&gt;否&lt;/code&gt;则&lt;code class=&quot;highlighter-rouge&quot;&gt;false&lt;/code&gt;；再比较对应索引处两个slice的元素是否相等，&lt;code class=&quot;highlighter-rouge&quot;&gt;否&lt;/code&gt;则&lt;code class=&quot;highlighter-rouge&quot;&gt;false&lt;/code&gt;；前面都为&lt;code class=&quot;highlighter-rouge&quot;&gt;是&lt;/code&gt;则&lt;code class=&quot;highlighter-rouge&quot;&gt;true&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;需要注意&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;if (a == nil) != (b == nil) {
+    return false
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;这段代码是必须的，虽然如果没有这段代码，在大多数情况下，上面的函数可以正常工作，但是增加这段代码的作用是与&lt;code class=&quot;highlighter-rouge&quot;&gt;reflect.DeepEqual&lt;/code&gt;的结果保持一致：&lt;code class=&quot;highlighter-rouge&quot;&gt;[]int{} != []int(nil)&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;benchmark测试效率&quot;&gt;Benchmark测试效率&lt;/h2&gt;
+
+&lt;p&gt;我们都知道Golang中reflect效率很低，所以虽然循环遍历的方法看起来很啰嗦，但是如果真的效率比reflect方法高很多，就只能忍痛放弃reflect了&lt;/p&gt;
+
+&lt;p&gt;使用Benchmark来简单的测试下二者的效率&lt;/p&gt;
+
+&lt;p&gt;Benchmark StringSliceEqual&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func BenchmarkEqual(b *testing.B) {
+    sa := []string{&quot;q&quot;, &quot;w&quot;, &quot;e&quot;, &quot;r&quot;, &quot;t&quot;}
+    sb := []string{&quot;q&quot;, &quot;w&quot;, &quot;a&quot;, &quot;s&quot;, &quot;z&quot;, &quot;x&quot;}
+    b.ResetTimer()
+    for n := 0; n &amp;lt; b.N; n++ {
+        StringSliceEqual(sa, sb)
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Benchmark StringSliceReflectEqual&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func BenchmarkDeepEqual(b *testing.B) {
+    sa := []string{&quot;q&quot;, &quot;w&quot;, &quot;e&quot;, &quot;r&quot;, &quot;t&quot;}
+    sb := []string{&quot;q&quot;, &quot;w&quot;, &quot;a&quot;, &quot;s&quot;, &quot;z&quot;, &quot;x&quot;}
+    b.ResetTimer()
+    for n := 0; n &amp;lt; b.N; n++ {
+        StringSliceReflectEqual(sa, sb)
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;上面两个函数中，&lt;code class=&quot;highlighter-rouge&quot;&gt;b.ResetTimer()&lt;/code&gt;一般用于准备时间比较长的时候重置计时器减少准备时间带来的误差，这里可用可不用&lt;/p&gt;
+
+&lt;p&gt;在测试文件所在目录执行&lt;code class=&quot;highlighter-rouge&quot;&gt;go test -bench=.&lt;/code&gt;命令&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-11-post01/benchmark_zpscf8uwozk.png&quot; alt=&quot;Benchmark对比测试结果&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;在我的电脑，使用循环遍历的方式，3.43纳秒完成一次比较；使用reflect的方式，208纳米完成一次操作，效率对比十分明显&lt;/p&gt;
+
+&lt;h2 id=&quot;bce优化&quot;&gt;BCE优化&lt;/h2&gt;
+
+&lt;p&gt;Golang提供BCE特性，即&lt;a href=&quot;https://en.wikipedia.org/wiki/Bounds-checking_elimination&quot;&gt;Bounds-checking elimination&lt;/a&gt;，关于Golang中的BCE，推荐一篇大牛博客&lt;a href=&quot;http://www.tapirgames.com/blog/golang-1.7-bce&quot;&gt;Bounds Check Elimination (BCE) In Golang 1.7&lt;/a&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func StringSliceEqualBCE(a, b []string) bool {
+	if len(a) != len(b) {
+		return false
+	}
+
+	if (a == nil) != (b == nil) {
+		return false
+	}
+
+	b = b[:len(a)]
+	for i, v := range a {
+		if v != b[i] {
+			return false
+		}
+	}
+
+	return true
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;上述代码通过&lt;code class=&quot;highlighter-rouge&quot;&gt;b = b[:len(a)]&lt;/code&gt;处的bounds check能够明确保证&lt;code class=&quot;highlighter-rouge&quot;&gt;v != b[i]&lt;/code&gt;中的&lt;code class=&quot;highlighter-rouge&quot;&gt;b[i]&lt;/code&gt;不会出现越界错误，从而避免了&lt;code class=&quot;highlighter-rouge&quot;&gt;b[i]&lt;/code&gt;中的越界检查从而提高效率&lt;/p&gt;
+
+&lt;p&gt;类似的，完成Benchmark函数&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func BenchmarkEqualBCE(b *testing.B) {
+	sa := []string{&quot;q&quot;, &quot;w&quot;, &quot;e&quot;, &quot;r&quot;, &quot;t&quot;}
+	sb := []string{&quot;q&quot;, &quot;w&quot;, &quot;a&quot;, &quot;s&quot;, &quot;z&quot;, &quot;x&quot;}
+	b.ResetTimer()
+	for n := 0; n &amp;lt; b.N; n++ {
+		StringSliceEqualBCE(sa, sb)
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;在测试文件所在目录执行&lt;code class=&quot;highlighter-rouge&quot;&gt;go test -bench=.&lt;/code&gt;命令&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-11-post01/benchmark1_zpseuvqxkor.png&quot; alt=&quot;Benchmark对比测试结果&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;看起来提升并不明显啊，而且在运行多次Benchmard测试的过程中还出现过&lt;code class=&quot;highlighter-rouge&quot;&gt;BenchmarkEqualBCE&lt;/code&gt;效率低于&lt;code class=&quot;highlighter-rouge&quot;&gt;BenchmarkEqual&lt;/code&gt;的情况（╯‵□′）╯︵┴─┴&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;可能是我对BCE的理解姿势有问题亦或是Golang BCE自身的问题，总之这个如果我有了更深入的理解会再次更新&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;但是随着Golang的优化，应该会越来越明显吧  ┬─┬ ノ( ‘ - ‘ノ)&lt;/p&gt;
+
+&lt;h2 id=&quot;结论&quot;&gt;结论&lt;/h2&gt;
+
+&lt;p&gt;推荐使用StringSliceEqualBCE形式的比较函数&lt;strike&gt;反正不用reflect比较就不会被领导骂被同事喷&lt;/strike&gt;&lt;/p&gt;
+
+&lt;p&gt;代码已经上传到了我的Github&lt;a href=&quot;https://github.com/kenshinsyrup/AllGolangDemo/tree/master/CompareSlice&quot;&gt;仓库&lt;/a&gt;可以下载测试&lt;/p&gt;
+
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Golang通过HTTP Response获取Zip文件</title>
+   <link href="http://localhost:4000/program/2017/04/01/Golang%E9%80%9A%E8%BF%87HTTP-Response%E8%8E%B7%E5%8F%96Zip%E6%96%87%E4%BB%B6/"/>
+   <updated>2017-04-01T00:00:00-04:00</updated>
+   <id>http://localhost:4000/program/2017/04/01/Golang通过HTTP Response获取Zip文件</id>
+   <content type="html">&lt;p&gt;本来计划至少一周总结一次学到的东西，不过好像没有实现啊😅&lt;/p&gt;
+
+&lt;p&gt;一看时间都4月1号了，一个月了，总该写点啥&lt;/p&gt;
+
+&lt;p&gt;最近运气不好，出了很多事情，虽然都是不足为外人道的东西，但确实影响心情，希望大家每天都能开开心心的&lt;/p&gt;
+
+&lt;p&gt;今天写一下前几天遇到的一个需求：通过一个URL获取用户信息的zip文件&lt;/p&gt;
+
+&lt;p&gt;不涉及过多业务内容的话，就是要写一个小Demo，通过一个给定URL，获取一个zip文件&lt;/p&gt;
+
+&lt;h2 id=&quot;实现一个极简单的url处理路由&quot;&gt;实现一个极简单的URL处理路由&lt;/h2&gt;
+
+&lt;p&gt;既然是写Demo，那么肯定路由就Golang最简单的ListenAndServe就好了&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func main() {
+	http.HandleFunc(&quot;/zipdownload&quot;, zipHandler)
+	log.Println(&quot;Listening...&quot;)
+	http.ListenAndServe(&quot;:9999&quot;, nil)
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;完成ziphandler函数&quot;&gt;完成zipHandler函数&lt;/h2&gt;
+
+&lt;p&gt;按照Golang的Handler函数签名邀请，完成zipHandler函数&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func zipHandler(rw http.ResponseWriter, r *http.Request) {
+	zipName := &quot;ZipTest.zip&quot;
+	rw.Header().Set(&quot;Content-Type&quot;, &quot;application/zip&quot;)
+	rw.Header().Set(&quot;Content-Disposition&quot;, fmt.Sprintf(&quot;attachment; filename=\&quot;%s\&quot;&quot;, zipName))
+	err := getZip(rw)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;设置响应头信息&quot;&gt;设置响应头信息&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;rw.Header().Set(&quot;Content-Type&quot;, &quot;application/zip&quot;)&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;设置response的头信息中的文件类型，对于zip文件，一般可以设置为&lt;code class=&quot;highlighter-rouge&quot;&gt;application/zip&lt;/code&gt;或&lt;code class=&quot;highlighter-rouge&quot;&gt;application/octet-stream&lt;/code&gt;
+更具体的说明，可以在&lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Complete_list_of_MIME_types&quot;&gt;Complete list of MIME types&lt;/a&gt;获得，我是选择了&lt;code class=&quot;highlighter-rouge&quot;&gt;application/zip&lt;/code&gt;来告诉服务器精确的文件类型&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;rw.Header().Set(&quot;Content-Disposition&quot;, fmt.Sprintf(&quot;attachment; filename=\&quot;%s\&quot;&quot;, zipName))&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;设置&lt;code class=&quot;highlighter-rouge&quot;&gt;Content-Disposition&lt;/code&gt;为&lt;code class=&quot;highlighter-rouge&quot;&gt;attachment&lt;/code&gt;即附件类型，同时设置附件文件名为我们给定的&lt;code class=&quot;highlighter-rouge&quot;&gt;zipName&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;响应头信息中的&lt;code class=&quot;highlighter-rouge&quot;&gt;Content-Disposition&lt;/code&gt;用于告知浏览器其获取到的文件是需要展示与页面内还是需要作为附件保存到用户本地，如果需要展示在页面内，设置为&lt;code class=&quot;highlighter-rouge&quot;&gt;inline&lt;/code&gt;，否则设置为&lt;code class=&quot;highlighter-rouge&quot;&gt;attachemnt&lt;/code&gt;，在设置为&lt;code class=&quot;highlighter-rouge&quot;&gt;attachment&lt;/code&gt;时还可以额外规定该附件的文件名，更具体的说明，可以在&lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition&quot;&gt;Content-Disposition&lt;/a&gt;获得&lt;/p&gt;
+
+&lt;p&gt;完成这两句代码后，功能其实已经完成了一大半了，最初我就是被这个地方卡住了，在获得需求时思想泡里充满了&lt;code class=&quot;highlighter-rouge&quot;&gt;怎么样才能让HTTP响应得到一个zip文件并且让浏览器将这个文件下载下来而不是试图展示出来&lt;/code&gt;的问题&lt;/p&gt;
+
+&lt;h2 id=&quot;完成getzip函数&quot;&gt;完成getZip函数&lt;/h2&gt;
+
+&lt;p&gt;这里我们只需要完成一个比较基础的zip流程就好，就像我上面说的，这个需求，最难的其实是上面对HTTP Response中Header信息的了解&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func getZip(w io.Writer) error {
+	zipW := zip.NewWriter(w)
+	defer zipW.Close()
+
+	for i := 0; i &amp;lt; 5; i++ {
+		f, err := zipW.Create(strconv.Itoa(i) + &quot;.txt&quot;)
+		if err != nil {
+			return err
+		}
+		_, err = f.Write([]byte(fmt.Sprintf(&quot;Hello file %d&quot;, i)))
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;创建zipwriter&quot;&gt;创建zip.Writer&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;zipW := zip.NewWriter(w)&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;该方法创建一个&lt;code class=&quot;highlighter-rouge&quot;&gt;zip.Writer&lt;/code&gt;，用于向zip文件中写入内容，即打包的文件&lt;/p&gt;
+
+&lt;p&gt;参数为&lt;code class=&quot;highlighter-rouge&quot;&gt;io.Writer&lt;/code&gt;，那么我们这里当然就是使用&lt;code class=&quot;highlighter-rouge&quot;&gt;http.ResponseWriter&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;返回值为一个&lt;code class=&quot;highlighter-rouge&quot;&gt;zip.Writer&lt;/code&gt;，最后的zip内容都会写入这个&lt;code class=&quot;highlighter-rouge&quot;&gt;zip.Writer&lt;/code&gt;，而最终当然是写入了参数的&lt;code class=&quot;highlighter-rouge&quot;&gt;io.Writer&lt;/code&gt;中，也就是我们的&lt;code class=&quot;highlighter-rouge&quot;&gt;http.ResponseWriter&lt;/code&gt;中&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;记得&lt;code class=&quot;highlighter-rouge&quot;&gt;defer zipW.Close()&lt;/code&gt;关闭&lt;code class=&quot;highlighter-rouge&quot;&gt;zip.Writer&lt;/code&gt;&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;向zipwriter中写入文件&quot;&gt;向zip.Writer中写入文件&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;f, err := zipW.Create(strconv.Itoa(i) + &quot;.txt&quot;)&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;该方法向&lt;code class=&quot;highlighter-rouge&quot;&gt;zip.Writer&lt;/code&gt;中添加一个文件，也就是说向zip文件中添加一个文件&lt;/p&gt;
+
+&lt;p&gt;参数字为字符串，会作为写入zip中的文件的文件名&lt;/p&gt;
+
+&lt;p&gt;第一个返回值为一个&lt;code class=&quot;highlighter-rouge&quot;&gt;io.Writer&lt;/code&gt;，用于向其中，也就是向我们添加到zip的文件中，写入文件内容，即如&lt;code class=&quot;highlighter-rouge&quot;&gt;_, err = f.Write([]byte(fmt.Sprintf(&quot;Hello file %d&quot;, i)))&lt;/code&gt;代码所示，我们向文件中写入了简单的字符串&lt;/p&gt;
+
+&lt;h2 id=&quot;运行程序&quot;&gt;运行程序&lt;/h2&gt;
+
+&lt;p&gt;接下来，只需要在程序&lt;code class=&quot;highlighter-rouge&quot;&gt;main.go&lt;/code&gt;所在目录运行&lt;code class=&quot;highlighter-rouge&quot;&gt;go run main.go&lt;/code&gt;就可以在你的浏览器访问&lt;code class=&quot;highlighter-rouge&quot;&gt;localhost:9999/zipdownload&lt;/code&gt;了，浏览器会下载一个zip文件&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-01-post01/ZipTest_zps5m0dywev.png&quot; alt=&quot;下载的ZipTest及解压后的内容&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;最后，代码已经上传到了我的&lt;a href=&quot;https://github.com/kenshinsyrup/AllGolangDemo/blob/master/GetZipFromHTTP/main.go&quot;&gt;Github仓库&lt;/a&gt;可以直接下载测试&lt;/p&gt;
+
+</content>
+ </entry>
+ 
+ <entry>
+   <title>使用Chrome+Postman进行接口调试</title>
+   <link href="http://localhost:4000/%E5%B7%A5%E5%85%B7/2017/03/01/%E4%BD%BF%E7%94%A8Chrome+Postman%E8%BF%9B%E8%A1%8C%E6%8E%A5%E5%8F%A3%E8%B0%83%E8%AF%95/"/>
+   <updated>2017-03-01T00:00:00-05:00</updated>
+   <id>http://localhost:4000/%E5%B7%A5%E5%85%B7/2017/03/01/使用Chrome+Postman进行接口调试</id>
+   <content type="html">&lt;p&gt;时隔多年，又重新看了一遍闪灵&lt;/p&gt;
+
+&lt;p&gt;失眠中 -_-#&lt;/p&gt;
+
+&lt;p&gt;开发过程中经常需要进行接口调试，测试完毕才能交接前端使用，调试过程中，发现了&lt;a href=&quot;https://www.getpostman.com/&quot;&gt;Postman&lt;/a&gt;这个神器，在配合Chrome控制台的情况下，能完美应付大部分情况下的调试工作&lt;/p&gt;
+
+&lt;p&gt;在此，记录下调试过程&lt;/p&gt;
+
+&lt;h2 id=&quot;工具&quot;&gt;工具&lt;/h2&gt;
+
+&lt;p&gt;嗯，这节是废话&lt;/p&gt;
+
+&lt;p&gt;Chrome: 这个星球最好的浏览器我们都需要有一个&lt;/p&gt;
+
+&lt;p&gt;Postman: 这个有&lt;a href=&quot;https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop?hl=zh-CN&quot;&gt;Chrome插件版&lt;/a&gt;和&lt;a href=&quot;https://www.getpostman.com/products&quot;&gt;App版&lt;/a&gt;，我是使用了后者&lt;/p&gt;
+
+&lt;h2 id=&quot;使用方法&quot;&gt;使用方法&lt;/h2&gt;
+
+&lt;h3 id=&quot;postman介绍&quot;&gt;Postman介绍&lt;/h3&gt;
+
+&lt;p&gt;简单的介绍一下Postman&lt;/p&gt;
+
+&lt;p&gt;个人觉得，Postman是一个特别特别好的产品:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;能模拟常用的HTTP请求，包括GET，POST等等，用于调试现在流行的RESTful接口相当方便&lt;/li&gt;
+  &lt;li&gt;支持多种授权认证方式&lt;/li&gt;
+  &lt;li&gt;支持历史记录，收藏，分享等功能&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;（软广在博客内容前部添加，括号里内容记得删掉）&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-03-01-post01/screenshot_zpsf58vh6me.png&quot; alt=&quot;Postman界面&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;界面很简洁，常用的功能已经标注，这就是平时最多使用的功能了&lt;/p&gt;
+
+&lt;h3 id=&quot;使用postman调试get接口&quot;&gt;使用Postman调试GET接口&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-03-01-post01/screenshot%203_zpsewvhje6o.png&quot; alt=&quot;使用GET请求获取Applysquare网站主页&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;GET请求很简单，就不说了&lt;/p&gt;
+
+&lt;h3 id=&quot;使用postman调试post接口&quot;&gt;使用Postman调试POST接口&lt;/h3&gt;
+
+&lt;p&gt;这里主要是POST过程中会遇到CSRF问题，解决方法就是获取到合法的CSRF Token，然后添加到POST请求的Header中&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;这个部分是因网站而异的，很多网站都很难在不熟悉的情况下完成POST请求，不过我们又不是黑客，只是想安心调试下自己的接口而已，那么下面提到的所有信息理论上我们都能拿到的&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;我自己遇到的情况是这样：&lt;/p&gt;
+
+&lt;p&gt;1、我需要向&lt;code class=&quot;highlighter-rouge&quot;&gt;localhost:8000/ajax/g&lt;/code&gt;地址POST一段JSON数据，但是会遇到&lt;code class=&quot;highlighter-rouge&quot;&gt;403 Forbidden, CSRF 验证失败&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;2、首先使用合法账户登录到&lt;code class=&quot;highlighter-rouge&quot;&gt;localhost:8000&lt;/code&gt;，这里有一点需要注意，一般脑子正常的网站，都是在login之后直接跳转到网站首页的，所以，在Chrome控制台中，将&lt;code class=&quot;highlighter-rouge&quot;&gt;Preserve log&lt;/code&gt;选项打勾，这样在登录后直接跳转到首页的过程中，不会丢失POST请求的日志，否则只会看到最后一个请求也就是一个GET主页的请求的日志
+&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-03-01-post01/screenshot%205_zpsgbmetpbn.png&quot; alt=&quot;Chrome控制台&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;3、在控制台中找到&lt;code class=&quot;highlighter-rouge&quot;&gt;login/&lt;/code&gt;，将其中&lt;code class=&quot;highlighter-rouge&quot;&gt;Request Headers&lt;/code&gt;的&lt;code class=&quot;highlighter-rouge&quot;&gt;Cookie&lt;/code&gt;及&lt;code class=&quot;highlighter-rouge&quot;&gt;CSRF&lt;/code&gt;等内容添加到Postman的请求头中&lt;/p&gt;
+
+&lt;p&gt;4、在Postman中Authorization中选择合适的Auth type，输入对应的合法用户信息&lt;/p&gt;
+
+&lt;p&gt;5、再次执行步骤1，理论上能完成POST过程&lt;/p&gt;
+
+</content>
+ </entry>
  
  <entry>
    <title>Hello World!</title>
@@ -36,13 +788,24 @@
 
 &lt;p&gt;由于种种原因，我没有直接fork上面的仓库，而是donwload之后自行修改成自己喜欢的样子，改完之后push到了我自己的Github&lt;a href=&quot;https://github.com/kenshinsyrup/kenshinsyrup.github.io&quot;&gt;仓库&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;但是，转折来了，在我把模版改成喜欢对样子，本地试图查看效果时，&lt;code class=&quot;highlighter-rouge&quot;&gt;bundle exec jekyll serve&lt;/code&gt;命令提示错误&lt;code class=&quot;highlighter-rouge&quot;&gt;Could not locate Gemfile or .bundle/ directory&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;但是，转折来了，在我把模版改成喜欢的样子之后，本地试图查看效果时，&lt;code class=&quot;highlighter-rouge&quot;&gt;bundle exec jekyll serve&lt;/code&gt;命令提示错误&lt;code class=&quot;highlighter-rouge&quot;&gt;Could not locate Gemfile or .bundle/ directory&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;Google了半天，遇到了很多同样有该错误的人，但各种解决方案都不适合我这里的情况。最后终于发现，原因是模版代码里没有&lt;code class=&quot;highlighter-rouge&quot;&gt;Gemfile&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;Gemfile.lock&lt;/code&gt;两个文件ORZ&lt;/p&gt;
 
-&lt;p&gt;解决办法就是自行创建这两个文件，当然最简单的就是让Jekyll给我创建了，执行&lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll new myblog&lt;/code&gt;，创建一个全新的博客，然后在&lt;code class=&quot;highlighter-rouge&quot;&gt;myblog&lt;/code&gt;里面把&lt;code class=&quot;highlighter-rouge&quot;&gt;Gemfile&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;Gemfile.lock&lt;/code&gt;文件拷贝到模版根目录，done&lt;/p&gt;
+&lt;p&gt;解决办法就是自行创建这两个文件，当然最简单的就是让Jekyll给我创建了，执行&lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll new myblog&lt;/code&gt;，创建一个全新的博客，然后在&lt;code class=&quot;highlighter-rouge&quot;&gt;myblog&lt;/code&gt;里面把&lt;code class=&quot;highlighter-rouge&quot;&gt;Gemfile&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;Gemfile.lock&lt;/code&gt;文件拷贝到我自己的模版根目录&lt;/p&gt;
+
+&lt;p&gt;博客模版使用到了&lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll-paginate&lt;/code&gt;插件，因此手动修改默认的&lt;code class=&quot;highlighter-rouge&quot;&gt;Gemfile&lt;/code&gt;文件plugins相关内容，增加一行&lt;code class=&quot;highlighter-rouge&quot;&gt;gem &quot;jekyll-paginate&quot;&lt;/code&gt;，如下:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# If you have any plugins, put them here!
+group :jekyll_plugins do
+   gem &quot;jekyll-feed&quot;, &quot;~&amp;gt; 0.6&quot;
+   gem &quot;jekyll-paginate&quot;
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 &lt;p&gt;那么，就祝所有人新年大吉&lt;del&gt;吧&lt;/del&gt;!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/img/kenshinsyrup.jpg&quot; alt=&quot;test static files&quot; /&gt;&lt;/p&gt;
 </content>
  </entry>
  
