@@ -1,7 +1,7 @@
 ---
 layout: post #post
 title: Golang比较两个slice是否相等 #post title
-categories: Program #post category, seperated by space
+categories: "2017" # archive
 tags: Golang #post tag, seperated by space
 ---
 Compare two string slices in GoLang

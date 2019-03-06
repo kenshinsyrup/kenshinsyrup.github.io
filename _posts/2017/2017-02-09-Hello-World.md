@@ -1,7 +1,7 @@
 ---
 layout: post #post
 title: Hello World! #post title
-categories: Other #post category, seperated by space
+categories: "2017" # archive
 tags: Other #post tag, seperated by space
 ---
 

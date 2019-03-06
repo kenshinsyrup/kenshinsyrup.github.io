@@ -37,8 +37,8 @@ nav:
     - '/'
   Blog:           
     - '/blog/'
-    - { Tags: '/blog/tags/' }
-    - { Categories: '/blog/categories/' }
+    - { Tag: '/blog/tags/' }
+    # - { Category: '/blog/category/' }
     - { Archive: '/blog/archive/' }
   About:          
     - '/about/'
@@ -47,7 +47,7 @@ nav:
 
 # Where are tags and categories displayed
 tag_page: '/blog/tags/'
-category_page: '/blog/categories/'
+# category_page: '/blog/category/'
 archive_page: '/blog/archive/'
 
 hero:

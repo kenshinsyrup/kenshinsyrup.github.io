@@ -1,7 +1,7 @@
 ---
 layout: post #post
 title: Golang通过HTTP Response获取Zip文件 #post title
-categories: Program #post category, seperated by space
+categories: "2017" # archive
 tags: Golang #post tag, seperated by space
 ---
 

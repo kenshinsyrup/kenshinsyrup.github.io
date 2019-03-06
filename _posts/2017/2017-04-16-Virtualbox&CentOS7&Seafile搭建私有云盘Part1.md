@@ -1,7 +1,7 @@
 ---
 layout: post #post
 title: VirtualBox & CentOS7 & SSH & Seafile & ngrok 搭建私有云盘Part1 #post title
-categories: Project #post category, seperated by space
+categories: "2017" # archive
 tags: VirtualBox CentOS7 SSH Seafile ngrok #post tag, seperated by space
 ---
 

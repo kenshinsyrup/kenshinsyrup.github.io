@@ -4,7 +4,7 @@
  <title>Kenshin</title>
  <link href="http://localhost:4000/atom.xml" rel="self"/>
  <link href="http://localhost:4000/"/>
- <updated>2019-03-06T00:48:33-08:00</updated>
+ <updated>2019-03-06T02:11:17-08:00</updated>
  <id>http://localhost:4000</id>
  <author>
    <name>Kenshin</name>
@@ -14,9 +14,9 @@
  
  <entry>
    <title>嗨</title>
-   <link href="http://localhost:4000/others/2019/03/05/%E5%97%A8/"/>
+   <link href="http://localhost:4000/2019/2019/03/05/%E5%97%A8/"/>
    <updated>2019-03-05T00:00:00-08:00</updated>
-   <id>http://localhost:4000/others/2019/03/05/嗨</id>
+   <id>http://localhost:4000/2019/2019/03/05/嗨</id>
    <content type="html">&lt;h2 id=&quot;新的一年&quot;&gt;新的一年&lt;/h2&gt;
 
 &lt;h2 id=&quot;test-imgur&quot;&gt;Test Imgur&lt;/h2&gt;
@@ -27,9 +27,9 @@
  
  <entry>
    <title>简要了解一下Meltdown和Spectre</title>
-   <link href="http://localhost:4000/others/2018/01/05/%E7%AE%80%E8%A6%81%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8BMeltdown%E5%92%8CSpectre/"/>
+   <link href="http://localhost:4000/2018/2018/01/05/%E7%AE%80%E8%A6%81%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8BMeltdown%E5%92%8CSpectre/"/>
    <updated>2018-01-05T00:00:00-08:00</updated>
-   <id>http://localhost:4000/others/2018/01/05/简要了解一下Meltdown和Spectre</id>
+   <id>http://localhost:4000/2018/2018/01/05/简要了解一下Meltdown和Spectre</id>
    <content type="html">&lt;p&gt;凑个热闹，简单了解一下&lt;a href=&quot;https://meltdownattack.com/&quot;&gt;Meltdown and Spectre&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;作为非专业人士，就本着看热闹不嫌事儿大的态度Google看看好了，以下内容本质上都是来自搜索引擎，我自己理解或者翻译了一下&lt;/p&gt;
@@ -101,9 +101,9 @@
  
  <entry>
    <title>VirtualBox & CentOS7 & SSH & Seafile & ngrok 搭建私有云盘Part2</title>
-   <link href="http://localhost:4000/project/2017/04/16/Virtualbox&CentOS7&Seafile%E6%90%AD%E5%BB%BA%E7%A7%81%E6%9C%89%E4%BA%91%E7%9B%98Part2/"/>
+   <link href="http://localhost:4000/2017/2017/04/16/Virtualbox&CentOS7&Seafile%E6%90%AD%E5%BB%BA%E7%A7%81%E6%9C%89%E4%BA%91%E7%9B%98Part2/"/>
    <updated>2017-04-16T00:00:00-07:00</updated>
-   <id>http://localhost:4000/project/2017/04/16/Virtualbox&CentOS7&Seafile搭建私有云盘Part2</id>
+   <id>http://localhost:4000/2017/2017/04/16/Virtualbox&CentOS7&Seafile搭建私有云盘Part2</id>
    <content type="html">&lt;p&gt;Build your own private cloud disk using VirtualBox &amp;amp; CentOS7 &amp;amp; SSH &amp;amp; Seafile &amp;amp; ngrok Part2&lt;/p&gt;
 
 &lt;h2 id=&quot;在服务器安装seafile&quot;&gt;在服务器安装Seafile&lt;/h2&gt;
@@ -283,9 +283,9 @@
  
  <entry>
    <title>VirtualBox & CentOS7 & SSH & Seafile & ngrok 搭建私有云盘Part1</title>
-   <link href="http://localhost:4000/project/2017/04/16/Virtualbox&CentOS7&Seafile%E6%90%AD%E5%BB%BA%E7%A7%81%E6%9C%89%E4%BA%91%E7%9B%98Part1/"/>
+   <link href="http://localhost:4000/2017/2017/04/16/Virtualbox&CentOS7&Seafile%E6%90%AD%E5%BB%BA%E7%A7%81%E6%9C%89%E4%BA%91%E7%9B%98Part1/"/>
    <updated>2017-04-16T00:00:00-07:00</updated>
-   <id>http://localhost:4000/project/2017/04/16/Virtualbox&CentOS7&Seafile搭建私有云盘Part1</id>
+   <id>http://localhost:4000/2017/2017/04/16/Virtualbox&CentOS7&Seafile搭建私有云盘Part1</id>
    <content type="html">&lt;p&gt;Build your own private cloud disk using VirtualBox &amp;amp; CentOS7 &amp;amp; SSH &amp;amp; Seafile &amp;amp; ngrok Part1&lt;/p&gt;
 
 &lt;p&gt;这个是个人的一篇经验总结，或者说花样踩坑集锦&lt;/p&gt;
@@ -509,9 +509,9 @@
  
  <entry>
    <title>Golang比较两个slice是否相等</title>
-   <link href="http://localhost:4000/program/2017/04/11/Golang%E6%AF%94%E8%BE%83%E4%B8%A4%E4%B8%AAslice%E6%98%AF%E5%90%A6%E7%9B%B8%E7%AD%89/"/>
+   <link href="http://localhost:4000/2017/2017/04/11/Golang%E6%AF%94%E8%BE%83%E4%B8%A4%E4%B8%AAslice%E6%98%AF%E5%90%A6%E7%9B%B8%E7%AD%89/"/>
    <updated>2017-04-11T00:00:00-07:00</updated>
-   <id>http://localhost:4000/program/2017/04/11/Golang比较两个slice是否相等</id>
+   <id>http://localhost:4000/2017/2017/04/11/Golang比较两个slice是否相等</id>
    <content type="html">&lt;p&gt;Compare two string slices in GoLang&lt;/p&gt;
 
 &lt;p&gt;开发中经常会遇到需要比较两个slice包含的元素是否完全相等的情况，一般来说有两个思路：&lt;/p&gt;
@@ -671,9 +671,9 @@
  
  <entry>
    <title>Golang通过HTTP Response获取Zip文件</title>
-   <link href="http://localhost:4000/program/2017/04/01/Golang%E9%80%9A%E8%BF%87HTTP-Response%E8%8E%B7%E5%8F%96Zip%E6%96%87%E4%BB%B6/"/>
+   <link href="http://localhost:4000/2017/2017/04/01/Golang%E9%80%9A%E8%BF%87HTTP-Response%E8%8E%B7%E5%8F%96Zip%E6%96%87%E4%BB%B6/"/>
    <updated>2017-04-01T00:00:00-07:00</updated>
-   <id>http://localhost:4000/program/2017/04/01/Golang通过HTTP Response获取Zip文件</id>
+   <id>http://localhost:4000/2017/2017/04/01/Golang通过HTTP Response获取Zip文件</id>
    <content type="html">&lt;p&gt;本来计划至少一周总结一次学到的东西，不过好像没有实现啊😅&lt;/p&gt;
 
 &lt;p&gt;一看时间都4月1号了，一个月了，总该写点啥&lt;/p&gt;
@@ -785,9 +785,9 @@
  
  <entry>
    <title>使用Chrome+Postman进行接口调试</title>
-   <link href="http://localhost:4000/%E5%B7%A5%E5%85%B7/2017/03/01/%E4%BD%BF%E7%94%A8Chrome+Postman%E8%BF%9B%E8%A1%8C%E6%8E%A5%E5%8F%A3%E8%B0%83%E8%AF%95/"/>
+   <link href="http://localhost:4000/2017/2017/03/01/%E4%BD%BF%E7%94%A8Chrome+Postman%E8%BF%9B%E8%A1%8C%E6%8E%A5%E5%8F%A3%E8%B0%83%E8%AF%95/"/>
    <updated>2017-03-01T00:00:00-08:00</updated>
-   <id>http://localhost:4000/%E5%B7%A5%E5%85%B7/2017/03/01/使用Chrome+Postman进行接口调试</id>
+   <id>http://localhost:4000/2017/2017/03/01/使用Chrome+Postman进行接口调试</id>
    <content type="html">&lt;p&gt;时隔多年，又重新看了一遍闪灵&lt;/p&gt;
 
 &lt;p&gt;失眠中 -_-#&lt;/p&gt;
@@ -853,9 +853,9 @@
  
  <entry>
    <title>Hello World!</title>
-   <link href="http://localhost:4000/other/2017/02/09/Hello-World/"/>
+   <link href="http://localhost:4000/2017/2017/02/09/Hello-World/"/>
    <updated>2017-02-09T00:00:00-08:00</updated>
-   <id>http://localhost:4000/other/2017/02/09/Hello-World</id>
+   <id>http://localhost:4000/2017/2017/02/09/Hello-World</id>
    <content type="html">&lt;h2 id=&quot;博客页面搭建完毕&quot;&gt;博客页面搭建完毕&lt;/h2&gt;
 
 &lt;p&gt;最近&lt;del&gt;又&lt;/del&gt;比较浮躁，刚好发现自己去年测试Jekyll时候搭建的Github个人页面不怎么好看，于是想重新弄一个，以后也算有个地方写东西&lt;/p&gt;

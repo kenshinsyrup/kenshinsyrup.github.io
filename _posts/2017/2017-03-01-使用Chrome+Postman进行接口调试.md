@@ -1,7 +1,7 @@
 ---
 layout: post #post
 title: 使用Chrome+Postman进行接口调试 #post title
-categories: 工具 #post category, seperated by space
+categories: "2017" # archive
 tags: Postman Chrome #post tag, seperated by space
 ---
 

@@ -1,7 +1,7 @@
 ---
 layout: post #post
 title: 简要了解一下Meltdown和Spectre #post title
-categories: Others #post category, seperated by space
+categories: "2018" #post archive
 tags: Meltdown Spectre #post tag, seperated by space
 ---
 
