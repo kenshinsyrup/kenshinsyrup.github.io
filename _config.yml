@@ -24,12 +24,12 @@ author:
   description: Kenshin's blog
   gravatar: 7f9673f1bc034bad53a37df330910b58 # md5 hash of your email address, you can get one in http://en.gravatar.com/
   contact:
+    # email:     kenshinsyrup@gmail.com # dont have a nice way to show email, so, let it go
     linkedin:  https://www.linkedin.com/in/zhao-wang-1102/
     github:    https://github.com/kenshinsyrup
     # facebook:  none
     # twitter:   none
     # weibo:     none
-    email:     kenshinsyrup@gmail.com
 
 # Navigation (2nd level links supported)
 nav:
@@ -37,8 +37,9 @@ nav:
     - '/'
   Blog:           
     - '/blog/'
-    - { Categories: '/blog/categories/' }
     - { Tags: '/blog/tags/' }
+    - { Categories: '/blog/categories/' }
+    - { Archive: '/blog/archive/' }
   About:          
     - '/about/'
   Github Project: 
@@ -47,6 +48,7 @@ nav:
 # Where are tags and categories displayed
 tag_page: '/blog/tags/'
 category_page: '/blog/categories/'
+archive_page: '/blog/archive/'
 
 hero:
   image: /public/img/skyrim.jpg
