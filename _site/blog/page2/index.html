@@ -167,7 +167,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
   <!--<div class="sidebar-item">
     <p>
-    &copy; 2017 Kenshin. This work is liscensed under <a href="http://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a>.
+    &copy; 2019 Kenshin. This work is liscensed under <a href="http://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a>.
     </p>
   </div>-->
 
@@ -192,6 +192,224 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
       <div class="container content">
         <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/program/2017/04/01/Golang%E9%80%9A%E8%BF%87HTTP-Response%E8%8E%B7%E5%8F%96Zip%E6%96%87%E4%BB%B6/">
+        Golang通过HTTP Response获取Zip文件
+      </a>
+    </h1>
+
+    <span class="post-date">01 Apr 2017</span>
+     | 
+    
+    <a href="/blog/tags/#golang" class="post-tag">Golang</a>
+    
+    
+
+    <article>
+      <p>本来计划至少一周总结一次学到的东西，不过好像没有实现啊😅</p>
+
+<p>一看时间都4月1号了，一个月了，总该写点啥</p>
+
+<p>最近运气不好，出了很多事情，虽然都是不足为外人道的东西，但确实影响心情，希望大家每天都能开开心心的</p>
+
+<p>今天写一下前几天遇到的一个需求：通过一个URL获取用户信息的zip文件</p>
+
+<p>不涉及过多业务内容的话，就是要写一个小Demo，通过一个给定URL，获取一个zip文件</p>
+
+<h2 id="实现一个极简单的url处理路由">实现一个极简单的URL处理路由</h2>
+
+<p>既然是写Demo，那么肯定路由就Golang最简单的ListenAndServe就好了</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>func main() {
+	http.HandleFunc("/zipdownload", zipHandler)
+	log.Println("Listening...")
+	http.ListenAndServe(":9999", nil)
+}
+</code></pre>
+</div>
+
+<h2 id="完成ziphandler函数">完成zipHandler函数</h2>
+
+<p>按照Golang的Handler函数签名邀请，完成zipHandler函数</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>func zipHandler(rw http.ResponseWriter, r *http.Request) {
+	zipName := "ZipTest.zip"
+	rw.Header().Set("Content-Type", "application/zip")
+	rw.Header().Set("Content-Disposition", fmt.Sprintf("attachment; filename=\"%s\"", zipName))
+	err := getZip(rw)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+</code></pre>
+</div>
+
+<h3 id="设置响应头信息">设置响应头信息</h3>
+
+<p><code class="highlighter-rouge">rw.Header().Set("Content-Type", "application/zip")</code></p>
+
+<p>设置response的头信息中的文件类型，对于zip文件，一般可以设置为<code class="highlighter-rouge">application/zip</code>或<code class="highlighter-rouge">application/octet-stream</code>
+更具体的说明，可以在<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Complete_list_of_MIME_types">Complete list of MIME types</a>获得，我是选择了<code class="highlighter-rouge">application/zip</code>来告诉服务器精确的文件类型</p>
+
+<p><code class="highlighter-rouge">rw.Header().Set("Content-Disposition", fmt.Sprintf("attachment; filename=\"%s\"", zipName))</code></p>
+
+<p>设置<code class="highlighter-rouge">Content-Disposition</code>为<code class="highlighter-rouge">attachment</code>即附件类型，同时设置附件文件名为我们给定的<code class="highlighter-rouge">zipName</code></p>
+
+<p>响应头信息中的<code class="highlighter-rouge">Content-Disposition</code>用于告知浏览器其获取到的文件是需要展示与页面内还是需要作为附件保存到用户本地，如果需要展示在页面内，设置为<code class="highlighter-rouge">inline</code>，否则设置为<code class="highlighter-rouge">attachemnt</code>，在设置为<code class="highlighter-rouge">attachment</code>时还可以额外规定该附件的文件名，更具体的说明，可以在<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition">Content-Disposition</a>获得</p>
+
+<p>完成这两句代码后，功能其实已经完成了一大半了，最初我就是被这个地方卡住了，在获得需求时思想泡里充满了<code class="highlighter-rouge">怎么样才能让HTTP响应得到一个zip文件并且让浏览器将这个文件下载下来而不是试图展示出来</code>的问题</p>
+
+<h2 id="完成getzip函数">完成getZip函数</h2>
+
+<p>这里我们只需要完成一个比较基础的zip流程就好，就像我上面说的，这个需求，最难的其实是上面对HTTP Response中Header信息的了解</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>func getZip(w io.Writer) error {
+	zipW := zip.NewWriter(w)
+	defer zipW.Close()
+
+	for i := 0; i &lt; 5; i++ {
+		f, err := zipW.Create(strconv.Itoa(i) + ".txt")
+		if err != nil {
+			return err
+		}
+		_, err = f.Write([]byte(fmt.Sprintf("Hello file %d", i)))
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+</code></pre>
+</div>
+
+<h3 id="创建zipwriter">创建zip.Writer</h3>
+
+<p><code class="highlighter-rouge">zipW := zip.NewWriter(w)</code></p>
+
+<p>该方法创建一个<code class="highlighter-rouge">zip.Writer</code>，用于向zip文件中写入内容，即打包的文件</p>
+
+<p>参数为<code class="highlighter-rouge">io.Writer</code>，那么我们这里当然就是使用<code class="highlighter-rouge">http.ResponseWriter</code></p>
+
+<p>返回值为一个<code class="highlighter-rouge">zip.Writer</code>，最后的zip内容都会写入这个<code class="highlighter-rouge">zip.Writer</code>，而最终当然是写入了参数的<code class="highlighter-rouge">io.Writer</code>中，也就是我们的<code class="highlighter-rouge">http.ResponseWriter</code>中</p>
+
+<p><strong><em>记得<code class="highlighter-rouge">defer zipW.Close()</code>关闭<code class="highlighter-rouge">zip.Writer</code></em></strong></p>
+
+<h3 id="向zipwriter中写入文件">向zip.Writer中写入文件</h3>
+
+<p><code class="highlighter-rouge">f, err := zipW.Create(strconv.Itoa(i) + ".txt")</code></p>
+
+<p>该方法向<code class="highlighter-rouge">zip.Writer</code>中添加一个文件，也就是说向zip文件中添加一个文件</p>
+
+<p>参数字为字符串，会作为写入zip中的文件的文件名</p>
+
+<p>第一个返回值为一个<code class="highlighter-rouge">io.Writer</code>，用于向其中，也就是向我们添加到zip的文件中，写入文件内容，即如<code class="highlighter-rouge">_, err = f.Write([]byte(fmt.Sprintf("Hello file %d", i)))</code>代码所示，我们向文件中写入了简单的字符串</p>
+
+<h2 id="运行程序">运行程序</h2>
+
+<p>接下来，只需要在程序<code class="highlighter-rouge">main.go</code>所在目录运行<code class="highlighter-rouge">go run main.go</code>就可以在你的浏览器访问<code class="highlighter-rouge">localhost:9999/zipdownload</code>了，浏览器会下载一个zip文件</p>
+
+<p><img src="http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-01-post01/ZipTest_zps5m0dywev.png" alt="下载的ZipTest及解压后的内容" /></p>
+
+<p>最后，代码已经上传到了我的<a href="https://github.com/kenshinsyrup/AllGolangDemo/blob/master/GetZipFromHTTP/main.go">Github仓库</a>可以直接下载测试</p>
+
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/program/2017/04/01/Golang%E9%80%9A%E8%BF%87HTTP-Response%E8%8E%B7%E5%8F%96Zip%E6%96%87%E4%BB%B6/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/program/2017/04/01/Golang%E9%80%9A%E8%BF%87HTTP-Response%E8%8E%B7%E5%8F%96Zip%E6%96%87%E4%BB%B6/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/%E5%B7%A5%E5%85%B7/2017/03/01/%E4%BD%BF%E7%94%A8Chrome+Postman%E8%BF%9B%E8%A1%8C%E6%8E%A5%E5%8F%A3%E8%B0%83%E8%AF%95/">
+        使用Chrome+Postman进行接口调试
+      </a>
+    </h1>
+
+    <span class="post-date">01 Mar 2017</span>
+     | 
+    
+    <a href="/blog/tags/#postman" class="post-tag">Postman</a>
+    
+    <a href="/blog/tags/#chrome" class="post-tag">Chrome</a>
+    
+    
+
+    <article>
+      <p>时隔多年，又重新看了一遍闪灵</p>
+
+<p>失眠中 -_-#</p>
+
+<p>开发过程中经常需要进行接口调试，测试完毕才能交接前端使用，调试过程中，发现了<a href="https://www.getpostman.com/">Postman</a>这个神器，在配合Chrome控制台的情况下，能完美应付大部分情况下的调试工作</p>
+
+<p>在此，记录下调试过程</p>
+
+<h2 id="工具">工具</h2>
+
+<p>嗯，这节是废话</p>
+
+<p>Chrome: 这个星球最好的浏览器我们都需要有一个</p>
+
+<p>Postman: 这个有<a href="https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop?hl=zh-CN">Chrome插件版</a>和<a href="https://www.getpostman.com/products">App版</a>，我是使用了后者</p>
+
+<h2 id="使用方法">使用方法</h2>
+
+<h3 id="postman介绍">Postman介绍</h3>
+
+<p>简单的介绍一下Postman</p>
+
+<p>个人觉得，Postman是一个特别特别好的产品:</p>
+<ul>
+  <li>能模拟常用的HTTP请求，包括GET，POST等等，用于调试现在流行的RESTful接口相当方便</li>
+  <li>支持多种授权认证方式</li>
+  <li>支持历史记录，收藏，分享等功能</li>
+</ul>
+
+<p>（软广在博客内容前部添加，括号里内容记得删掉）</p>
+
+<p><img src="http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-03-01-post01/screenshot_zpsf58vh6me.png" alt="Postman界面" /></p>
+
+<p>界面很简洁，常用的功能已经标注，这就是平时最多使用的功能了</p>
+
+<h3 id="使用postman调试get接口">使用Postman调试GET接口</h3>
+
+<p><img src="http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-03-01-post01/screenshot%203_zpsewvhje6o.png" alt="使用GET请求获取Applysquare网站主页" /></p>
+
+<p>GET请求很简单，就不说了</p>
+
+<h3 id="使用postman调试post接口">使用Postman调试POST接口</h3>
+
+<p>这里主要是POST过程中会遇到CSRF问题，解决方法就是获取到合法的CSRF Token，然后添加到POST请求的Header中</p>
+
+<p><em>这个部分是因网站而异的，很多网站都很难在不熟悉的情况下完成POST请求，不过我们又不是黑客，只是想安心调试下自己的接口而已，那么下面提到的所有信息理论上我们都能拿到的</em></p>
+
+<p>我自己遇到的情况是这样：</p>
+
+<p>1、我需要向<code class="highlighter-rouge">localhost:8000/ajax/g</code>地址POST一段JSON数据，但是会遇到<code class="highlighter-rouge">403 Forbidden, CSRF 验证失败</code></p>
+
+<p>2、首先使用合法账户登录到<code class="highlighter-rouge">localhost:8000</code>，这里有一点需要注意，一般脑子正常的网站，都是在login之后直接跳转到网站首页的，所以，在Chrome控制台中，将<code class="highlighter-rouge">Preserve log</code>选项打勾，这样在登录后直接跳转到首页的过程中，不会丢失POST请求的日志，否则只会看到最后一个请求也就是一个GET主页的请求的日志
+<img src="http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-03-01-post01/screenshot%205_zpsgbmetpbn.png" alt="Chrome控制台" /></p>
+
+<p>3、在控制台中找到<code class="highlighter-rouge">login/</code>，将其中<code class="highlighter-rouge">Request Headers</code>的<code class="highlighter-rouge">Cookie</code>及<code class="highlighter-rouge">CSRF</code>等内容添加到Postman的请求头中</p>
+
+<p>4、在Postman中Authorization中选择合适的Auth type，输入对应的合法用户信息</p>
+
+<p>5、再次执行步骤1，理论上能完成POST过程</p>
+
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/%E5%B7%A5%E5%85%B7/2017/03/01/%E4%BD%BF%E7%94%A8Chrome+Postman%E8%BF%9B%E8%A1%8C%E6%8E%A5%E5%8F%A3%E8%B0%83%E8%AF%95/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/%E5%B7%A5%E5%85%B7/2017/03/01/%E4%BD%BF%E7%94%A8Chrome+Postman%E8%BF%9B%E8%A1%8C%E6%8E%A5%E5%8F%A3%E8%B0%83%E8%AF%95/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
   
   <div class="post">
     <h1 class="post-title">

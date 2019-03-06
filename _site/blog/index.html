@@ -167,7 +167,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
   <!--<div class="sidebar-item">
     <p>
-    &copy; 2017 Kenshin. This work is liscensed under <a href="http://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a>.
+    &copy; 2019 Kenshin. This work is liscensed under <a href="http://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a>.
     </p>
   </div>-->
 
@@ -192,6 +192,129 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
       <div class="container content">
         <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/others/2019/03/05/%E5%97%A8/">
+        嗨
+      </a>
+    </h1>
+
+    <span class="post-date">05 Mar 2019</span>
+     | 
+    
+    <a href="/blog/tags/#others" class="post-tag">Others</a>
+    
+    
+
+    <article>
+      <h2 id="新的一年">新的一年</h2>
+
+<h2 id="test-imgur">Test Imgur</h2>
+
+<p><img src="https://i.imgur.com/jGPRwle.jpg" alt="Kenshinsyrup" /></p>
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/others/2019/03/05/%E5%97%A8/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/others/2019/03/05/%E5%97%A8/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/others/2018/01/05/%E7%AE%80%E8%A6%81%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8BMeltdown%E5%92%8CSpectre/">
+        简要了解一下Meltdown和Spectre
+      </a>
+    </h1>
+
+    <span class="post-date">05 Jan 2018</span>
+     | 
+    
+    <a href="/blog/tags/#meltdown" class="post-tag">Meltdown</a>
+    
+    <a href="/blog/tags/#spectre" class="post-tag">Spectre</a>
+    
+    
+
+    <article>
+      <p>凑个热闹，简单了解一下<a href="https://meltdownattack.com/">Meltdown and Spectre</a></p>
+
+<p>作为非专业人士，就本着看热闹不嫌事儿大的态度Google看看好了，以下内容本质上都是来自搜索引擎，我自己理解或者翻译了一下</p>
+
+<h2 id="总体介绍">总体介绍</h2>
+<p>Meltdown和Spectre是两种不同的bug，但都可以被攻击者用来在现代电脑处理器上非法窃取密码等隐私数据。这里的现代电脑处理器目前被定义为来近20年来生产的所有处理器，包括Intel，AMD，以及基于ARM架构的处理器</p>
+
+<p>因为是比较严重的bug，当然作为处理器生产厂家第一反应就是站出来稳定军心，当然牙膏厂没啥好说的来，毕竟全线崩溃，Meltdown和Spectre都对其有影响，于是先站出来放了个大炸弹说不止Intel有这个危险，所有的处理器都有。于是AMD不开心了，站出来回怼说AMD是不会收到Meltdown影响，同时’near zero risk’被Spectre影响。这就是新闻热闹而众说纷纭的原因</p>
+
+<h4 id="meltdown">Meltdown</h4>
+<p><img src="http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2018-01-05/meltdown_zps0qkfzfnc.png" alt="Meltdown.png" /></p>
+
+<p>Meltdown会利用Intel处理器的<strong>预测执行</strong>设计，破坏应用程序和操作系统间的界限，攻击程序有机会访问到操作系统所使用的内存空间，也就有机会从中获取操作系统级别的数据</p>
+
+<p>但是这个bug是可以进行补丁修复的，而且各方已经开始放出软件进行修复。虽然修复后对系统性能会有影响，但是具体有多大影响暂时不明，听说对个人设备来说使用的影响不大，看了几个测评，打完补丁前后玩瞎子信条以及跑大型Adobe或者Office软件都没有很大差别</p>
+
+<h4 id="spectre">Spectre</h4>
+<p><img src="http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2018-01-05/spectre_zpsebzeyy5i.png" alt="Spectre.png" /></p>
+
+<p>不得不说这Logo还挺萌。。。</p>
+
+<p>Spectre会破坏应用程序之间的隔离性，攻击程序有机会访问到其他应用程序所使用的内存空间，也就有机会获取其他应用程序的数据</p>
+
+<p>Spectre相对于Meltdown更难以被利用，但是也更难以被通过软件补丁的方式修复，现在普遍认为会在接下来很长时间内作为一个随时可能引爆的炸弹存在</p>
+
+<p>重点，Spectre目前有两种变体，AMD官方宣称的对Spectre的’near zero risk’是指的Spectre的一种变体而非全部，这也是在Hacker News上面被嘲讽的一个点</p>
+
+<h2 id="危害群体">危害群体</h2>
+<p>其实这两个bug对普通用户对影响不大，安装下各自厂商发布的系统升级，继续安全的使用自己的设备就好了。因为虽然这两个bug在个人设备上也可以被利用，但是个人设备一般都是单人使用，也有比较迅速的系统更新和权限系统管理，以及杀毒软件等，危害不会很大</p>
+
+<p>重大危害主要针对的是云服务平台，云平台理论上可以视作一台巨大的电脑，同时有无数的用户在自己的实例上进行操作，云平台发展至今，无论个人还是公司或是政府都有自己的内容在上面，其上存储的隐私数据的重要程度大家都清楚，所以一旦发生用户隐私数据泄露，影响要严重的多，而且攻击者完全可以是一个正当的云平台用户，在掌握了bug的利用方式之后，其只需要在该平台上运行攻击程序就可以窃取其他用户甚至操作系统级别信息的</p>
+
+<h2 id="利用方式">利用方式</h2>
+
+<p>新闻说完了，Meltdown和Spectre这两个bug是可以利用的，这个是<strong>概念验证</strong>已经通过的</p>
+
+<p>利用的思路如下:</p>
+<blockquote>
+  <p>The core of this attack is extremely simple and elegant; use a value from a speculated-but-not-completed instruction as an index, causing one of a set of cachelines to be touched; then use a timing measurement on those cachelines to see which one was accessed, thus determining the value.</p>
+</blockquote>
+
+<p>作为非专业人员，我觉得用形象生动的例子来理解一下这些高大上的内容的原理就可以了:)</p>
+
+<p>所以我们举个例子</p>
+
+<p>当然先贴来源<a href="https://news.ycombinator.com/item?id=16065845">[Reading privileged memory with a side-channel](https://googleprojectzero.blogspot.com/2018/01/reading-privileged-memory-with-side.html)
+</a></p>
+
+<p>想象有一家图书馆，里面的书都只有一个字母</p>
+
+<p>现在图书馆有一些书你无权借出比如BookX。有一些书你有权借出比如BookY，BookY+1，。。。以此类推</p>
+
+<p>你来到图书馆前台，向图书馆管理员说你想借出BookX，但图书馆管理员不知道你有没有权利借出BookX，于是让查询员帮自己去系统里查一下你是否有权利借出这本书。在你们等待查询员回复的时候，你说“实际上，我并不大感兴趣借出BookX，我实际想做的事情是：如果BookX里的内容是字母’a’，我就借出BookY；如果BookX里的内容是字母’b’，我想借出BookY+1。。。以此类推”</p>
+
+<p>图书馆管理员现在正在等待查询员回复你是否有权利借出BookX，但是闲着也是闲着，所以他就翻开BookX看了一下，然后发现里面的内容是字母’b’，于是就去书架上去了BookY+1到前台来，以便一旦查询员回复说你有权利借出BookX，那么图书馆管理员可以立刻把BookY+1给你，以提高效率（<strong>Intel预测执行</strong>）</p>
+
+<p>然后，查询员回来了，告诉图书馆管理员说你无权利借出BookX，于是图书馆管理员对你说“对不起，你不能借出BookX。（然后我也不是傻子）我也不能把我刚刚拿到的那本你有权利借出的书给你因为如果这样的话你就反推出来了你无权借出的BookX的内容。”</p>
+
+<p>你当然表示理解，然后说你想借出BookY，图书管理员去书架<strong>找了一会儿</strong>，比如花了5分钟，然后把BookY拿给了你。然后你说你还想借出BookY+1，图书馆管理员<strong>立刻</strong>把手头的BookY+1拿给了你。然后你说你还想借出BookY+2，图书管理员去书架<strong>找了一会儿</strong>，比如花了5分钟，然后把BookY+2拿给了你</p>
+
+<p>于是，通过时间差，你推断出，BookY+1极大可能是在你想借出你无权借出的BookX时，图书馆管理员拿到手里的那本书，也就推断出BookX的内容是字母’b’</p>
+
+<p>完工，BookX就是系统进程内存或者其他程序所在内存，其中的内容就是内存中的内容，图书馆管理员就是处理器，你就是攻击程序，图书馆管理员的手头或者说前台就是缓存</p>
+
+<p>最后，如果BookX指的是系统进程所在内存，系统有乱序映射的处理来让其他应用不能轻易的知道自己的内存地址，但是各种应用程序所在的内存地址可能就没那么难获得了:)</p>
+
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/others/2018/01/05/%E7%AE%80%E8%A6%81%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8BMeltdown%E5%92%8CSpectre/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/others/2018/01/05/%E7%AE%80%E8%A6%81%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8BMeltdown%E5%92%8CSpectre/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
   
   <div class="post">
     <h1 class="post-title">
@@ -827,224 +950,6 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
       <a href="/program/2017/04/11/Golang%E6%AF%94%E8%BE%83%E4%B8%A4%E4%B8%AAslice%E6%98%AF%E5%90%A6%E7%9B%B8%E7%AD%89/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
       
       <a href="/program/2017/04/11/Golang%E6%AF%94%E8%BE%83%E4%B8%A4%E4%B8%AAslice%E6%98%AF%E5%90%A6%E7%9B%B8%E7%AD%89/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/program/2017/04/01/Golang%E9%80%9A%E8%BF%87HTTP-Response%E8%8E%B7%E5%8F%96Zip%E6%96%87%E4%BB%B6/">
-        Golang通过HTTP Response获取Zip文件
-      </a>
-    </h1>
-
-    <span class="post-date">01 Apr 2017</span>
-     | 
-    
-    <a href="/blog/tags/#golang" class="post-tag">Golang</a>
-    
-    
-
-    <article>
-      <p>本来计划至少一周总结一次学到的东西，不过好像没有实现啊😅</p>
-
-<p>一看时间都4月1号了，一个月了，总该写点啥</p>
-
-<p>最近运气不好，出了很多事情，虽然都是不足为外人道的东西，但确实影响心情，希望大家每天都能开开心心的</p>
-
-<p>今天写一下前几天遇到的一个需求：通过一个URL获取用户信息的zip文件</p>
-
-<p>不涉及过多业务内容的话，就是要写一个小Demo，通过一个给定URL，获取一个zip文件</p>
-
-<h2 id="实现一个极简单的url处理路由">实现一个极简单的URL处理路由</h2>
-
-<p>既然是写Demo，那么肯定路由就Golang最简单的ListenAndServe就好了</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>func main() {
-	http.HandleFunc("/zipdownload", zipHandler)
-	log.Println("Listening...")
-	http.ListenAndServe(":9999", nil)
-}
-</code></pre>
-</div>
-
-<h2 id="完成ziphandler函数">完成zipHandler函数</h2>
-
-<p>按照Golang的Handler函数签名邀请，完成zipHandler函数</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>func zipHandler(rw http.ResponseWriter, r *http.Request) {
-	zipName := "ZipTest.zip"
-	rw.Header().Set("Content-Type", "application/zip")
-	rw.Header().Set("Content-Disposition", fmt.Sprintf("attachment; filename=\"%s\"", zipName))
-	err := getZip(rw)
-	if err != nil {
-		log.Fatal(err)
-	}
-}
-</code></pre>
-</div>
-
-<h3 id="设置响应头信息">设置响应头信息</h3>
-
-<p><code class="highlighter-rouge">rw.Header().Set("Content-Type", "application/zip")</code></p>
-
-<p>设置response的头信息中的文件类型，对于zip文件，一般可以设置为<code class="highlighter-rouge">application/zip</code>或<code class="highlighter-rouge">application/octet-stream</code>
-更具体的说明，可以在<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Complete_list_of_MIME_types">Complete list of MIME types</a>获得，我是选择了<code class="highlighter-rouge">application/zip</code>来告诉服务器精确的文件类型</p>
-
-<p><code class="highlighter-rouge">rw.Header().Set("Content-Disposition", fmt.Sprintf("attachment; filename=\"%s\"", zipName))</code></p>
-
-<p>设置<code class="highlighter-rouge">Content-Disposition</code>为<code class="highlighter-rouge">attachment</code>即附件类型，同时设置附件文件名为我们给定的<code class="highlighter-rouge">zipName</code></p>
-
-<p>响应头信息中的<code class="highlighter-rouge">Content-Disposition</code>用于告知浏览器其获取到的文件是需要展示与页面内还是需要作为附件保存到用户本地，如果需要展示在页面内，设置为<code class="highlighter-rouge">inline</code>，否则设置为<code class="highlighter-rouge">attachemnt</code>，在设置为<code class="highlighter-rouge">attachment</code>时还可以额外规定该附件的文件名，更具体的说明，可以在<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition">Content-Disposition</a>获得</p>
-
-<p>完成这两句代码后，功能其实已经完成了一大半了，最初我就是被这个地方卡住了，在获得需求时思想泡里充满了<code class="highlighter-rouge">怎么样才能让HTTP响应得到一个zip文件并且让浏览器将这个文件下载下来而不是试图展示出来</code>的问题</p>
-
-<h2 id="完成getzip函数">完成getZip函数</h2>
-
-<p>这里我们只需要完成一个比较基础的zip流程就好，就像我上面说的，这个需求，最难的其实是上面对HTTP Response中Header信息的了解</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>func getZip(w io.Writer) error {
-	zipW := zip.NewWriter(w)
-	defer zipW.Close()
-
-	for i := 0; i &lt; 5; i++ {
-		f, err := zipW.Create(strconv.Itoa(i) + ".txt")
-		if err != nil {
-			return err
-		}
-		_, err = f.Write([]byte(fmt.Sprintf("Hello file %d", i)))
-		if err != nil {
-			return err
-		}
-	}
-	return nil
-}
-</code></pre>
-</div>
-
-<h3 id="创建zipwriter">创建zip.Writer</h3>
-
-<p><code class="highlighter-rouge">zipW := zip.NewWriter(w)</code></p>
-
-<p>该方法创建一个<code class="highlighter-rouge">zip.Writer</code>，用于向zip文件中写入内容，即打包的文件</p>
-
-<p>参数为<code class="highlighter-rouge">io.Writer</code>，那么我们这里当然就是使用<code class="highlighter-rouge">http.ResponseWriter</code></p>
-
-<p>返回值为一个<code class="highlighter-rouge">zip.Writer</code>，最后的zip内容都会写入这个<code class="highlighter-rouge">zip.Writer</code>，而最终当然是写入了参数的<code class="highlighter-rouge">io.Writer</code>中，也就是我们的<code class="highlighter-rouge">http.ResponseWriter</code>中</p>
-
-<p><strong><em>记得<code class="highlighter-rouge">defer zipW.Close()</code>关闭<code class="highlighter-rouge">zip.Writer</code></em></strong></p>
-
-<h3 id="向zipwriter中写入文件">向zip.Writer中写入文件</h3>
-
-<p><code class="highlighter-rouge">f, err := zipW.Create(strconv.Itoa(i) + ".txt")</code></p>
-
-<p>该方法向<code class="highlighter-rouge">zip.Writer</code>中添加一个文件，也就是说向zip文件中添加一个文件</p>
-
-<p>参数字为字符串，会作为写入zip中的文件的文件名</p>
-
-<p>第一个返回值为一个<code class="highlighter-rouge">io.Writer</code>，用于向其中，也就是向我们添加到zip的文件中，写入文件内容，即如<code class="highlighter-rouge">_, err = f.Write([]byte(fmt.Sprintf("Hello file %d", i)))</code>代码所示，我们向文件中写入了简单的字符串</p>
-
-<h2 id="运行程序">运行程序</h2>
-
-<p>接下来，只需要在程序<code class="highlighter-rouge">main.go</code>所在目录运行<code class="highlighter-rouge">go run main.go</code>就可以在你的浏览器访问<code class="highlighter-rouge">localhost:9999/zipdownload</code>了，浏览器会下载一个zip文件</p>
-
-<p><img src="http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-04-01-post01/ZipTest_zps5m0dywev.png" alt="下载的ZipTest及解压后的内容" /></p>
-
-<p>最后，代码已经上传到了我的<a href="https://github.com/kenshinsyrup/AllGolangDemo/blob/master/GetZipFromHTTP/main.go">Github仓库</a>可以直接下载测试</p>
-
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/program/2017/04/01/Golang%E9%80%9A%E8%BF%87HTTP-Response%E8%8E%B7%E5%8F%96Zip%E6%96%87%E4%BB%B6/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/program/2017/04/01/Golang%E9%80%9A%E8%BF%87HTTP-Response%E8%8E%B7%E5%8F%96Zip%E6%96%87%E4%BB%B6/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%E5%B7%A5%E5%85%B7/2017/03/01/%E4%BD%BF%E7%94%A8Chrome+Postman%E8%BF%9B%E8%A1%8C%E6%8E%A5%E5%8F%A3%E8%B0%83%E8%AF%95/">
-        使用Chrome+Postman进行接口调试
-      </a>
-    </h1>
-
-    <span class="post-date">01 Mar 2017</span>
-     | 
-    
-    <a href="/blog/tags/#postman" class="post-tag">Postman</a>
-    
-    <a href="/blog/tags/#chrome" class="post-tag">Chrome</a>
-    
-    
-
-    <article>
-      <p>时隔多年，又重新看了一遍闪灵</p>
-
-<p>失眠中 -_-#</p>
-
-<p>开发过程中经常需要进行接口调试，测试完毕才能交接前端使用，调试过程中，发现了<a href="https://www.getpostman.com/">Postman</a>这个神器，在配合Chrome控制台的情况下，能完美应付大部分情况下的调试工作</p>
-
-<p>在此，记录下调试过程</p>
-
-<h2 id="工具">工具</h2>
-
-<p>嗯，这节是废话</p>
-
-<p>Chrome: 这个星球最好的浏览器我们都需要有一个</p>
-
-<p>Postman: 这个有<a href="https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop?hl=zh-CN">Chrome插件版</a>和<a href="https://www.getpostman.com/products">App版</a>，我是使用了后者</p>
-
-<h2 id="使用方法">使用方法</h2>
-
-<h3 id="postman介绍">Postman介绍</h3>
-
-<p>简单的介绍一下Postman</p>
-
-<p>个人觉得，Postman是一个特别特别好的产品:</p>
-<ul>
-  <li>能模拟常用的HTTP请求，包括GET，POST等等，用于调试现在流行的RESTful接口相当方便</li>
-  <li>支持多种授权认证方式</li>
-  <li>支持历史记录，收藏，分享等功能</li>
-</ul>
-
-<p>（软广在博客内容前部添加，括号里内容记得删掉）</p>
-
-<p><img src="http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-03-01-post01/screenshot_zpsf58vh6me.png" alt="Postman界面" /></p>
-
-<p>界面很简洁，常用的功能已经标注，这就是平时最多使用的功能了</p>
-
-<h3 id="使用postman调试get接口">使用Postman调试GET接口</h3>
-
-<p><img src="http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-03-01-post01/screenshot%203_zpsewvhje6o.png" alt="使用GET请求获取Applysquare网站主页" /></p>
-
-<p>GET请求很简单，就不说了</p>
-
-<h3 id="使用postman调试post接口">使用Postman调试POST接口</h3>
-
-<p>这里主要是POST过程中会遇到CSRF问题，解决方法就是获取到合法的CSRF Token，然后添加到POST请求的Header中</p>
-
-<p><em>这个部分是因网站而异的，很多网站都很难在不熟悉的情况下完成POST请求，不过我们又不是黑客，只是想安心调试下自己的接口而已，那么下面提到的所有信息理论上我们都能拿到的</em></p>
-
-<p>我自己遇到的情况是这样：</p>
-
-<p>1、我需要向<code class="highlighter-rouge">localhost:8000/ajax/g</code>地址POST一段JSON数据，但是会遇到<code class="highlighter-rouge">403 Forbidden, CSRF 验证失败</code></p>
-
-<p>2、首先使用合法账户登录到<code class="highlighter-rouge">localhost:8000</code>，这里有一点需要注意，一般脑子正常的网站，都是在login之后直接跳转到网站首页的，所以，在Chrome控制台中，将<code class="highlighter-rouge">Preserve log</code>选项打勾，这样在登录后直接跳转到首页的过程中，不会丢失POST请求的日志，否则只会看到最后一个请求也就是一个GET主页的请求的日志
-<img src="http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2017-03-01-post01/screenshot%205_zpsgbmetpbn.png" alt="Chrome控制台" /></p>
-
-<p>3、在控制台中找到<code class="highlighter-rouge">login/</code>，将其中<code class="highlighter-rouge">Request Headers</code>的<code class="highlighter-rouge">Cookie</code>及<code class="highlighter-rouge">CSRF</code>等内容添加到Postman的请求头中</p>
-
-<p>4、在Postman中Authorization中选择合适的Auth type，输入对应的合法用户信息</p>
-
-<p>5、再次执行步骤1，理论上能完成POST过程</p>
-
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%E5%B7%A5%E5%85%B7/2017/03/01/%E4%BD%BF%E7%94%A8Chrome+Postman%E8%BF%9B%E8%A1%8C%E6%8E%A5%E5%8F%A3%E8%B0%83%E8%AF%95/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%E5%B7%A5%E5%85%B7/2017/03/01/%E4%BD%BF%E7%94%A8Chrome+Postman%E8%BF%9B%E8%A1%8C%E6%8E%A5%E5%8F%A3%E8%B0%83%E8%AF%95/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
     </div>
   </div>
   

@@ -1,4 +1,138 @@
-<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="http://localhost:4000/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.4.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-09-06T21:12:05-04:00</updated><id>http://localhost:4000//</id><title type="html">Kenshin</title><author><name>Kenshin</name></author><entry><title type="html">VirtualBox &amp;amp; CentOS7 &amp;amp; SSH &amp;amp; Seafile &amp;amp; ngrok 搭建私有云盘Part2</title><link href="http://localhost:4000/project/2017/04/16/Virtualbox&CentOS7&Seafile%E6%90%AD%E5%BB%BA%E7%A7%81%E6%9C%89%E4%BA%91%E7%9B%98Part2/" rel="alternate" type="text/html" title="VirtualBox &amp; CentOS7 &amp; SSH &amp; Seafile &amp; ngrok 搭建私有云盘Part2" /><published>2017-04-16T00:00:00-04:00</published><updated>2017-04-16T00:00:00-04:00</updated><id>http://localhost:4000/project/2017/04/16/Virtualbox&amp;CentOS7&amp;Seafile%E6%90%AD%E5%BB%BA%E7%A7%81%E6%9C%89%E4%BA%91%E7%9B%98Part2</id><content type="html" xml:base="http://localhost:4000/project/2017/04/16/Virtualbox&amp;CentOS7&amp;Seafile%E6%90%AD%E5%BB%BA%E7%A7%81%E6%9C%89%E4%BA%91%E7%9B%98Part2/">&lt;p&gt;Build your own private cloud disk using VirtualBox &amp;amp; CentOS7 &amp;amp; SSH &amp;amp; Seafile &amp;amp; ngrok Part2&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="http://localhost:4000/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.4.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-03-06T00:10:22-08:00</updated><id>http://localhost:4000//</id><title type="html">Kenshin</title><author><name>Kenshin</name></author><entry><title type="html">嗨</title><link href="http://localhost:4000/others/2019/03/05/%E5%97%A8/" rel="alternate" type="text/html" title="嗨" /><published>2019-03-05T00:00:00-08:00</published><updated>2019-03-05T00:00:00-08:00</updated><id>http://localhost:4000/others/2019/03/05/%E5%97%A8</id><content type="html" xml:base="http://localhost:4000/others/2019/03/05/%E5%97%A8/">&lt;h2 id=&quot;新的一年&quot;&gt;新的一年&lt;/h2&gt;
+
+&lt;h2 id=&quot;test-imgur&quot;&gt;Test Imgur&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/jGPRwle.jpg&quot; alt=&quot;Kenshinsyrup&quot; /&gt;&lt;/p&gt;</content><author><name>Kenshin</name></author><category term="Others" /><summary type="html">新的一年
+
+Test Imgur</summary></entry><entry><title type="html">简要了解一下Meltdown和Spectre</title><link href="http://localhost:4000/others/2018/01/05/%E7%AE%80%E8%A6%81%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8BMeltdown%E5%92%8CSpectre/" rel="alternate" type="text/html" title="简要了解一下Meltdown和Spectre" /><published>2018-01-05T00:00:00-08:00</published><updated>2018-01-05T00:00:00-08:00</updated><id>http://localhost:4000/others/2018/01/05/%E7%AE%80%E8%A6%81%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8BMeltdown%E5%92%8CSpectre</id><content type="html" xml:base="http://localhost:4000/others/2018/01/05/%E7%AE%80%E8%A6%81%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8BMeltdown%E5%92%8CSpectre/">&lt;p&gt;凑个热闹，简单了解一下&lt;a href=&quot;https://meltdownattack.com/&quot;&gt;Meltdown and Spectre&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;作为非专业人士，就本着看热闹不嫌事儿大的态度Google看看好了，以下内容本质上都是来自搜索引擎，我自己理解或者翻译了一下&lt;/p&gt;
+
+&lt;h2 id=&quot;总体介绍&quot;&gt;总体介绍&lt;/h2&gt;
+&lt;p&gt;Meltdown和Spectre是两种不同的bug，但都可以被攻击者用来在现代电脑处理器上非法窃取密码等隐私数据。这里的现代电脑处理器目前被定义为来近20年来生产的所有处理器，包括Intel，AMD，以及基于ARM架构的处理器&lt;/p&gt;
+
+&lt;p&gt;因为是比较严重的bug，当然作为处理器生产厂家第一反应就是站出来稳定军心，当然牙膏厂没啥好说的来，毕竟全线崩溃，Meltdown和Spectre都对其有影响，于是先站出来放了个大炸弹说不止Intel有这个危险，所有的处理器都有。于是AMD不开心了，站出来回怼说AMD是不会收到Meltdown影响，同时’near zero risk’被Spectre影响。这就是新闻热闹而众说纷纭的原因&lt;/p&gt;
+
+&lt;h4 id=&quot;meltdown&quot;&gt;Meltdown&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2018-01-05/meltdown_zps0qkfzfnc.png&quot; alt=&quot;Meltdown.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Meltdown会利用Intel处理器的&lt;strong&gt;预测执行&lt;/strong&gt;设计，破坏应用程序和操作系统间的界限，攻击程序有机会访问到操作系统所使用的内存空间，也就有机会从中获取操作系统级别的数据&lt;/p&gt;
+
+&lt;p&gt;但是这个bug是可以进行补丁修复的，而且各方已经开始放出软件进行修复。虽然修复后对系统性能会有影响，但是具体有多大影响暂时不明，听说对个人设备来说使用的影响不大，看了几个测评，打完补丁前后玩瞎子信条以及跑大型Adobe或者Office软件都没有很大差别&lt;/p&gt;
+
+&lt;h4 id=&quot;spectre&quot;&gt;Spectre&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&quot;http://i32.photobucket.com/albums/d1/kenshinsyrup/Kenshinsyrup/2018-01-05/spectre_zpsebzeyy5i.png&quot; alt=&quot;Spectre.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;不得不说这Logo还挺萌。。。&lt;/p&gt;
+
+&lt;p&gt;Spectre会破坏应用程序之间的隔离性，攻击程序有机会访问到其他应用程序所使用的内存空间，也就有机会获取其他应用程序的数据&lt;/p&gt;
+
+&lt;p&gt;Spectre相对于Meltdown更难以被利用，但是也更难以被通过软件补丁的方式修复，现在普遍认为会在接下来很长时间内作为一个随时可能引爆的炸弹存在&lt;/p&gt;
+
+&lt;p&gt;重点，Spectre目前有两种变体，AMD官方宣称的对Spectre的’near zero risk’是指的Spectre的一种变体而非全部，这也是在Hacker News上面被嘲讽的一个点&lt;/p&gt;
+
+&lt;h2 id=&quot;危害群体&quot;&gt;危害群体&lt;/h2&gt;
+&lt;p&gt;其实这两个bug对普通用户对影响不大，安装下各自厂商发布的系统升级，继续安全的使用自己的设备就好了。因为虽然这两个bug在个人设备上也可以被利用，但是个人设备一般都是单人使用，也有比较迅速的系统更新和权限系统管理，以及杀毒软件等，危害不会很大&lt;/p&gt;
+
+&lt;p&gt;重大危害主要针对的是云服务平台，云平台理论上可以视作一台巨大的电脑，同时有无数的用户在自己的实例上进行操作，云平台发展至今，无论个人还是公司或是政府都有自己的内容在上面，其上存储的隐私数据的重要程度大家都清楚，所以一旦发生用户隐私数据泄露，影响要严重的多，而且攻击者完全可以是一个正当的云平台用户，在掌握了bug的利用方式之后，其只需要在该平台上运行攻击程序就可以窃取其他用户甚至操作系统级别信息的&lt;/p&gt;
+
+&lt;h2 id=&quot;利用方式&quot;&gt;利用方式&lt;/h2&gt;
+
+&lt;p&gt;新闻说完了，Meltdown和Spectre这两个bug是可以利用的，这个是&lt;strong&gt;概念验证&lt;/strong&gt;已经通过的&lt;/p&gt;
+
+&lt;p&gt;利用的思路如下:&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;The core of this attack is extremely simple and elegant; use a value from a speculated-but-not-completed instruction as an index, causing one of a set of cachelines to be touched; then use a timing measurement on those cachelines to see which one was accessed, thus determining the value.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;作为非专业人员，我觉得用形象生动的例子来理解一下这些高大上的内容的原理就可以了:)&lt;/p&gt;
+
+&lt;p&gt;所以我们举个例子&lt;/p&gt;
+
+&lt;p&gt;当然先贴来源&lt;a href=&quot;https://news.ycombinator.com/item?id=16065845&quot;&gt;[Reading privileged memory with a side-channel](https://googleprojectzero.blogspot.com/2018/01/reading-privileged-memory-with-side.html)
+&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;想象有一家图书馆，里面的书都只有一个字母&lt;/p&gt;
+
+&lt;p&gt;现在图书馆有一些书你无权借出比如BookX。有一些书你有权借出比如BookY，BookY+1，。。。以此类推&lt;/p&gt;
+
+&lt;p&gt;你来到图书馆前台，向图书馆管理员说你想借出BookX，但图书馆管理员不知道你有没有权利借出BookX，于是让查询员帮自己去系统里查一下你是否有权利借出这本书。在你们等待查询员回复的时候，你说“实际上，我并不大感兴趣借出BookX，我实际想做的事情是：如果BookX里的内容是字母’a’，我就借出BookY；如果BookX里的内容是字母’b’，我想借出BookY+1。。。以此类推”&lt;/p&gt;
+
+&lt;p&gt;图书馆管理员现在正在等待查询员回复你是否有权利借出BookX，但是闲着也是闲着，所以他就翻开BookX看了一下，然后发现里面的内容是字母’b’，于是就去书架上去了BookY+1到前台来，以便一旦查询员回复说你有权利借出BookX，那么图书馆管理员可以立刻把BookY+1给你，以提高效率（&lt;strong&gt;Intel预测执行&lt;/strong&gt;）&lt;/p&gt;
+
+&lt;p&gt;然后，查询员回来了，告诉图书馆管理员说你无权利借出BookX，于是图书馆管理员对你说“对不起，你不能借出BookX。（然后我也不是傻子）我也不能把我刚刚拿到的那本你有权利借出的书给你因为如果这样的话你就反推出来了你无权借出的BookX的内容。”&lt;/p&gt;
+
+&lt;p&gt;你当然表示理解，然后说你想借出BookY，图书管理员去书架&lt;strong&gt;找了一会儿&lt;/strong&gt;，比如花了5分钟，然后把BookY拿给了你。然后你说你还想借出BookY+1，图书馆管理员&lt;strong&gt;立刻&lt;/strong&gt;把手头的BookY+1拿给了你。然后你说你还想借出BookY+2，图书管理员去书架&lt;strong&gt;找了一会儿&lt;/strong&gt;，比如花了5分钟，然后把BookY+2拿给了你&lt;/p&gt;
+
+&lt;p&gt;于是，通过时间差，你推断出，BookY+1极大可能是在你想借出你无权借出的BookX时，图书馆管理员拿到手里的那本书，也就推断出BookX的内容是字母’b’&lt;/p&gt;
+
+&lt;p&gt;完工，BookX就是系统进程内存或者其他程序所在内存，其中的内容就是内存中的内容，图书馆管理员就是处理器，你就是攻击程序，图书馆管理员的手头或者说前台就是缓存&lt;/p&gt;
+
+&lt;p&gt;最后，如果BookX指的是系统进程所在内存，系统有乱序映射的处理来让其他应用不能轻易的知道自己的内存地址，但是各种应用程序所在的内存地址可能就没那么难获得了:)&lt;/p&gt;</content><author><name>Kenshin</name></author><category term="Meltdown" /><category term="Spectre" /><summary type="html">凑个热闹，简单了解一下Meltdown and Spectre
+
+作为非专业人士，就本着看热闹不嫌事儿大的态度Google看看好了，以下内容本质上都是来自搜索引擎，我自己理解或者翻译了一下
+
+总体介绍
+Meltdown和Spectre是两种不同的bug，但都可以被攻击者用来在现代电脑处理器上非法窃取密码等隐私数据。这里的现代电脑处理器目前被定义为来近20年来生产的所有处理器，包括Intel，AMD，以及基于ARM架构的处理器
+
+因为是比较严重的bug，当然作为处理器生产厂家第一反应就是站出来稳定军心，当然牙膏厂没啥好说的来，毕竟全线崩溃，Meltdown和Spectre都对其有影响，于是先站出来放了个大炸弹说不止Intel有这个危险，所有的处理器都有。于是AMD不开心了，站出来回怼说AMD是不会收到Meltdown影响，同时’near zero risk’被Spectre影响。这就是新闻热闹而众说纷纭的原因
+
+Meltdown
+
+
+Meltdown会利用Intel处理器的预测执行设计，破坏应用程序和操作系统间的界限，攻击程序有机会访问到操作系统所使用的内存空间，也就有机会从中获取操作系统级别的数据
+
+但是这个bug是可以进行补丁修复的，而且各方已经开始放出软件进行修复。虽然修复后对系统性能会有影响，但是具体有多大影响暂时不明，听说对个人设备来说使用的影响不大，看了几个测评，打完补丁前后玩瞎子信条以及跑大型Adobe或者Office软件都没有很大差别
+
+Spectre
+
+
+不得不说这Logo还挺萌。。。
+
+Spectre会破坏应用程序之间的隔离性，攻击程序有机会访问到其他应用程序所使用的内存空间，也就有机会获取其他应用程序的数据
+
+Spectre相对于Meltdown更难以被利用，但是也更难以被通过软件补丁的方式修复，现在普遍认为会在接下来很长时间内作为一个随时可能引爆的炸弹存在
+
+重点，Spectre目前有两种变体，AMD官方宣称的对Spectre的’near zero risk’是指的Spectre的一种变体而非全部，这也是在Hacker News上面被嘲讽的一个点
+
+危害群体
+其实这两个bug对普通用户对影响不大，安装下各自厂商发布的系统升级，继续安全的使用自己的设备就好了。因为虽然这两个bug在个人设备上也可以被利用，但是个人设备一般都是单人使用，也有比较迅速的系统更新和权限系统管理，以及杀毒软件等，危害不会很大
+
+重大危害主要针对的是云服务平台，云平台理论上可以视作一台巨大的电脑，同时有无数的用户在自己的实例上进行操作，云平台发展至今，无论个人还是公司或是政府都有自己的内容在上面，其上存储的隐私数据的重要程度大家都清楚，所以一旦发生用户隐私数据泄露，影响要严重的多，而且攻击者完全可以是一个正当的云平台用户，在掌握了bug的利用方式之后，其只需要在该平台上运行攻击程序就可以窃取其他用户甚至操作系统级别信息的
+
+利用方式
+
+新闻说完了，Meltdown和Spectre这两个bug是可以利用的，这个是概念验证已经通过的
+
+利用的思路如下:
+
+  The core of this attack is extremely simple and elegant; use a value from a speculated-but-not-completed instruction as an index, causing one of a set of cachelines to be touched; then use a timing measurement on those cachelines to see which one was accessed, thus determining the value.
+
+
+作为非专业人员，我觉得用形象生动的例子来理解一下这些高大上的内容的原理就可以了:)
+
+所以我们举个例子
+
+当然先贴来源[Reading privileged memory with a side-channel](https://googleprojectzero.blogspot.com/2018/01/reading-privileged-memory-with-side.html)
+
+
+想象有一家图书馆，里面的书都只有一个字母
+
+现在图书馆有一些书你无权借出比如BookX。有一些书你有权借出比如BookY，BookY+1，。。。以此类推
+
+你来到图书馆前台，向图书馆管理员说你想借出BookX，但图书馆管理员不知道你有没有权利借出BookX，于是让查询员帮自己去系统里查一下你是否有权利借出这本书。在你们等待查询员回复的时候，你说“实际上，我并不大感兴趣借出BookX，我实际想做的事情是：如果BookX里的内容是字母’a’，我就借出BookY；如果BookX里的内容是字母’b’，我想借出BookY+1。。。以此类推”
+
+图书馆管理员现在正在等待查询员回复你是否有权利借出BookX，但是闲着也是闲着，所以他就翻开BookX看了一下，然后发现里面的内容是字母’b’，于是就去书架上去了BookY+1到前台来，以便一旦查询员回复说你有权利借出BookX，那么图书馆管理员可以立刻把BookY+1给你，以提高效率（Intel预测执行）
+
+然后，查询员回来了，告诉图书馆管理员说你无权利借出BookX，于是图书馆管理员对你说“对不起，你不能借出BookX。（然后我也不是傻子）我也不能把我刚刚拿到的那本你有权利借出的书给你因为如果这样的话你就反推出来了你无权借出的BookX的内容。”
+
+你当然表示理解，然后说你想借出BookY，图书管理员去书架找了一会儿，比如花了5分钟，然后把BookY拿给了你。然后你说你还想借出BookY+1，图书馆管理员立刻把手头的BookY+1拿给了你。然后你说你还想借出BookY+2，图书管理员去书架找了一会儿，比如花了5分钟，然后把BookY+2拿给了你
+
+于是，通过时间差，你推断出，BookY+1极大可能是在你想借出你无权借出的BookX时，图书馆管理员拿到手里的那本书，也就推断出BookX的内容是字母’b’
+
+完工，BookX就是系统进程内存或者其他程序所在内存，其中的内容就是内存中的内容，图书馆管理员就是处理器，你就是攻击程序，图书馆管理员的手头或者说前台就是缓存
+
+最后，如果BookX指的是系统进程所在内存，系统有乱序映射的处理来让其他应用不能轻易的知道自己的内存地址，但是各种应用程序所在的内存地址可能就没那么难获得了:)</summary></entry><entry><title type="html">VirtualBox &amp;amp; CentOS7 &amp;amp; SSH &amp;amp; Seafile &amp;amp; ngrok 搭建私有云盘Part2</title><link href="http://localhost:4000/project/2017/04/16/Virtualbox&CentOS7&Seafile%E6%90%AD%E5%BB%BA%E7%A7%81%E6%9C%89%E4%BA%91%E7%9B%98Part2/" rel="alternate" type="text/html" title="VirtualBox &amp; CentOS7 &amp; SSH &amp; Seafile &amp; ngrok 搭建私有云盘Part2" /><published>2017-04-16T00:00:00-07:00</published><updated>2017-04-16T00:00:00-07:00</updated><id>http://localhost:4000/project/2017/04/16/Virtualbox&amp;CentOS7&amp;Seafile%E6%90%AD%E5%BB%BA%E7%A7%81%E6%9C%89%E4%BA%91%E7%9B%98Part2</id><content type="html" xml:base="http://localhost:4000/project/2017/04/16/Virtualbox&amp;CentOS7&amp;Seafile%E6%90%AD%E5%BB%BA%E7%A7%81%E6%9C%89%E4%BA%91%E7%9B%98Part2/">&lt;p&gt;Build your own private cloud disk using VirtualBox &amp;amp; CentOS7 &amp;amp; SSH &amp;amp; Seafile &amp;amp; ngrok Part2&lt;/p&gt;
 
 &lt;h2 id=&quot;在服务器安装seafile&quot;&gt;在服务器安装Seafile&lt;/h2&gt;
 
@@ -342,7 +476,7 @@ ngrok的使用很简单，下载，运行，运行方式如下，如果提示ngr
 
 推荐根据官方文档来研究，虽然官方文档有些地方写的不是特别清楚，但是也没有别的更好的途径，踩坑之后可以再Google之
 
-最后，鉴于各种免费网盘的限容、审查、不定时炸弹般下架等种种不方便，在找到合适的服务器后搭建成功自己的私有云盘，结合Seafile的各种高级特性，易用性、安全性等方面带来的收益，应该是很值得花时间研究下的～</summary></entry><entry><title type="html">VirtualBox &amp;amp; CentOS7 &amp;amp; SSH &amp;amp; Seafile &amp;amp; ngrok 搭建私有云盘Part1</title><link href="http://localhost:4000/project/2017/04/16/Virtualbox&CentOS7&Seafile%E6%90%AD%E5%BB%BA%E7%A7%81%E6%9C%89%E4%BA%91%E7%9B%98Part1/" rel="alternate" type="text/html" title="VirtualBox &amp; CentOS7 &amp; SSH &amp; Seafile &amp; ngrok 搭建私有云盘Part1" /><published>2017-04-16T00:00:00-04:00</published><updated>2017-04-16T00:00:00-04:00</updated><id>http://localhost:4000/project/2017/04/16/Virtualbox&amp;CentOS7&amp;Seafile%E6%90%AD%E5%BB%BA%E7%A7%81%E6%9C%89%E4%BA%91%E7%9B%98Part1</id><content type="html" xml:base="http://localhost:4000/project/2017/04/16/Virtualbox&amp;CentOS7&amp;Seafile%E6%90%AD%E5%BB%BA%E7%A7%81%E6%9C%89%E4%BA%91%E7%9B%98Part1/">&lt;p&gt;Build your own private cloud disk using VirtualBox &amp;amp; CentOS7 &amp;amp; SSH &amp;amp; Seafile &amp;amp; ngrok Part1&lt;/p&gt;
+最后，鉴于各种免费网盘的限容、审查、不定时炸弹般下架等种种不方便，在找到合适的服务器后搭建成功自己的私有云盘，结合Seafile的各种高级特性，易用性、安全性等方面带来的收益，应该是很值得花时间研究下的～</summary></entry><entry><title type="html">VirtualBox &amp;amp; CentOS7 &amp;amp; SSH &amp;amp; Seafile &amp;amp; ngrok 搭建私有云盘Part1</title><link href="http://localhost:4000/project/2017/04/16/Virtualbox&CentOS7&Seafile%E6%90%AD%E5%BB%BA%E7%A7%81%E6%9C%89%E4%BA%91%E7%9B%98Part1/" rel="alternate" type="text/html" title="VirtualBox &amp; CentOS7 &amp; SSH &amp; Seafile &amp; ngrok 搭建私有云盘Part1" /><published>2017-04-16T00:00:00-07:00</published><updated>2017-04-16T00:00:00-07:00</updated><id>http://localhost:4000/project/2017/04/16/Virtualbox&amp;CentOS7&amp;Seafile%E6%90%AD%E5%BB%BA%E7%A7%81%E6%9C%89%E4%BA%91%E7%9B%98Part1</id><content type="html" xml:base="http://localhost:4000/project/2017/04/16/Virtualbox&amp;CentOS7&amp;Seafile%E6%90%AD%E5%BB%BA%E7%A7%81%E6%9C%89%E4%BA%91%E7%9B%98Part1/">&lt;p&gt;Build your own private cloud disk using VirtualBox &amp;amp; CentOS7 &amp;amp; SSH &amp;amp; Seafile &amp;amp; ngrok Part1&lt;/p&gt;
 
 &lt;p&gt;这个是个人的一篇经验总结，或者说花样踩坑集锦&lt;/p&gt;
 
@@ -774,7 +908,7 @@ Guest Port 8000是用来做服务转发的，后面会用到，我会把虚拟�
 
 Bingo!!!
 
-搞定，我们现在可以在Mac宿主机终端经由SSH操作CentOS7虚拟机了，也就是我们的服务器（下面我也会除非万不得已，不然均称呼我们的CentOS7君为服务器），接下来我们就开始在服务器配置Seafile，不过现在内容太多了，尤其是很多图片，所以写在第二部分</summary></entry><entry><title type="html">Golang比较两个slice是否相等</title><link href="http://localhost:4000/program/2017/04/11/Golang%E6%AF%94%E8%BE%83%E4%B8%A4%E4%B8%AAslice%E6%98%AF%E5%90%A6%E7%9B%B8%E7%AD%89/" rel="alternate" type="text/html" title="Golang比较两个slice是否相等" /><published>2017-04-11T00:00:00-04:00</published><updated>2017-04-11T00:00:00-04:00</updated><id>http://localhost:4000/program/2017/04/11/Golang%E6%AF%94%E8%BE%83%E4%B8%A4%E4%B8%AAslice%E6%98%AF%E5%90%A6%E7%9B%B8%E7%AD%89</id><content type="html" xml:base="http://localhost:4000/program/2017/04/11/Golang%E6%AF%94%E8%BE%83%E4%B8%A4%E4%B8%AAslice%E6%98%AF%E5%90%A6%E7%9B%B8%E7%AD%89/">&lt;p&gt;Compare two string slices in GoLang&lt;/p&gt;
+搞定，我们现在可以在Mac宿主机终端经由SSH操作CentOS7虚拟机了，也就是我们的服务器（下面我也会除非万不得已，不然均称呼我们的CentOS7君为服务器），接下来我们就开始在服务器配置Seafile，不过现在内容太多了，尤其是很多图片，所以写在第二部分</summary></entry><entry><title type="html">Golang比较两个slice是否相等</title><link href="http://localhost:4000/program/2017/04/11/Golang%E6%AF%94%E8%BE%83%E4%B8%A4%E4%B8%AAslice%E6%98%AF%E5%90%A6%E7%9B%B8%E7%AD%89/" rel="alternate" type="text/html" title="Golang比较两个slice是否相等" /><published>2017-04-11T00:00:00-07:00</published><updated>2017-04-11T00:00:00-07:00</updated><id>http://localhost:4000/program/2017/04/11/Golang%E6%AF%94%E8%BE%83%E4%B8%A4%E4%B8%AAslice%E6%98%AF%E5%90%A6%E7%9B%B8%E7%AD%89</id><content type="html" xml:base="http://localhost:4000/program/2017/04/11/Golang%E6%AF%94%E8%BE%83%E4%B8%A4%E4%B8%AAslice%E6%98%AF%E5%90%A6%E7%9B%B8%E7%AD%89/">&lt;p&gt;Compare two string slices in GoLang&lt;/p&gt;
 
 &lt;p&gt;开发中经常会遇到需要比较两个slice包含的元素是否完全相等的情况，一般来说有两个思路：&lt;/p&gt;
 
@@ -1078,7 +1212,7 @@ func BenchmarkEqualBCE(b *testing.B) {
 
 推荐使用StringSliceEqualBCE形式的比较函数反正不用reflect比较就不会被领导骂被同事喷
 
-代码已经上传到了我的Github仓库可以下载测试</summary></entry><entry><title type="html">Golang通过HTTP Response获取Zip文件</title><link href="http://localhost:4000/program/2017/04/01/Golang%E9%80%9A%E8%BF%87HTTP-Response%E8%8E%B7%E5%8F%96Zip%E6%96%87%E4%BB%B6/" rel="alternate" type="text/html" title="Golang通过HTTP Response获取Zip文件" /><published>2017-04-01T00:00:00-04:00</published><updated>2017-04-01T00:00:00-04:00</updated><id>http://localhost:4000/program/2017/04/01/Golang%E9%80%9A%E8%BF%87HTTP%20Response%E8%8E%B7%E5%8F%96Zip%E6%96%87%E4%BB%B6</id><content type="html" xml:base="http://localhost:4000/program/2017/04/01/Golang%E9%80%9A%E8%BF%87HTTP-Response%E8%8E%B7%E5%8F%96Zip%E6%96%87%E4%BB%B6/">&lt;p&gt;本来计划至少一周总结一次学到的东西，不过好像没有实现啊😅&lt;/p&gt;
+代码已经上传到了我的Github仓库可以下载测试</summary></entry><entry><title type="html">Golang通过HTTP Response获取Zip文件</title><link href="http://localhost:4000/program/2017/04/01/Golang%E9%80%9A%E8%BF%87HTTP-Response%E8%8E%B7%E5%8F%96Zip%E6%96%87%E4%BB%B6/" rel="alternate" type="text/html" title="Golang通过HTTP Response获取Zip文件" /><published>2017-04-01T00:00:00-07:00</published><updated>2017-04-01T00:00:00-07:00</updated><id>http://localhost:4000/program/2017/04/01/Golang%E9%80%9A%E8%BF%87HTTP%20Response%E8%8E%B7%E5%8F%96Zip%E6%96%87%E4%BB%B6</id><content type="html" xml:base="http://localhost:4000/program/2017/04/01/Golang%E9%80%9A%E8%BF%87HTTP-Response%E8%8E%B7%E5%8F%96Zip%E6%96%87%E4%BB%B6/">&lt;p&gt;本来计划至少一周总结一次学到的东西，不过好像没有实现啊😅&lt;/p&gt;
 
 &lt;p&gt;一看时间都4月1号了，一个月了，总该写点啥&lt;/p&gt;
 
@@ -1286,7 +1420,7 @@ f, err := zipW.Create(strconv.Itoa(i) + &quot;.txt&quot;)
 
 
 
-最后，代码已经上传到了我的Github仓库可以直接下载测试</summary></entry><entry><title type="html">使用Chrome+Postman进行接口调试</title><link href="http://localhost:4000/%E5%B7%A5%E5%85%B7/2017/03/01/%E4%BD%BF%E7%94%A8Chrome+Postman%E8%BF%9B%E8%A1%8C%E6%8E%A5%E5%8F%A3%E8%B0%83%E8%AF%95/" rel="alternate" type="text/html" title="使用Chrome+Postman进行接口调试" /><published>2017-03-01T00:00:00-05:00</published><updated>2017-03-01T00:00:00-05:00</updated><id>http://localhost:4000/%E5%B7%A5%E5%85%B7/2017/03/01/%E4%BD%BF%E7%94%A8Chrome+Postman%E8%BF%9B%E8%A1%8C%E6%8E%A5%E5%8F%A3%E8%B0%83%E8%AF%95</id><content type="html" xml:base="http://localhost:4000/%E5%B7%A5%E5%85%B7/2017/03/01/%E4%BD%BF%E7%94%A8Chrome+Postman%E8%BF%9B%E8%A1%8C%E6%8E%A5%E5%8F%A3%E8%B0%83%E8%AF%95/">&lt;p&gt;时隔多年，又重新看了一遍闪灵&lt;/p&gt;
+最后，代码已经上传到了我的Github仓库可以直接下载测试</summary></entry><entry><title type="html">使用Chrome+Postman进行接口调试</title><link href="http://localhost:4000/%E5%B7%A5%E5%85%B7/2017/03/01/%E4%BD%BF%E7%94%A8Chrome+Postman%E8%BF%9B%E8%A1%8C%E6%8E%A5%E5%8F%A3%E8%B0%83%E8%AF%95/" rel="alternate" type="text/html" title="使用Chrome+Postman进行接口调试" /><published>2017-03-01T00:00:00-08:00</published><updated>2017-03-01T00:00:00-08:00</updated><id>http://localhost:4000/%E5%B7%A5%E5%85%B7/2017/03/01/%E4%BD%BF%E7%94%A8Chrome+Postman%E8%BF%9B%E8%A1%8C%E6%8E%A5%E5%8F%A3%E8%B0%83%E8%AF%95</id><content type="html" xml:base="http://localhost:4000/%E5%B7%A5%E5%85%B7/2017/03/01/%E4%BD%BF%E7%94%A8Chrome+Postman%E8%BF%9B%E8%A1%8C%E6%8E%A5%E5%8F%A3%E8%B0%83%E8%AF%95/">&lt;p&gt;时隔多年，又重新看了一遍闪灵&lt;/p&gt;
 
 &lt;p&gt;失眠中 -_-#&lt;/p&gt;
 
@@ -1402,7 +1536,7 @@ GET请求很简单，就不说了
 
 4、在Postman中Authorization中选择合适的Auth type，输入对应的合法用户信息
 
-5、再次执行步骤1，理论上能完成POST过程</summary></entry><entry><title type="html">Hello World!</title><link href="http://localhost:4000/other/2017/02/09/Hello-World/" rel="alternate" type="text/html" title="Hello World!" /><published>2017-02-09T00:00:00-05:00</published><updated>2017-02-09T00:00:00-05:00</updated><id>http://localhost:4000/other/2017/02/09/Hello-World</id><content type="html" xml:base="http://localhost:4000/other/2017/02/09/Hello-World/">&lt;h2 id=&quot;博客页面搭建完毕&quot;&gt;博客页面搭建完毕&lt;/h2&gt;
+5、再次执行步骤1，理论上能完成POST过程</summary></entry><entry><title type="html">Hello World!</title><link href="http://localhost:4000/other/2017/02/09/Hello-World/" rel="alternate" type="text/html" title="Hello World!" /><published>2017-02-09T00:00:00-08:00</published><updated>2017-02-09T00:00:00-08:00</updated><id>http://localhost:4000/other/2017/02/09/Hello-World</id><content type="html" xml:base="http://localhost:4000/other/2017/02/09/Hello-World/">&lt;h2 id=&quot;博客页面搭建完毕&quot;&gt;博客页面搭建完毕&lt;/h2&gt;
 
 &lt;p&gt;最近&lt;del&gt;又&lt;/del&gt;比较浮躁，刚好发现自己去年测试Jekyll时候搭建的Github个人页面不怎么好看，于是想重新弄一个，以后也算有个地方写东西&lt;/p&gt;
 

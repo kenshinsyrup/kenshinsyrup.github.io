@@ -24,12 +24,12 @@ author:
   description: Kenshin's blog
   gravatar: 7f9673f1bc034bad53a37df330910b58 # md5 hash of your email address, you can get one in http://en.gravatar.com/
   contact:
-    linkedin:  https://www.linkedin.com/in/zhao-wang-683b52127/
+    linkedin:  https://www.linkedin.com/in/zhao-wang-1102/
     github:    https://github.com/kenshinsyrup
     # facebook:  none
     # twitter:   none
     # weibo:     none
-    # email:     kenshinsyrup@gmail.com
+    email:     kenshinsyrup@gmail.com
 
 # Navigation (2nd level links supported)
 nav:
