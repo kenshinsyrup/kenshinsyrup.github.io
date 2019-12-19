@@ -40,6 +40,10 @@ nav:
     - { Tag: '/blog/tags/' }
     # - { Category: '/blog/category/' }
     - { Archive: '/blog/archive/' }
+  Tag: 
+    - '/blog/tags/'
+  Archive: 
+    - '/blog/archive/'    
   About:          
     - '/about/'
   Github Project: 
@@ -47,8 +51,10 @@ nav:
 
 # Where are tags and categories displayed
 tag_page: '/blog/tags/'
+# tag_page: '/tags/'
 # category_page: '/blog/category/'
 archive_page: '/blog/archive/'
+# archive_page: '/archive/'
 
 hero:
   image: /public/img/skyrim.jpg
