@@ -37,9 +37,9 @@ nav:
     - '/'
   Blog:           
     - '/blog/'
-    - { Tag: '/blog/tags/' }
+    # - { Tag: '/blog/tags/' }
     # - { Category: '/blog/category/' }
-    - { Archive: '/blog/archive/' }
+    # - { Archive: '/blog/archive/' }
   Tag: 
     - '/blog/tags/'
   Archive: 
@@ -56,13 +56,13 @@ tag_page: '/blog/tags/'
 archive_page: '/blog/archive/'
 # archive_page: '/archive/'
 
-hero:
-  image: /public/img/skyrim.jpg
+introduce:
+  image: /public/img/introduce/skyrim.jpg
 
 # Puglins
 mathjax: true # whether support mathjax
 google_analytics_token: 'UA-91673465-1' # leave blank if you don't want google analytics
-disqus_short_name: 'kenshin' # leave blank if you don't want disqus
+disqus_short_name: 'Kenshin' # leave blank if you don't want disqus
 
 # Static files
 defaults:
