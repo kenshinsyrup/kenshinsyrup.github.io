@@ -1,8 +1,21 @@
-# General
-.DS_Store
-
-# Jekyll
-_site/
-.sass-cache/
-.jekyll-cache/
+### Jekyll ###
+_site
+.sass-cache
 .jekyll-metadata
+Gemfile.lock
+
+### Compiled Source ###
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+### MacOS ###
+*.DS_Store
+
+### Logs and Databases ###
+*.log
+*.sql
+*.sqlite
